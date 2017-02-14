@@ -4,11 +4,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public interface IEntityMultiPartRed
-{
-    World func_82194_d();
+public interface IEntityMultiPartRed {
+	boolean attackEntityFromPart(EntityGoodDragonPart var1, DamageSource var2, float var3);
 
-    boolean attackEntityFromPart(EntityGoodDragonPart var1, DamageSource var2, float var3);
-    boolean mount(EntityPlayer entity);
-    public boolean interactSpecial(EntityPlayer par1EntityPlayer);
+	World func_82194_d();
+
+	public boolean interactSpecial(EntityPlayer par1EntityPlayer);
+
+	boolean mount(EntityPlayer entity);
 }

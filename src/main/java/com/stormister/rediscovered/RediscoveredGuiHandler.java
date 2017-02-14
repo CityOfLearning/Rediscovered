@@ -8,31 +8,31 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class RediscoveredGuiHandler implements IGuiHandler {
 
-	public RediscoveredGuiHandler(){
+	public RediscoveredGuiHandler() {
 	}
-	
+
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tileentity = world.getTileEntity(new BlockPos(x, y, z));
-		
-		switch(ID){
-			case mod_Rediscovered.guiIDLockedChest:
-				if(tileentity instanceof TileEntityLockedChest){
-					return new ContainerLockedChest(player);
-				}
+
+		switch (ID) {
+		case mod_Rediscovered.guiIDLockedChest:
+			if (tileentity instanceof TileEntityLockedChest) {
+				return new GuiLockedChest(player);
+			}
 		}
 		return null;
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tileentity = world.getTileEntity(new BlockPos(x, y, z));
-		
-		switch(ID){
-			case mod_Rediscovered.guiIDLockedChest:
-				if(tileentity instanceof TileEntityLockedChest){
-					return new GuiLockedChest(player);
-				}
+
+		switch (ID) {
+		case mod_Rediscovered.guiIDLockedChest:
+			if (tileentity instanceof TileEntityLockedChest) {
+				return new ContainerLockedChest(player);
+			}
 		}
 		return null;
 	}

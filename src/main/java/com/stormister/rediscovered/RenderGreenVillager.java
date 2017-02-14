@@ -13,59 +13,51 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderGreenVillager extends RenderLiving
-{
-    private static final ResourceLocation villagerTextures = new ResourceLocation("textures/entity/villager/villager.png");
+public class RenderGreenVillager extends RenderLiving {
+	private static final ResourceLocation villagerTextures = new ResourceLocation(
+			"textures/entity/villager/villager.png");
 
-    private static final String __OBFID = "CL_00001032";
+	public RenderGreenVillager(RenderManager p_i46132_1_) {
+		super(p_i46132_1_, new ModelVillager(0.0F), 0.5F);
+		addLayer(new LayerCustomHead(func_177134_g().villagerHead));
+	}
 
-    public RenderGreenVillager(RenderManager p_i46132_1_)
-    {
-        super(p_i46132_1_, new ModelVillager(0.0F), 0.5F);
-        this.addLayer(new LayerCustomHead(this.func_177134_g().villagerHead));
-    }
+	public ModelVillager func_177134_g() {
+		return (ModelVillager) super.getMainModel();
+	}
 
-    public ModelVillager func_177134_g()
-    {
-        return (ModelVillager)super.getMainModel();
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return this.getEntityTexture((EntityGreenVillager) entity);
+	}
 
-    protected ResourceLocation getEntityTexture(EntityGreenVillager entity)
-    {
-        
-        return net.minecraftforge.fml.common.registry.VillagerRegistry.getVillagerSkin(entity.getProfession(), villagerTextures);
-        
-    }
+	protected ResourceLocation getEntityTexture(EntityGreenVillager entity) {
 
-    protected void preRenderCallback(EntityGreenVillager p_77041_1_, float p_77041_2_)
-    {
-        float f1 = 0.9375F;
+		return net.minecraftforge.fml.common.registry.VillagerRegistry.getVillagerSkin(entity.getProfession(),
+				villagerTextures);
 
-        if (p_77041_1_.getGrowingAge() < 0)
-        {
-            f1 = (float)((double)f1 * 0.5D);
-            this.shadowSize = 0.25F;
-        }
-        else
-        {
-            this.shadowSize = 0.5F;
-        }
+	}
 
-        GlStateManager.scale(f1, f1, f1);
-    }
+	@Override
+	public ModelBase getMainModel() {
+		return func_177134_g();
+	}
 
-    protected void preRenderCallback(EntityLivingBase p_77041_1_, float p_77041_2_)
-    {
-        this.preRenderCallback((EntityGreenVillager)p_77041_1_, p_77041_2_);
-    }
+	protected void preRenderCallback(EntityGreenVillager p_77041_1_, float p_77041_2_) {
+		float f1 = 0.9375F;
 
-    public ModelBase getMainModel()
-    {
-        return this.func_177134_g();
-    }
+		if (p_77041_1_.getGrowingAge() < 0) {
+			f1 = (float) (f1 * 0.5D);
+			shadowSize = 0.25F;
+		} else {
+			shadowSize = 0.5F;
+		}
 
-    protected ResourceLocation getEntityTexture(Entity entity)
-    {
-        return this.getEntityTexture((EntityGreenVillager)entity);
-    }
+		GlStateManager.scale(f1, f1, f1);
+	}
+
+	@Override
+	protected void preRenderCallback(EntityLivingBase p_77041_1_, float p_77041_2_) {
+		this.preRenderCallback((EntityGreenVillager) p_77041_1_, p_77041_2_);
+	}
 }

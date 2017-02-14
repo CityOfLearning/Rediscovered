@@ -15,90 +15,78 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemLantern extends Item
-{
+public class ItemLantern extends Item {
 	private final String name = "ItemLantern";
 	private Block block = mod_Rediscovered.LanternPhys;
-    public ItemLantern()
-    {
-        super();
-        this.setCreativeTab(CreativeTabs.tabTools);
-        this.canRepair = false;
-        this.setMaxStackSize(1);
-        this.setMaxDamage(32);
-        GameRegistry.registerItem(this, name);
-        setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
-    }
 
-    @Override
-    public void onUpdate(ItemStack i, World w, Entity e, int slot, boolean par5)
-    {
-        // Extinguish the lantern if it is not on the hotbar
-        if (e instanceof EntityPlayer)
-        {
-            EntityPlayer p = (EntityPlayer) e;
-            ItemStack blah = new ItemStack(mod_Rediscovered.ItemLantern, 1);
-            if (slot >=0 && i.equals(blah))
-            {
-                p.inventory.mainInventory[slot] = new ItemStack(mod_Rediscovered.ItemLantern, 1);
-            }
-        }
-    }
-    
-    /**
-     * Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
-     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
-     */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
-        IBlockState iblockstate = worldIn.getBlockState(pos);
-        Block block = iblockstate.getBlock();
+	public ItemLantern() {
+		super();
+		setCreativeTab(CreativeTabs.tabTools);
+		canRepair = false;
+		setMaxStackSize(1);
+		setMaxDamage(32);
+		GameRegistry.registerItem(this, name);
+		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+	}
 
-        if (block == Blocks.snow_layer && ((Integer)iblockstate.getValue(BlockSnow.LAYERS)).intValue() < 1)
-        {
-            side = EnumFacing.UP;
-        }
-        else if (!block.isReplaceable(worldIn, pos))
-        {
-            pos = pos.offset(side);
-        }
+	public String getName() {
+		return name;
+	}
 
-        if (!playerIn.canPlayerEdit(pos, side, stack))
-        {
-            return false;
-        }
-        else if (stack.stackSize == 0)
-        {
-            return false;
-        }
-        else
-        {
-            if (worldIn.canBlockBePlaced(this.block, pos, false, side, (Entity)null, stack))
-            {
-                IBlockState iblockstate1 = this.block.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, 0, playerIn);
+	/**
+	 * Callback for item usage. If the item does something special on right
+	 * clicking, he will have one of those. Return True if something happen and
+	 * false if it don't. This is for ITEMS, not BLOCKS
+	 */
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side,
+			float hitX, float hitY, float hitZ) {
+		IBlockState iblockstate = worldIn.getBlockState(pos);
+		Block block = iblockstate.getBlock();
 
-                if (worldIn.setBlockState(pos, iblockstate1, 3))
-                {
-                    iblockstate1 = worldIn.getBlockState(pos);
+		if ((block == Blocks.snow_layer) && (iblockstate.getValue(BlockSnow.LAYERS).intValue() < 1)) {
+			side = EnumFacing.UP;
+		} else if (!block.isReplaceable(worldIn, pos)) {
+			pos = pos.offset(side);
+		}
 
-                    if (iblockstate1.getBlock() == this.block)
-                    {
-                        ItemBlock.setTileEntityNBT(worldIn, playerIn, pos, stack);
-                        iblockstate1.getBlock().onBlockPlacedBy(worldIn, pos, iblockstate1, playerIn, stack);
-                    }
+		if (!playerIn.canPlayerEdit(pos, side, stack)) {
+			return false;
+		} else if (stack.stackSize == 0) {
+			return false;
+		} else {
+			if (worldIn.canBlockBePlaced(this.block, pos, false, side, (Entity) null, stack)) {
+				IBlockState iblockstate1 = this.block.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, 0, playerIn);
 
-                    worldIn.playSoundEffect((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getFrequency() * 0.8F);
-                    --stack.stackSize;
-                    return true;
-                }
-            }
+				if (worldIn.setBlockState(pos, iblockstate1, 3)) {
+					iblockstate1 = worldIn.getBlockState(pos);
 
-            return false;
-        }
-    }
+					if (iblockstate1.getBlock() == this.block) {
+						ItemBlock.setTileEntityNBT(worldIn, playerIn, pos, stack);
+						iblockstate1.getBlock().onBlockPlacedBy(worldIn, pos, iblockstate1, playerIn, stack);
+					}
 
-    public String getName()
-    {
-    	return name;
-    }
+					worldIn.playSoundEffect(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F,
+							this.block.stepSound.getPlaceSound(), (this.block.stepSound.getVolume() + 1.0F) / 2.0F,
+							this.block.stepSound.getFrequency() * 0.8F);
+					--stack.stackSize;
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
+
+	@Override
+	public void onUpdate(ItemStack i, World w, Entity e, int slot, boolean par5) {
+		// Extinguish the lantern if it is not on the hotbar
+		if (e instanceof EntityPlayer) {
+			EntityPlayer p = (EntityPlayer) e;
+			ItemStack blah = new ItemStack(mod_Rediscovered.ItemLantern, 1);
+			if ((slot >= 0) && i.equals(blah)) {
+				p.inventory.mainInventory[slot] = new ItemStack(mod_Rediscovered.ItemLantern, 1);
+			}
+		}
+	}
 }

@@ -15,89 +15,76 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockLantern extends Block
-{
+public class BlockLantern extends Block {
 	private final String name = "Lantern";
-	
-    public BlockLantern()
-    {
-        super(Material.air);
-        this.setLightLevel(1.0f);
-        this.setHardness(0.1f);
-        GameRegistry.registerBlock(this, name);
-        setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
-        setBlockBounds(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        this.setTickRandomly(true);
-    }
 
-    @Override
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return null;
-    }
+	public BlockLantern() {
+		super(Material.air);
+		setLightLevel(1.0f);
+		setHardness(0.1f);
+		GameRegistry.registerBlock(this, name);
+		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setBlockBounds(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+		setTickRandomly(true);
+	}
 
-    @Override
-    public boolean isOpaqueCube()
-    {
-        return false;
-    }
-    
-    @Override
-    public int getRenderType()
-    {
-        return -1;
-    }
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
+		return null;
+	}
 
-    @Override
-    public void updateTick(World w, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (w.getBlockState(pos) == mod_Rediscovered.Lantern)
-        {
-            w.setBlockState(pos, Blocks.air.getDefaultState());
-        }
-    }
+	/**
+	 * Returns the ID of the items to drop on destruction.
+	 */
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return null;
+	}
 
-    @Override
-    public boolean isAir(IBlockAccess world, BlockPos pos)
-    {
-        if (world.getBlockState(pos).equals(this))
-        {
-            return true;
-        }
+	public String getName() {
+		return name;
+	}
 
-        return false;
-    }
-    
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    @Override
-    public int quantityDropped(Random random)
-    {
-        return 0;
-    }
-    
-    /**
-     * Returns the ID of the items to drop on destruction.
-     */
-    @Override
-    public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos)
-    {
-        return null;
-    }
+	/**
+	 * Returns the ID of the items to drop on destruction.
+	 */
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
+		return null;
+	}
 
-    /**
-     * Returns the ID of the items to drop on destruction.
-     */
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return null;
-    }
-    
-    public String getName()
-    {
-    	return name;
-    }
-    
+	@Override
+	public int getRenderType() {
+		return -1;
+	}
+
+	@Override
+	public boolean isAir(IBlockAccess world, BlockPos pos) {
+		if (world.getBlockState(pos).equals(this)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
+	/**
+	 * Returns the quantity of items to drop on block destruction.
+	 */
+	@Override
+	public int quantityDropped(Random random) {
+		return 0;
+	}
+
+	@Override
+	public void updateTick(World w, BlockPos pos, IBlockState state, Random rand) {
+		if (w.getBlockState(pos) == mod_Rediscovered.Lantern) {
+			w.setBlockState(pos, Blocks.air.getDefaultState());
+		}
+	}
+
 }
