@@ -155,7 +155,7 @@ public class SkyDimensionTeleporter extends Teleporter {
                 enumfacing = EnumFacing.WEST;
             }
 
-            EnumFacing enumfacing1 = entityIn.func_181012_aH();
+            EnumFacing enumfacing1 = entityIn.getTeleportDirection();
 
             if (enumfacing != null && enumfacing1 != null)
             {

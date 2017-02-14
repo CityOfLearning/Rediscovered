@@ -8,7 +8,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.village.Village;
 import net.minecraft.world.World;
 
-public class EntityAIPigmanMate extends EntityAIBase {
+public class EntityAIPigmanPlay extends EntityAIBase {
 
 	private EntityPigman villagerObj;
 	private EntityPigman mate;
@@ -16,7 +16,7 @@ public class EntityAIPigmanMate extends EntityAIBase {
 	private int matingTimeout;
 	Village villageObj;
 	
-	public EntityAIPigmanMate (EntityPigman pigmanIn){
+	public EntityAIPigmanPlay (EntityPigman pigmanIn){
 		this.villagerObj = pigmanIn;
 		this.worldObj = pigmanIn.worldObj;
 		this.setMutexBits(8);

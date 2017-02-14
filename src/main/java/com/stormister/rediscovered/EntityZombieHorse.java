@@ -476,7 +476,7 @@ public class EntityZombieHorse extends EntityMob
 
 
     @SideOnly(Side.CLIENT)
-    public void handleHealthUpdate(byte par1)
+    public void handleStatusUpdate(byte par1)
     {
         if (par1 == 16)
         {
@@ -484,7 +484,7 @@ public class EntityZombieHorse extends EntityMob
         }
         else
         {
-            super.handleHealthUpdate(par1);
+            super.handleStatusUpdate(par1);
         }
     }
 

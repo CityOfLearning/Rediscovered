@@ -630,7 +630,7 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 
                     if (!block.isAir(worldObj, new BlockPos(k1, l1, i2)))
                     {
-                        if (block.canEntityDestroy(worldObj, new BlockPos(k1, l1, i2), this) && this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"))
+                        if (block.canEntityDestroy(worldObj, new BlockPos(k1, l1, i2), this) && this.worldObj.getGameRules().getBoolean("mobGriefing"))
                         {
                             flag1 = this.worldObj.setBlockToAir(new BlockPos(k1, l1, i2)) || flag1;
                         }

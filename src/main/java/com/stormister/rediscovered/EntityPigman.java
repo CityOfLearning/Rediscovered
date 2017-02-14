@@ -2,8 +2,6 @@ package com.stormister.rediscovered;
 
 import com.google.common.base.Predicate;
 import com.stormister.rediscovered.EntityAIPigmanMate;
-import com.stormister.rediscovered.EntityAIPigmanPlay;
-
 import java.util.Iterator;
 import java.util.Random;
 
@@ -135,7 +133,8 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant
 
             if (this.isChild())
             {
-                this.tasks.addTask(8, new EntityAIPigmanPlay(this, 0.32D));
+//                this.tasks.addTask(8, new EntityAIPigmanPlay(this, 0.32D));
+            	this.tasks.addTask(8, new EntityAIPigmanPlay(this));
             }
         }
     }
@@ -707,7 +706,7 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant
     }
 
     @SideOnly(Side.CLIENT)
-    public void handleHealthUpdate(byte p_70103_1_)
+    public void handleStatusUpdate(byte p_70103_1_)
     {
         if (p_70103_1_ == 12)
         {
@@ -723,7 +722,7 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant
         }
         else
         {
-            super.handleHealthUpdate(p_70103_1_);
+            super.handleStatusUpdate(p_70103_1_);
         }
     }
 

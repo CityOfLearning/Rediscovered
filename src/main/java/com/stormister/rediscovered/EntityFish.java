@@ -206,9 +206,9 @@ public class EntityFish extends EntityWaterMob
     }
 
     @SideOnly(Side.CLIENT)
-    public void handleHealthUpdate(byte p_70103_1_)
+    public void handleStatusUpdate(byte p_70103_1_)
     {
-    	super.handleHealthUpdate(p_70103_1_);
+    	super.handleStatusUpdate(p_70103_1_);
     }
 
     public void func_175568_b(float p_175568_1_, float p_175568_2_, float p_175568_3_)

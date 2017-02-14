@@ -642,7 +642,7 @@ public class EntityGreenVillager extends EntityAgeable implements INpc, IMerchan
     }
 
     @SideOnly(Side.CLIENT)
-    public void handleHealthUpdate(byte p_70103_1_)
+    public void handleStatusUpdate(byte p_70103_1_)
     {
         if (p_70103_1_ == 12)
         {
@@ -658,7 +658,7 @@ public class EntityGreenVillager extends EntityAgeable implements INpc, IMerchan
         }
         else
         {
-            super.handleHealthUpdate(p_70103_1_);
+            super.handleStatusUpdate(p_70103_1_);
         }
     }
 
