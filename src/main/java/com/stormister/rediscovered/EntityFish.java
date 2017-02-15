@@ -1,4 +1,4 @@
-package com.stormister.rediscovered;
+package com.stormister.rediscovered.entity;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,27 +21,37 @@ public class EntityFish extends EntityWaterMob {
 	// {
 	// return this.posY > 45.0D && this.posY < 63.0D && super.getCanSpawnHere();
 	// }
-	class AIMoveRandom extends EntityAIBase {
-		private EntityFish field_179476_a = EntityFish.this;
 
+	static class AIMoveRandom extends EntityAIBase {
+		private EntityFish fish;
+
+		public AIMoveRandom(EntityFish fish) {
+			this.fish = fish;
+		}
+
+		/**
+		 * Returns whether the EntityAIBase should begin execution.
+		 */
 		@Override
 		public boolean shouldExecute() {
 			return true;
 		}
 
+		/**
+		 * Updates the task
+		 */
 		@Override
 		public void updateTask() {
-			int i = field_179476_a.getAge();
+			int i = fish.getAge();
 
 			if (i > 100) {
-				field_179476_a.func_175568_b(0.0F, 0.0F, 0.0F);
-			} else if ((field_179476_a.getRNG().nextInt(50) == 0) || !field_179476_a.inWater
-					|| !field_179476_a.func_175567_n()) {
-				float f = field_179476_a.getRNG().nextFloat() * (float) Math.PI * 2.0F;
+				fish.func_175568_b(0.0F, 0.0F, 0.0F);
+			} else if ((fish.getRNG().nextInt(50) == 0) || !fish.inWater || !fish.func_175567_n()) {
+				float f = fish.getRNG().nextFloat() * (float) Math.PI * 2.0F;
 				float f1 = MathHelper.cos(f) * 0.2F;
-				float f2 = -0.1F + (field_179476_a.getRNG().nextFloat() * 0.2F);
+				float f2 = -0.1F + (fish.getRNG().nextFloat() * 0.2F);
 				float f3 = MathHelper.sin(f) * 0.2F;
-				field_179476_a.func_175568_b(f1, f2, f3);
+				fish.func_175568_b(f1, f2, f3);
 			}
 		}
 	}
@@ -49,27 +60,31 @@ public class EntityFish extends EntityWaterMob {
 	public float prevSquidPitch;
 	public float squidYaw;
 	public float prevSquidYaw;
-	public float field_70867_h;
-
-	public float field_70868_i;
-
+	/**
+	 * appears to be rotation in radians; we already have pitch & yaw, so this
+	 * completes the triumvirate.
+	 */
+	public float squidRotation;
+	/** previous squidRotation in radians */
+	public float prevSquidRotation;
 	/** angle of the tentacles in radians */
-	public float tentacleAngle = 0.0F;
+	public float tentacleAngle;
 	/** the last calculated angle of the tentacles in radians */
-	public float lastTentacleAngle = 0.0F;
-	private float randomMotionSpeed = 0.0F;
-	private float field_70864_bA = 0.0F;
-	private float field_70871_bB = 0.0F;
-	private float randomMotionVecX = 0.0F;
-	private float randomMotionVecY = 0.0F;
+	public float lastTentacleAngle;
+	private float randomMotionSpeed;
+	/** change in squidRotation in radians. */
+	private float rotationVelocity;
+	private float field_70871_bB;
+	private float randomMotionVecX;
+	private float randomMotionVecY;
+	private float randomMotionVecZ;
 
-	private float randomMotionVecZ = 0.0F;
-
-	public EntityFish(World par1World) {
-		super(par1World);
-		setSize(0.5F, 0.5F);
-		field_70864_bA = (1.0F / (rand.nextFloat() + 1.0F)) * 0.2F;
-		tasks.addTask(0, new EntityFish.AIMoveRandom());
+	public EntityFish(World worldIn) {
+		super(worldIn);
+		setSize(1F, 1F);
+		rand.setSeed(1 + getEntityId());
+		rotationVelocity = (1.0F / (rand.nextFloat() + 1.0F)) * 0.2F;
+		tasks.addTask(0, new EntityFish.AIMoveRandom(this));
 	}
 
 	@Override
@@ -88,26 +103,36 @@ public class EntityFish extends EntityWaterMob {
 	}
 
 	/**
-	 * Drop 0-2 items of this living's type. @param par1 - Whether this entity
-	 * has recently been hit by a player. @param par2 - Level of Looting used to
-	 * kill this mob.
+	 * Drop 0-2 items of this living's type
+	 * 
+	 * @param wasRecentlyHit
+	 *            true if this this entity was recently hit by appropriate
+	 *            entity (generally only if player or tameable)
+	 * @param lootingModifier
+	 *            level of enchanment to be applied to this drop
 	 */
 	@Override
-	protected void dropFewItems(boolean par1, int par2) {
-		Item j = getDropItem();
-
-		dropItem(j, 1);
-
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		entityDropItem(new ItemStack(isBurning() ? Items.cooked_fish : Items.fish), 0.0F);
 	}
 
 	public boolean func_175567_n() {
 		return (randomMotionVecX != 0.0F) || (randomMotionVecY != 0.0F) || (randomMotionVecZ != 0.0F);
 	}
 
-	public void func_175568_b(float p_175568_1_, float p_175568_2_, float p_175568_3_) {
-		randomMotionVecX = p_175568_1_;
-		randomMotionVecY = p_175568_2_;
-		randomMotionVecZ = p_175568_3_;
+	public void func_175568_b(float randomMotionVecXIn, float randomMotionVecYIn, float randomMotionVecZIn) {
+		randomMotionVecX = randomMotionVecXIn;
+		randomMotionVecY = randomMotionVecYIn;
+		randomMotionVecZ = randomMotionVecZIn;
+	}
+
+	/**
+	 * Checks if the entity's current position is a valid location to spawn this
+	 * entity.
+	 */
+	@Override
+	public boolean getCanSpawnHere() {
+		return (posY > 45.0D) && (posY < worldObj.getSeaLevel()) && super.getCanSpawnHere();
 	}
 
 	/**
@@ -118,12 +143,14 @@ public class EntityFish extends EntityWaterMob {
 		return null;
 	}
 
-	/**
-	 * Returns the item ID for the item the mob drops on death.
-	 */
 	@Override
 	protected Item getDropItem() {
 		return isBurning() ? Items.cooked_fish : Items.fish;
+	}
+
+	@Override
+	public float getEyeHeight() {
+		return height * 0.5F;
 	}
 
 	/**
@@ -152,8 +179,12 @@ public class EntityFish extends EntityWaterMob {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte p_70103_1_) {
-		super.handleStatusUpdate(p_70103_1_);
+	public void handleStatusUpdate(byte id) {
+		if (id == 19) {
+			squidRotation = 0.0F;
+		} else {
+			super.handleStatusUpdate(id);
+		}
 	}
 
 	/**
@@ -162,7 +193,7 @@ public class EntityFish extends EntityWaterMob {
 	 */
 	@Override
 	public boolean isInWater() {
-		return worldObj.handleMaterialAcceleration(getEntityBoundingBox().expand(0.0D, -0.6000000238418579D, 0.0D),
+		return worldObj.handleMaterialAcceleration(getEntityBoundingBox().offset(0, 0.5F, 0),
 				Material.water, this);
 	}
 
@@ -170,7 +201,7 @@ public class EntityFish extends EntityWaterMob {
 	 * Moves the entity based on the specified heading. Args: strafe, forward
 	 */
 	@Override
-	public void moveEntityWithHeading(float p_70612_1_, float p_70612_2_) {
+	public void moveEntityWithHeading(float strafe, float forward) {
 		moveEntity(motionX, motionY, motionZ);
 	}
 
@@ -184,23 +215,27 @@ public class EntityFish extends EntityWaterMob {
 		super.onLivingUpdate();
 		prevSquidPitch = squidPitch;
 		prevSquidYaw = squidYaw;
-		field_70868_i = field_70867_h;
+		prevSquidRotation = squidRotation;
 		lastTentacleAngle = tentacleAngle;
-		field_70867_h += field_70864_bA;
+		squidRotation += rotationVelocity;
 
-		if (field_70867_h > ((float) Math.PI * 2F)) {
-			field_70867_h -= ((float) Math.PI * 2F);
+		if (squidRotation > (Math.PI * 2D)) {
+			if (worldObj.isRemote) {
+				squidRotation = ((float) Math.PI * 2F);
+			} else {
+				squidRotation = (float) (squidRotation - (Math.PI * 2D));
 
-			if (rand.nextInt(10) == 0) {
-				field_70864_bA = (1.0F / (rand.nextFloat() + 1.0F)) * 0.2F;
+				if (rand.nextInt(10) == 0) {
+					rotationVelocity = (1.0F / (rand.nextFloat() + 1.0F)) * 0.2F;
+				}
+
+				worldObj.setEntityState(this, (byte) 19);
 			}
 		}
 
-		if (isInWater()) {
-			float f;
-
-			if (field_70867_h < (float) Math.PI) {
-				f = field_70867_h / (float) Math.PI;
+		if (inWater) {
+			if (squidRotation < (float) Math.PI) {
+				float f = squidRotation / (float) Math.PI;
 				tentacleAngle = MathHelper.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
 
 				if (f > 0.75D) {
@@ -221,14 +256,14 @@ public class EntityFish extends EntityWaterMob {
 				motionZ = randomMotionVecZ * randomMotionSpeed;
 			}
 
-			f = MathHelper.sqrt_double((motionX * motionX) + (motionZ * motionZ));
-			renderYawOffset += (((-((float) Math.atan2(motionX, motionZ)) * 180.0F) / (float) Math.PI)
+			float f1 = MathHelper.sqrt_double((motionX * motionX) + (motionZ * motionZ));
+			renderYawOffset += (((-((float) MathHelper.atan2(motionX, motionZ)) * 180.0F) / (float) Math.PI)
 					- renderYawOffset) * 0.1F;
 			rotationYaw = renderYawOffset;
-			squidYaw += (float) Math.PI * field_70871_bB * 1.5F;
-			squidPitch += (((-((float) Math.atan2(f, motionY)) * 180.0F) / (float) Math.PI) - squidPitch) * 0.1F;
+			squidYaw = (float) (squidYaw + (Math.PI * field_70871_bB * 1.5D));
+			squidPitch += (((-((float) MathHelper.atan2(f1, motionY)) * 180.0F) / (float) Math.PI) - squidPitch) * 0.1F;
 		} else {
-			tentacleAngle = MathHelper.abs(MathHelper.sin(field_70867_h)) * (float) Math.PI * 0.25F;
+			tentacleAngle = MathHelper.abs(MathHelper.sin(squidRotation)) * (float) Math.PI * 0.25F;
 
 			if (!worldObj.isRemote) {
 				motionX = 0.0D;
