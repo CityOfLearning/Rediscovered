@@ -3,6 +3,69 @@ package com.stormister.rediscovered;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.stormister.rediscovered.blocks.BlockAbsorb;
+import com.stormister.rediscovered.blocks.BlockChair;
+import com.stormister.rediscovered.blocks.BlockCherryDoubleSlab;
+import com.stormister.rediscovered.blocks.BlockCherryHalfSlab;
+import com.stormister.rediscovered.blocks.BlockCherryLeaves;
+import com.stormister.rediscovered.blocks.BlockCherryLog;
+import com.stormister.rediscovered.blocks.BlockCherrySapling;
+import com.stormister.rediscovered.blocks.BlockCherryStairs;
+import com.stormister.rediscovered.blocks.BlockCherryWood;
+import com.stormister.rediscovered.blocks.BlockCryingObsidian;
+import com.stormister.rediscovered.blocks.BlockDirtDoubleSlab;
+import com.stormister.rediscovered.blocks.BlockDirtHalfSlab;
+import com.stormister.rediscovered.blocks.BlockDragonEggRed;
+import com.stormister.rediscovered.blocks.BlockEmptyPeonyBush;
+import com.stormister.rediscovered.blocks.BlockEmptyPeonyBushTop;
+import com.stormister.rediscovered.blocks.BlockEmptyRoseBush;
+import com.stormister.rediscovered.blocks.BlockEmptyRoseBushTop;
+import com.stormister.rediscovered.blocks.BlockGear;
+import com.stormister.rediscovered.blocks.BlockLantern;
+import com.stormister.rediscovered.blocks.BlockLanternPhys;
+import com.stormister.rediscovered.blocks.BlockLectern;
+import com.stormister.rediscovered.blocks.BlockLecternOpen;
+import com.stormister.rediscovered.blocks.BlockLockedChest;
+import com.stormister.rediscovered.blocks.BlockPeony;
+import com.stormister.rediscovered.blocks.BlockRose;
+import com.stormister.rediscovered.blocks.BlockRuby;
+import com.stormister.rediscovered.blocks.BlockRubyOre;
+import com.stormister.rediscovered.blocks.BlockSpikes;
+import com.stormister.rediscovered.blocks.BlockTable;
+import com.stormister.rediscovered.blocks.tiles.TileEntityLectern;
+import com.stormister.rediscovered.blocks.tiles.TileEntityLecternOpen;
+import com.stormister.rediscovered.blocks.tiles.TileEntityLockedChest;
+import com.stormister.rediscovered.blocks.tiles.TileEntityTable;
+import com.stormister.rediscovered.entity.EntityFish;
+import com.stormister.rediscovered.entity.EntityGiant;
+import com.stormister.rediscovered.entity.EntityGoodDragon;
+import com.stormister.rediscovered.entity.EntityGreenVillager;
+import com.stormister.rediscovered.entity.EntityMeleePigman;
+import com.stormister.rediscovered.entity.EntityMountableBlock;
+import com.stormister.rediscovered.entity.EntityParrow;
+import com.stormister.rediscovered.entity.EntityPigman;
+import com.stormister.rediscovered.entity.EntityRangedPigman;
+import com.stormister.rediscovered.entity.EntityRediscoveredPotion;
+import com.stormister.rediscovered.entity.EntityScarecrow;
+import com.stormister.rediscovered.entity.EntitySkeletonHorse;
+import com.stormister.rediscovered.entity.EntitySkyChicken;
+import com.stormister.rediscovered.entity.EntityZombieHorse;
+import com.stormister.rediscovered.items.ItemBlockCherrySlab;
+import com.stormister.rediscovered.items.ItemBlockDirtSlab;
+import com.stormister.rediscovered.items.ItemDreamPillow;
+import com.stormister.rediscovered.items.ItemGear;
+import com.stormister.rediscovered.items.ItemLC;
+import com.stormister.rediscovered.items.ItemLantern;
+import com.stormister.rediscovered.items.ItemPotionRediscovered;
+import com.stormister.rediscovered.items.ItemQuiver;
+import com.stormister.rediscovered.items.ItemRuby;
+import com.stormister.rediscovered.items.ItemScarecrow;
+import com.stormister.rediscovered.world.BiomeGenSky;
+import com.stormister.rediscovered.world.WorldGeneratorPigmanVillage;
+import com.stormister.rediscovered.world.WorldGeneratorRuby;
+import com.stormister.rediscovered.world.WorldGeneratorSponge;
+import com.stormister.rediscovered.world.WorldProviderHeaven;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -134,24 +197,11 @@ public class mod_Rediscovered {
 	public static boolean EnableDungeonLoot;
 	public static boolean EnableRubyOre;
 	public static boolean anmen;
-	public static boolean RanaSpawn;
-	public static boolean SteveSpawn;
-	public static boolean BlackSteveSpawn;
-	public static boolean BeastBoySpawn;
 	public static boolean GVillagerSpawn;
-	public static boolean SteveHostile;
-	public static boolean BlackSteveHostile;
-	public static boolean BeastBoyHostile;
 	public static boolean ScarecrowAttractsMobs;
 	public static boolean DreamPillowRecipe;
 	public static boolean DaytimeBed;
 	public static int nextID = 0;
-	public static final String rana = new String(mod_Rediscovered.modid + ":" + "textures/models/rana.png");
-
-	public static final String steve = new String(mod_Rediscovered.modid + ":" + "textures/models/Steve");
-
-	public static final String blacksteve = new String(mod_Rediscovered.modid + ":" + "textures/models/BlackSteve");
-	public static final String beastboy = new String(mod_Rediscovered.modid + ":" + "textures/models/BeastBoy");
 	public static BiomeGenBase heaven;
 	public static ArmorMaterial EnumArmorMaterialInvinc = EnumHelper.addArmorMaterial("Invincible", "Quiver", -1,
 			new int[] { 0, 0, 0, 0 }, 0);
@@ -208,8 +258,6 @@ public class mod_Rediscovered {
 	// Entity Renders
 	public static void registerRediscoveredMob(Class<? extends Entity> var0, String var1, int id) {
 		if (id == -1) {
-			EntityRegistry.instance();
-			EntityRegistry.findGlobalUniqueEntityId();
 			EntityRegistry.registerModEntity(var0, var1, nextInternalID(), mod_Rediscovered.instance, 80, 3, true);
 		} else {
 			EntityRegistry.registerModEntity(var0, var1, id, mod_Rediscovered.instance, 80, 3, true);
@@ -218,13 +266,9 @@ public class mod_Rediscovered {
 
 	public static void registerRediscoveredMob(Class<? extends Entity> var0, String var1, int back, int fore, int id) {
 		if (id == -1) {
-			EntityRegistry.instance();
-			int newID = EntityRegistry.findGlobalUniqueEntityId();
-			EntityRegistry.registerGlobalEntityID(var0, var1, newID, back, fore);
-			EntityRegistry.registerModEntity(var0, var1, nextInternalID(), mod_Rediscovered.instance, 80, 3, true);
+			EntityRegistry.registerModEntity(var0, var1, nextInternalID(), mod_Rediscovered.instance, 80, 3, true, back, fore);
 		} else {
-			EntityRegistry.registerGlobalEntityID(var0, var1, id, back, fore);
-			EntityRegistry.registerModEntity(var0, var1, id, mod_Rediscovered.instance, 80, 3, true);
+			EntityRegistry.registerModEntity(var0, var1, id, mod_Rediscovered.instance, 80, 3, true, back, fore);
 		}
 	}
 
@@ -236,7 +280,7 @@ public class mod_Rediscovered {
 	}
 
 	public String getVersion() {
-		return "1.8.8";
+		return "1.8.9";
 	}
 
 	@EventHandler
@@ -422,7 +466,7 @@ public class mod_Rediscovered {
 		SkeletonHorseID = c.get("ID's", "Skeleton Horse ID (-1 means it will automatically assign an ID)", -1).getInt();
 		ScarecrowID = c.get("ID's", "Scarecrow ID (-1 means it will automatically assign an ID)", -1).getInt();
 		RedDragonID = c.get("ID's", "Red Dragon ID (-1 means it will automatically assign an ID)", -1).getInt();
-		DimID = c.get("ID's", "Sky Dimension ID", 23).getInt();
+		DimID = c.get("ID's", "Sky Dimension ID", 2).getInt();
 		HeavenBiomeID = c.get("ID's", "Sky Biome ID", 153).getInt();
 
 		// Booleans
@@ -431,13 +475,6 @@ public class mod_Rediscovered {
 		EnableDungeonLoot = c.get("Options", "Enable Lanterns appear in Dungeon Chests", true).getBoolean(true);
 		EnableRubyOre = c.get("Options", "Enable Ruby Ore Generates Underground", true).getBoolean(true);
 		EnablePigmanVillages = c.get("Options", "Enable Pigman Villages in the Sky Dimension", true).getBoolean(true);
-		RanaSpawn = c.get("Options", "Enable Rana Spawn in Villages", true).getBoolean(true);
-		SteveSpawn = c.get("Options", "Enable Steve Spawn in Villages", true).getBoolean(true);
-		SteveHostile = c.get("Options", "Enable Steve is Hostile", true).getBoolean(true);
-		BlackSteveSpawn = c.get("Options", "Enable Black Steve Spawn in Pigmen Villages", true).getBoolean(true);
-		BlackSteveHostile = c.get("Options", "Enable Black Steve is Hostile", true).getBoolean(true);
-		BeastBoySpawn = c.get("Options", "Enable Beast Boy Spawn in Pigmen Villages", true).getBoolean(true);
-		BeastBoyHostile = c.get("Options", "Enable Beast Boy is Hostile", true).getBoolean(true);
 		anmen = c.get("Options", "Enable Steve, Black Steve, and Beast Boy jogging", true).getBoolean(true);
 		GVillagerSpawn = c.get("Options", "Enable Green Villager Spawn in Villages", true).getBoolean(true);
 		ZombieHorseSpawn = c.get("Options", "Zombie Horse Spawn Rate", 25).getInt();
