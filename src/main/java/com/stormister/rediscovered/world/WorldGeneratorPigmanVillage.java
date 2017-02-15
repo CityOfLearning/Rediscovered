@@ -26,7 +26,7 @@ public class WorldGeneratorPigmanVillage implements IWorldGenerator {
 		int RandPosY = rand.nextInt(150) + 50;
 		int RandPosZ = z + rand.nextInt(16);
 		// TODO
-		(new WorldGenSmallPigmanVillage()).generate(world, rand, new BlockPos(RandPosX, RandPosY, RandPosZ));
+		//(new WorldGenSmallPigmanVillage()).generate(world, rand, new BlockPos(RandPosX, RandPosY, RandPosZ));
 
 	}
 
