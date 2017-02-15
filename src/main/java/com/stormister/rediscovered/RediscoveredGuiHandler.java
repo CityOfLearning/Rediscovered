@@ -1,5 +1,7 @@
 package com.stormister.rediscovered;
 
+import com.stormister.rediscovered.blocks.tiles.TileEntityLockedChest;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;

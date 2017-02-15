@@ -2,6 +2,9 @@ package com.stormister.rediscovered;
 
 import java.util.Random;
 
+import com.stormister.rediscovered.blocks.BlockCherrySapling;
+import com.stormister.rediscovered.entity.EntityScarecrow;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityCreature;
@@ -217,7 +220,7 @@ public class RediscoveredEventHandler {
 			event.setCanceled(true);
 			EntityPlayerMP thePlayer = (EntityPlayerMP) player;
 			ExtendedPlayer props = ExtendedPlayer.get((EntityPlayer) event.entity);
-			if (player.dimension == 0) {
+			if (Math.abs(player.dimension) != 1) { //not the end or nether
 				props.setRespawn(event.pos.getX(), event.pos.getY(), event.pos.getZ());
 				thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer,
 						mod_Rediscovered.DimID,
@@ -333,7 +336,7 @@ public class RediscoveredEventHandler {
 		ItemStack itemStack = inv.getStackInSlot(inv.currentItem);
 		World world = event.entityLiving.worldObj;
 
-		if ((player.dimension == 0) && !world.isDaytime() && (itemRand.nextInt(100) <= mod_Rediscovered.DreamChance)
+		if (Math.abs(player.dimension) != 1 && !world.isDaytime() && (itemRand.nextInt(100) <= mod_Rediscovered.DreamChance)
 				&& ((itemStack == null) || (itemStack.getItem() != mod_Rediscovered.DreamPillow))
 				&& (player instanceof EntityPlayerMP)) {
 			ExtendedPlayer props = ExtendedPlayer.get((EntityPlayer) event.entity);

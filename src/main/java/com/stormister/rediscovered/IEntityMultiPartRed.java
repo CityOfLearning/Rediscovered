@@ -1,5 +1,7 @@
 package com.stormister.rediscovered;
 
+import com.stormister.rediscovered.entity.EntityGoodDragonPart;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;

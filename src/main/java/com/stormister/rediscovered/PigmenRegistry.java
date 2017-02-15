@@ -11,8 +11,9 @@ import org.apache.commons.lang3.Validate;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.stormister.rediscovered.EntityPigman.ITradeList;
-import com.stormister.rediscovered.EntityPigman.PriceInfo;
+import com.stormister.rediscovered.entity.EntityPigman;
+import com.stormister.rediscovered.entity.EntityPigman.ITradeList;
+import com.stormister.rediscovered.entity.EntityPigman.PriceInfo;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
