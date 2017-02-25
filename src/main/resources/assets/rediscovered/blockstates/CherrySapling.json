@@ -1,8 +1,16 @@
 {
-    "variants": {
-        "cherry=false,stage=0": { "model": "Rediscovered:CherrySapling" },
-        "cherry=false,stage=1": { "model": "Rediscovered:CherrySapling" },
-        "cherry=true,stage=0": { "model": "Rediscovered:CherrySapling" },
-        "cherry=true,stage=1": { "model": "Rediscovered:CherrySapling" }
-    }
+	"variants": {
+		"normal": {
+			"model": "Rediscovered:CherrySapling"
+		},
+		"stage=0,type=oak": {
+			"model": "Rediscovered:CherrySapling"
+		},
+		"stage=1,type=oak": {
+			"model": "Rediscovered:CherrySapling"
+		},
+		"all": {
+			"model": "Rediscovered:CherrySapling"
+		}
+	}
 }
