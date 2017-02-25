@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.entity.ai;
 
-import com.stormister.rediscovered.entity.EntityPigman;
+import com.stormister.rediscovered.entity.EntityPigmanVillager;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -10,13 +10,13 @@ import net.minecraft.world.World;
 
 public class EntityAIPigmanPlay extends EntityAIBase {
 
-	private EntityPigman villagerObj;
-	private EntityPigman mate;
+	private EntityPigmanVillager villagerObj;
+	private EntityPigmanVillager mate;
 	private World worldObj;
 	private int matingTimeout;
 	Village villageObj;
 
-	public EntityAIPigmanPlay(EntityPigman pigmanIn) {
+	public EntityAIPigmanPlay(EntityPigmanVillager pigmanIn) {
 		villagerObj = pigmanIn;
 		worldObj = pigmanIn.worldObj;
 		setMutexBits(8);
@@ -38,7 +38,7 @@ public class EntityAIPigmanPlay extends EntityAIBase {
 	}
 
 	private void giveBirth() {
-		EntityPigman entityvillager = villagerObj.createChild(mate);
+		EntityPigmanVillager entityvillager = villagerObj.createChild(mate);
 		mate.setGrowingAge(6000);
 		villagerObj.setGrowingAge(6000);
 		mate.setIsWillingToMate(false);
@@ -65,13 +65,13 @@ public class EntityAIPigmanPlay extends EntityAIBase {
 			if (villageObj == null) {
 				return false;
 			} else if (checkSufficientDoorsPresentForNewVillager() && villagerObj.getIsWillingToMate(true)) {
-				Entity entity = worldObj.findNearestEntityWithinAABB(EntityPigman.class,
+				Entity entity = worldObj.findNearestEntityWithinAABB(EntityPigmanVillager.class,
 						villagerObj.getEntityBoundingBox().expand(8.0D, 3.0D, 8.0D), villagerObj);
 
 				if (entity == null) {
 					return false;
 				} else {
-					mate = (EntityPigman) entity;
+					mate = (EntityPigmanVillager) entity;
 					return (mate.getGrowingAge() == 0) && mate.getIsWillingToMate(true);
 				}
 			} else {

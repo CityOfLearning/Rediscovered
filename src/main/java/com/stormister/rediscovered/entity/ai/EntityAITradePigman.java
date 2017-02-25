@@ -1,15 +1,15 @@
 package com.stormister.rediscovered.entity.ai;
 
-import com.stormister.rediscovered.entity.EntityPigman;
+import com.stormister.rediscovered.entity.EntityPigmanVillager;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 
 public class EntityAITradePigman extends EntityAIBase {
-	private EntityPigman villager;
+	private EntityPigmanVillager villager;
 
-	public EntityAITradePigman(EntityPigman par1EntityVillager) {
+	public EntityAITradePigman(EntityPigmanVillager par1EntityVillager) {
 		villager = par1EntityVillager;
 		setMutexBits(5);
 	}
