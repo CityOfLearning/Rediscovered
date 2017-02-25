@@ -13,14 +13,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityFish extends EntityWaterMob {
-	/**
-	 * Checks if the entity's current position is a valid location to spawn this
-	 * entity.
-	 */
-	// public boolean getCanSpawnHere()
-	// {
-	// return this.posY > 45.0D && this.posY < 63.0D && super.getCanSpawnHere();
-	// }
 
 	static class AIMoveRandom extends EntityAIBase {
 		private EntityFish fish;
@@ -56,21 +48,21 @@ public class EntityFish extends EntityWaterMob {
 		}
 	}
 
-	public float squidPitch;
-	public float prevSquidPitch;
-	public float squidYaw;
-	public float prevSquidYaw;
+	public float fishPitch;
+	public float prevFishPitch;
+	public float fishYaw;
+	public float prevFishYaw;
 	/**
 	 * appears to be rotation in radians; we already have pitch & yaw, so this
 	 * completes the triumvirate.
 	 */
-	public float squidRotation;
+	public float fishRotation;
 	/** previous squidRotation in radians */
-	public float prevSquidRotation;
+	public float prevFishRotation;
 	/** angle of the tentacles in radians */
-	public float tentacleAngle;
+	public float finAngle;
 	/** the last calculated angle of the tentacles in radians */
-	public float lastTentacleAngle;
+	public float lastFinAngle;
 	private float randomMotionSpeed;
 	/** change in squidRotation in radians. */
 	private float rotationVelocity;
@@ -104,7 +96,7 @@ public class EntityFish extends EntityWaterMob {
 
 	/**
 	 * Drop 0-2 items of this living's type
-	 * 
+	 *
 	 * @param wasRecentlyHit
 	 *            true if this this entity was recently hit by appropriate
 	 *            entity (generally only if player or tameable)
@@ -132,7 +124,7 @@ public class EntityFish extends EntityWaterMob {
 	 */
 	@Override
 	public boolean getCanSpawnHere() {
-		return (posY > 45.0D) && (posY < worldObj.getSeaLevel()) && super.getCanSpawnHere();
+		return (posY > 45.0D) && super.getCanSpawnHere();
 	}
 
 	/**
@@ -170,6 +162,14 @@ public class EntityFish extends EntityWaterMob {
 	}
 
 	/**
+	 * Will return how many at most can spawn in a chunk at once.
+	 */
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 15;
+	}
+
+	/**
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	@Override
@@ -181,7 +181,7 @@ public class EntityFish extends EntityWaterMob {
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 19) {
-			squidRotation = 0.0F;
+			fishRotation = 0.0F;
 		} else {
 			super.handleStatusUpdate(id);
 		}
@@ -193,8 +193,7 @@ public class EntityFish extends EntityWaterMob {
 	 */
 	@Override
 	public boolean isInWater() {
-		return worldObj.handleMaterialAcceleration(getEntityBoundingBox().offset(0, 0.5F, 0),
-				Material.water, this);
+		return worldObj.handleMaterialAcceleration(getEntityBoundingBox().offset(0, 0.5F, 0), Material.water, this);
 	}
 
 	/**
@@ -213,17 +212,17 @@ public class EntityFish extends EntityWaterMob {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		prevSquidPitch = squidPitch;
-		prevSquidYaw = squidYaw;
-		prevSquidRotation = squidRotation;
-		lastTentacleAngle = tentacleAngle;
-		squidRotation += rotationVelocity;
+		prevFishPitch = fishPitch;
+		prevFishYaw = fishYaw;
+		prevFishRotation = fishRotation;
+		lastFinAngle = finAngle;
+		fishRotation += rotationVelocity;
 
-		if (squidRotation > (Math.PI * 2D)) {
+		if (fishRotation > (Math.PI * 2D)) {
 			if (worldObj.isRemote) {
-				squidRotation = ((float) Math.PI * 2F);
+				fishRotation = ((float) Math.PI * 2F);
 			} else {
-				squidRotation = (float) (squidRotation - (Math.PI * 2D));
+				fishRotation = (float) (fishRotation - (Math.PI * 2D));
 
 				if (rand.nextInt(10) == 0) {
 					rotationVelocity = (1.0F / (rand.nextFloat() + 1.0F)) * 0.2F;
@@ -234,9 +233,9 @@ public class EntityFish extends EntityWaterMob {
 		}
 
 		if (inWater) {
-			if (squidRotation < (float) Math.PI) {
-				float f = squidRotation / (float) Math.PI;
-				tentacleAngle = MathHelper.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
+			if (fishRotation < (float) Math.PI) {
+				float f = fishRotation / (float) Math.PI;
+				finAngle = MathHelper.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
 
 				if (f > 0.75D) {
 					randomMotionSpeed = 1.0F;
@@ -245,7 +244,7 @@ public class EntityFish extends EntityWaterMob {
 					field_70871_bB *= 0.8F;
 				}
 			} else {
-				tentacleAngle = 0.0F;
+				finAngle = 0.0F;
 				randomMotionSpeed *= 0.9F;
 				field_70871_bB *= 0.99F;
 			}
@@ -260,10 +259,10 @@ public class EntityFish extends EntityWaterMob {
 			renderYawOffset += (((-((float) MathHelper.atan2(motionX, motionZ)) * 180.0F) / (float) Math.PI)
 					- renderYawOffset) * 0.1F;
 			rotationYaw = renderYawOffset;
-			squidYaw = (float) (squidYaw + (Math.PI * field_70871_bB * 1.5D));
-			squidPitch += (((-((float) MathHelper.atan2(f1, motionY)) * 180.0F) / (float) Math.PI) - squidPitch) * 0.1F;
+			fishYaw = (float) (fishYaw + (Math.PI * field_70871_bB * 1.5D));
+			fishPitch += (((-((float) MathHelper.atan2(f1, motionY)) * 180.0F) / (float) Math.PI) - fishPitch) * 0.1F;
 		} else {
-			tentacleAngle = MathHelper.abs(MathHelper.sin(squidRotation)) * (float) Math.PI * 0.25F;
+			finAngle = MathHelper.abs(MathHelper.sin(fishRotation)) * (float) Math.PI * 0.25F;
 
 			if (!worldObj.isRemote) {
 				motionX = 0.0D;
@@ -272,7 +271,7 @@ public class EntityFish extends EntityWaterMob {
 				motionZ = 0.0D;
 			}
 
-			squidPitch = (float) (squidPitch + ((-90.0F - squidPitch) * 0.02D));
+			fishPitch = (float) (fishPitch + ((-90.0F - fishPitch) * 0.02D));
 		}
 	}
 }
