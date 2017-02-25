@@ -1,26 +1,25 @@
 package com.stormister.rediscovered.entity;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import java.util.List;
+
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityScarecrow extends EntityAnimal {
-	public float field_70886_e;
-	public float field_70884_g;
-	public float field_70888_h;
-	public float field_70889_i = 1.0F;
+public class EntityScarecrow extends EntityCreature {
 
 	public EntityScarecrow(World par1World) {
 		super(par1World);
 		preventEntitySpawning = true;
-		setSize(0.5F, 2.0F);
+		setSize(1F, 2.0F);
 	}
 
 	public EntityScarecrow(World par1World, EntityPlayer player) {
@@ -44,7 +43,7 @@ public class EntityScarecrow extends EntityAnimal {
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
 		if (!worldObj.isRemote && !isDead) {
 			setDead();
-			dropItem(mod_Rediscovered.Scarecrow, 1);
+			dropItem(Rediscovered.Scarecrow, 1);
 		}
 		return true;
 	}
@@ -76,11 +75,6 @@ public class EntityScarecrow extends EntityAnimal {
 		return false;
 	}
 
-	@Override
-	public EntityAgeable createChild(EntityAgeable par1EntityAgeable) {
-		return spawnBabyAnimal(par1EntityAgeable);
-	}
-
 	/**
 	 * Drop 0-2 items of this living's type. @param par1 - Whether this entity
 	 * has recently been hit by a player. @param par2 - Level of Looting used to
@@ -88,7 +82,7 @@ public class EntityScarecrow extends EntityAnimal {
 	 */
 	@Override
 	protected void dropFewItems(boolean par1, int par2) {
-		dropItem(mod_Rediscovered.Scarecrow, 1);
+		dropItem(Rediscovered.Scarecrow, 1);
 	}
 
 	/**
@@ -102,7 +96,13 @@ public class EntityScarecrow extends EntityAnimal {
 	 */
 	@Override
 	protected Item getDropItem() {
-		return mod_Rediscovered.Scarecrow;
+		return Rediscovered.Scarecrow;
+	}
+
+	public List<EntityMob> getEntitiesInRadius(World world, double x, double y, double z, int radius) {
+		List<EntityMob> list = world.getEntitiesWithinAABB(EntityMob.class,
+				AxisAlignedBB.fromBounds(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius));
+		return list;
 	}
 
 	/**
@@ -114,29 +114,22 @@ public class EntityScarecrow extends EntityAnimal {
 
 	@Override
 	public void onLivingUpdate() {
+		super.onLivingUpdate();
 		if (!worldObj.isRemote) {
 			if (worldObj.handleMaterialAcceleration(getEntityBoundingBox().expand(0.0D, -0.6000000238418579D, 0.0D),
 					Material.water, this)) {
 				setDead();
-				dropItem(mod_Rediscovered.Scarecrow, 1);
+				dropItem(Rediscovered.Scarecrow, 1);
 			}
 		}
 		motionX *= 0.0;
 		motionZ *= 0.0;
-		super.onLivingUpdate();
-	}
 
-	@Override
-	public void onUpdate() {
+		// for(EntityMob entity : getEntitiesInRadius(this.worldObj, this.posX,
+		// this.posY, this.posZ, 64)){
+		// entity.setAttackTarget(this);
+		// }
 
-	}
-
-	/**
-	 * This function is used when two same-species animals in 'love mode' breed
-	 * to generate the new baby animal.
-	 */
-	public EntityScarecrow spawnBabyAnimal(EntityAgeable par1EntityAgeable) {
-		return new EntityScarecrow(worldObj);
 	}
 
 	@Override

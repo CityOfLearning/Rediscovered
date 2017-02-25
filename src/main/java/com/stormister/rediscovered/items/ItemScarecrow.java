@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.items;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityScarecrow;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,7 +18,7 @@ public class ItemScarecrow extends Item {
 	public ItemScarecrow() {
 		super();
 		GameRegistry.registerItem(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		maxStackSize = 1;
 		setCreativeTab(CreativeTabs.tabDecorations);
 	}
@@ -31,10 +31,10 @@ public class ItemScarecrow extends Item {
 	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side,
 			float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			EntityScarecrow sheep = new EntityScarecrow(world);
-			sheep.setLocationAndAngles(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, player.rotationYaw,
+			EntityScarecrow scarecrow = new EntityScarecrow(world);
+			scarecrow.setLocationAndAngles(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, player.rotationYaw,
 					player.rotationPitch);
-			world.spawnEntityInWorld(sheep);
+			world.spawnEntityInWorld(scarecrow);
 			--itemStack.stackSize;
 		} else {
 			return false;
