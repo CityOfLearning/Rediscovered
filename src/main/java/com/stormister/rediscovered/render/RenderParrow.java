@@ -2,7 +2,7 @@ package com.stormister.rediscovered.render;
 
 import org.lwjgl.opengl.GL11;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityParrow;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -11,26 +11,21 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderParrow extends Render {
+public class RenderParrow extends Render<EntityParrow> {
 	private static final ResourceLocation arrowTextures = new ResourceLocation(
-			mod_Rediscovered.modid + ":" + "textures/models/parrow.png");
+			Rediscovered.modid + ":" + "textures/models/parrow.png");
 
 	public RenderParrow(RenderManager p_i46193_1_) {
 		super(p_i46193_1_);
 	}
 
 	@Override
-	public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
-		this.doRender((EntityParrow) entity, x, y, z, p_76986_8_, partialTicks);
-	}
-
 	public void doRender(EntityParrow entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		bindEntityTexture(entity);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -97,10 +92,6 @@ public class RenderParrow extends Render {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return this.getEntityTexture((EntityParrow) entity);
-	}
-
 	protected ResourceLocation getEntityTexture(EntityParrow p_180550_1_) {
 		return arrowTextures;
 	}

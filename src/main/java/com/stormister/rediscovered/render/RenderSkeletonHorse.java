@@ -7,11 +7,10 @@ import com.stormister.rediscovered.entity.EntitySkeletonHorse;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderSkeletonHorse extends RenderLiving {
+public class RenderSkeletonHorse extends RenderLiving<EntitySkeletonHorse> {
 	private static final ResourceLocation field_110871_a = new ResourceLocation(
 			"textures/entity/horse/horse_skeleton.png");
 
@@ -19,13 +18,10 @@ public class RenderSkeletonHorse extends RenderLiving {
 		super(p_i46170_1_, par1ModelBase, par2);
 	}
 
-	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
-		renderMyExample((EntitySkeletonHorse) par1Entity, par2, par4, par6, par8, par9);
-	}
-
 	@Override
-	public void doRender(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9) {
-		renderMyExample((EntitySkeletonHorse) par1EntityLiving, par2, par4, par6, par8, par9);
+	public void doRender(EntitySkeletonHorse par1EntityLiving, double par2, double par4, double par6, float par8,
+			float par9) {
+		super.doRender(par1EntityLiving, par2, par4, par6, par8, par9);
 	}
 
 	/**
@@ -33,11 +29,7 @@ public class RenderSkeletonHorse extends RenderLiving {
 	 * unless you call Render.bindEntityTexture.
 	 */
 	@Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-		return getSquidTextures((EntitySkeletonHorse) par1Entity);
-	}
-
-	protected ResourceLocation getSquidTextures(EntitySkeletonHorse par1EntitySquid) {
+	protected ResourceLocation getEntityTexture(EntitySkeletonHorse par1Entity) {
 		return field_110871_a;
 	}
 
@@ -49,10 +41,5 @@ public class RenderSkeletonHorse extends RenderLiving {
 	protected void preRenderScale(EntitySkeletonHorse par1EntityExampleH, float par2) {
 		// These values are x,y,z scale. Where 1.0F = 100%
 		GL11.glScalef(1.0F, 1.0F, 1.0F);
-	}
-
-	public void renderMyExample(EntitySkeletonHorse par1EntityExampleH, double par2, double par4, double par6,
-			float par8, float par9) {
-		super.doRender(par1EntityExampleH, par2, par4, par6, par8, par9);
 	}
 }

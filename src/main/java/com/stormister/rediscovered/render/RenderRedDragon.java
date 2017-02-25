@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.render;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityGoodDragon;
 import com.stormister.rediscovered.models.ModelRedDragon;
 
@@ -11,24 +11,21 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderRedDragon extends RenderLiving {
+public class RenderRedDragon extends RenderLiving<EntityGoodDragon> {
 	private static final ResourceLocation enderDragonExplodingTextures = new ResourceLocation(
 			"textures/entity/enderdragon/dragon_exploding.png");
 	private static final ResourceLocation enderDragonCrystalBeamTextures = new ResourceLocation(
 			"textures/entity/endercrystal/endercrystal_beam.png");
 	private static final ResourceLocation field_110845_h = new ResourceLocation(
-			mod_Rediscovered.modid + ":" + "textures/models/reddragon/red_eyes.png");
+			Rediscovered.modid + ":" + "textures/models/reddragon/red_eyes.png");
 	private static final ResourceLocation enderDragonTextures = new ResourceLocation(
-			mod_Rediscovered.modid + ":" + "textures/models/reddragon/red.png");
+			Rediscovered.modid + ":" + "textures/models/reddragon/red.png");
 
 	/** An instance of the dragon model in RenderDragon */
 	protected ModelRedDragon modelDragon;
@@ -39,10 +36,7 @@ public class RenderRedDragon extends RenderLiving {
 		// this.setRenderPassModel(this.mainModel);
 	}
 
-	public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
-		this.doRender((EntityGoodDragon) entity, x, y, z, p_76986_8_, partialTicks);
-	}
-
+	@Override
 	public void doRender(EntityGoodDragon entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		// BossStatus.setBossStatus(entity, false);
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
@@ -50,15 +44,6 @@ public class RenderRedDragon extends RenderLiving {
 		if (entity.healingEnderCrystal != null) {
 			drawRechargeRay(entity, x, y, z, partialTicks);
 		}
-	}
-
-	@Override
-	public void doRender(EntityLiving entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
-		this.doRender((EntityGoodDragon) entity, x, y, z, p_76986_8_, partialTicks);
-	}
-
-	public void doRender(EntityLivingBase entity, double x, double y, double z, float p_76986_8_, float partialTicks) {
-		this.doRender((EntityGoodDragon) entity, x, y, z, p_76986_8_, partialTicks);
 	}
 
 	protected void drawRechargeRay(EntityGoodDragon dragon, double p_180574_2_, double p_180574_4_, double p_180574_6_,
@@ -89,9 +74,9 @@ public class RenderRedDragon extends RenderLiving {
 				- ((dragon.ticksExisted + p_180574_8_) * 0.01F);
 		worldrenderer.begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
 		for (int j = 0; j <= 8; ++j) {
-			float f9 = MathHelper.sin((j % 8 * (float) Math.PI * 2.0F) / 8.0F) * 0.75F;
-			float f10 = MathHelper.cos((j % 8 * (float) Math.PI * 2.0F) / 8.0F) * 0.75F;
-			float f11 = (j % 8 * 1.0F) / 8.0F;
+			float f9 = MathHelper.sin(((j % 8) * (float) Math.PI * 2.0F) / 8.0F) * 0.75F;
+			float f10 = MathHelper.cos(((j % 8) * (float) Math.PI * 2.0F) / 8.0F) * 0.75F;
+			float f11 = ((j % 8) * 1.0F) / 8.0F;
 			worldrenderer.pos(f9 * 0.2F, f10 * 0.2F, 0.0D).tex(f11, f8).color(0, 0, 0, 255).endVertex();
 			worldrenderer.pos(f9, f10, f6).tex(f11, f7).color(255, 255, 255, 255).endVertex();
 		}
@@ -129,14 +114,11 @@ public class RenderRedDragon extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return this.getEntityTexture((EntityGoodDragon) entity);
-	}
-
 	protected ResourceLocation getEntityTexture(EntityGoodDragon entity) {
 		return enderDragonTextures;
 	}
 
+	@Override
 	protected void renderModel(EntityGoodDragon p_77036_1_, float p_77036_2_, float p_77036_3_, float p_77036_4_,
 			float p_77036_5_, float p_77036_6_, float p_77036_7_) {
 		if (p_77036_1_.deathTicks > 0) {
@@ -167,14 +149,7 @@ public class RenderRedDragon extends RenderLiving {
 	}
 
 	@Override
-	protected void renderModel(EntityLivingBase p_77036_1_, float p_77036_2_, float p_77036_3_, float p_77036_4_,
-			float p_77036_5_, float p_77036_6_, float p_77036_7_) {
-		this.renderModel((EntityGoodDragon) p_77036_1_, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_,
-				p_77036_7_);
-	}
-
-	@Override
-	protected void rotateCorpse(EntityLivingBase p_77043_1_, float p_77043_2_, float p_77043_3_, float p_77043_4_) {
-		func_180575_a((EntityGoodDragon) p_77043_1_, p_77043_2_, p_77043_3_, p_77043_4_);
+	protected void rotateCorpse(EntityGoodDragon p_77043_1_, float p_77043_2_, float p_77043_3_, float p_77043_4_) {
+		func_180575_a(p_77043_1_, p_77043_2_, p_77043_3_, p_77043_4_);
 	}
 }
