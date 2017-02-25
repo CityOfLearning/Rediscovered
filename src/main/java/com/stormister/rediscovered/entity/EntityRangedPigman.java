@@ -17,7 +17,6 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -27,7 +26,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityRangedPigman extends EntityMob implements IRangedAttackMob {
+public class EntityRangedPigman extends EntityPigmanMob implements IRangedAttackMob {
 	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D,
 			false);
@@ -63,7 +62,7 @@ public class EntityRangedPigman extends EntityMob implements IRangedAttackMob {
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, getHeldItem());
 		entityarrow.setDamage(
-				par2 * 2.0F + (rand.nextGaussian() * 0.25D) + worldObj.getDifficulty().getDifficultyId() * 0.11F);
+				(par2 * 2.0F) + (rand.nextGaussian() * 0.25D) + (worldObj.getDifficulty().getDifficultyId() * 0.11F));
 
 		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (i * 0.5D) + 0.5D);
@@ -167,6 +166,7 @@ public class EntityRangedPigman extends EntityMob implements IRangedAttackMob {
 	/**
 	 * Returns true if the newer Entity AI code should be run
 	 */
+	@Override
 	public boolean isAIEnabled() {
 		return true;
 	}
@@ -211,6 +211,7 @@ public class EntityRangedPigman extends EntityMob implements IRangedAttackMob {
 	/**
 	 * sets this entity's combat AI.
 	 */
+	@Override
 	public void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
 		tasks.addTask(4, aiArrowAttack);

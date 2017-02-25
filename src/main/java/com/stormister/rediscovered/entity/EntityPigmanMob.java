@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest2;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -28,7 +29,7 @@ import net.minecraft.village.Village;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityMeleePigman extends EntityPigmanMob {
+public abstract class EntityPigmanMob extends EntityMob {
 	private static final ItemStack defaultHeldItem = new ItemStack(Items.iron_sword, 1);
 	Village villageObj;
 	private int field_48120_c;
@@ -39,7 +40,7 @@ public class EntityMeleePigman extends EntityPigmanMob {
 	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D,
 			false);
 
-	public EntityMeleePigman(World par1World) {
+	public EntityPigmanMob(World par1World) {
 		super(par1World);
 		villageObj = null;
 		type = rand.nextInt(3);
@@ -66,7 +67,6 @@ public class EntityMeleePigman extends EntityPigmanMob {
 		}
 	}
 
-	@Override
 	protected void applyEntityAI() {
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
@@ -126,17 +126,14 @@ public class EntityMeleePigman extends EntityPigmanMob {
 		dataWatcher.addObject(20, Byte.valueOf((byte) 0));
 	}
 
-	@Override
 	public boolean func_48112_E_() {
 		return (dataWatcher.getWatchableObjectByte(20) & 1) != 0;
 	}
 
-	@Override
 	public int func_48114_ab() {
 		return field_48120_c;
 	}
 
-	@Override
 	public void func_48115_b(boolean par1) {
 		byte byte0 = dataWatcher.getWatchableObjectByte(20);
 
@@ -147,13 +144,11 @@ public class EntityMeleePigman extends EntityPigmanMob {
 		}
 	}
 
-	@Override
 	public void func_48116_a(boolean par1) {
 		field_48118_d = par1 ? 400 : 0;
 		worldObj.setEntityState(this, (byte) 11);
 	}
 
-	@Override
 	public int func_48117_D_() {
 		return field_48118_d;
 	}
@@ -195,7 +190,6 @@ public class EntityMeleePigman extends EntityPigmanMob {
 		return "mob.pig.say";
 	}
 
-	@Override
 	public Village getVillage() {
 		return villageObj;
 	}
@@ -203,12 +197,10 @@ public class EntityMeleePigman extends EntityPigmanMob {
 	/**
 	 * Returns true if the newer Entity AI code should be run
 	 */
-	@Override
 	public boolean isAIEnabled() {
 		return true;
 	}
 
-	@Override
 	public boolean isExplosiveMob(Class par1Class) {
 		if (func_48112_E_() && (net.minecraft.entity.player.EntityPlayer.class).isAssignableFrom(par1Class)) {
 			return false;
@@ -220,7 +212,6 @@ public class EntityMeleePigman extends EntityPigmanMob {
 	/**
 	 * Plays step sound at given x, y, z for the entity
 	 */
-	@Override
 	protected void playStepSound(int par1, int par2, int par3, int par4) {
 		playSound("mob.pig.step", 0.15F, 1.0F);
 	}
@@ -237,7 +228,6 @@ public class EntityMeleePigman extends EntityPigmanMob {
 	/**
 	 * sets this entity's combat AI.
 	 */
-	@Override
 	public void setCombatTask() {
 		tasks.addTask(4, aiAttackOnCollide);
 

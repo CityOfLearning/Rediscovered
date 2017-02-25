@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.stormister.rediscovered.PigmenRegistry;
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.ai.EntityAILookAtTradePigman;
 import com.stormister.rediscovered.entity.ai.EntityAIPigmanMate;
 import com.stormister.rediscovered.entity.ai.EntityAITradePigman;
@@ -65,12 +65,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
-	public static class EmeraldForItems implements EntityPigman.ITradeList {
+public class EntityPigmanVillager extends EntityAgeable implements INpc, IMerchant {
+	public static class EmeraldForItems implements EntityPigmanVillager.ITradeList {
 		public Item field_179405_a;
-		public EntityPigman.PriceInfo field_179404_b;
+		public EntityPigmanVillager.PriceInfo field_179404_b;
 
-		public EmeraldForItems(Item p_i45815_1_, EntityPigman.PriceInfo p_i45815_2_) {
+		public EmeraldForItems(Item p_i45815_1_, EntityPigmanVillager.PriceInfo p_i45815_2_) {
 			field_179405_a = p_i45815_1_;
 			field_179404_b = p_i45815_2_;
 		}
@@ -87,18 +87,18 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 				i = field_179404_b.func_179412_a(random);
 			}
 
-			recipeList.add(new MerchantRecipe(new ItemStack(field_179405_a, i, 0), mod_Rediscovered.gemRuby));
+			recipeList.add(new MerchantRecipe(new ItemStack(field_179405_a, i, 0), Rediscovered.gemRuby));
 		}
 	}
 
-	public static class ItemAndEmeraldToItem implements EntityPigman.ITradeList {
+	public static class ItemAndEmeraldToItem implements EntityPigmanVillager.ITradeList {
 		public ItemStack field_179411_a;
-		public EntityPigman.PriceInfo field_179409_b;
+		public EntityPigmanVillager.PriceInfo field_179409_b;
 		public ItemStack field_179410_c;
-		public EntityPigman.PriceInfo field_179408_d;
+		public EntityPigmanVillager.PriceInfo field_179408_d;
 
-		public ItemAndEmeraldToItem(Item p_i45813_1_, EntityPigman.PriceInfo p_i45813_2_, Item p_i45813_3_,
-				EntityPigman.PriceInfo p_i45813_4_) {
+		public ItemAndEmeraldToItem(Item p_i45813_1_, EntityPigmanVillager.PriceInfo p_i45813_2_, Item p_i45813_3_,
+				EntityPigmanVillager.PriceInfo p_i45813_4_) {
 			field_179411_a = new ItemStack(p_i45813_1_);
 			field_179409_b = p_i45813_2_;
 			field_179410_c = new ItemStack(p_i45813_3_);
@@ -124,7 +124,7 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 			}
 
 			recipeList.add(new MerchantRecipe(new ItemStack(field_179411_a.getItem(), i, field_179411_a.getMetadata()),
-					new ItemStack(mod_Rediscovered.gemRuby),
+					new ItemStack(Rediscovered.gemRuby),
 					new ItemStack(field_179410_c.getItem(), j, field_179410_c.getMetadata())));
 		}
 	}
@@ -137,7 +137,7 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 		void modifyMerchantRecipeList(MerchantRecipeList recipeList, Random random);
 	}
 
-	public static class ListEnchantedBookForEmeralds implements EntityPigman.ITradeList {
+	public static class ListEnchantedBookForEmeralds implements EntityPigmanVillager.ITradeList {
 
 		/**
 		 * Affects the given MerchantRecipeList to possibly add or remove
@@ -155,16 +155,16 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 				j = 64;
 			}
 
-			recipeList.add(new MerchantRecipe(new ItemStack(Items.book), new ItemStack(mod_Rediscovered.gemRuby, j),
-					itemstack));
+			recipeList.add(
+					new MerchantRecipe(new ItemStack(Items.book), new ItemStack(Rediscovered.gemRuby, j), itemstack));
 		}
 	}
 
-	public static class ListEnchantedItemForEmeralds implements EntityPigman.ITradeList {
+	public static class ListEnchantedItemForEmeralds implements EntityPigmanVillager.ITradeList {
 		public ItemStack field_179407_a;
-		public EntityPigman.PriceInfo field_179406_b;
+		public EntityPigmanVillager.PriceInfo field_179406_b;
 
-		public ListEnchantedItemForEmeralds(Item p_i45814_1_, EntityPigman.PriceInfo p_i45814_2_) {
+		public ListEnchantedItemForEmeralds(Item p_i45814_1_, EntityPigmanVillager.PriceInfo p_i45814_2_) {
 			field_179407_a = new ItemStack(p_i45814_1_);
 			field_179406_b = p_i45814_2_;
 		}
@@ -181,23 +181,23 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 				i = field_179406_b.func_179412_a(random);
 			}
 
-			ItemStack itemstack = new ItemStack(mod_Rediscovered.gemRuby, i, 0);
+			ItemStack itemstack = new ItemStack(Rediscovered.gemRuby, i, 0);
 			ItemStack itemstack1 = new ItemStack(field_179407_a.getItem(), 1, field_179407_a.getMetadata());
 			itemstack1 = EnchantmentHelper.addRandomEnchantment(random, itemstack1, 5 + random.nextInt(15));
 			recipeList.add(new MerchantRecipe(itemstack, itemstack1));
 		}
 	}
 
-	public static class ListItemForEmeralds implements EntityPigman.ITradeList {
+	public static class ListItemForEmeralds implements EntityPigmanVillager.ITradeList {
 		public ItemStack field_179403_a;
-		public EntityPigman.PriceInfo field_179402_b;
+		public EntityPigmanVillager.PriceInfo field_179402_b;
 
-		public ListItemForEmeralds(Item p_i45811_1_, EntityPigman.PriceInfo p_i45811_2_) {
+		public ListItemForEmeralds(Item p_i45811_1_, EntityPigmanVillager.PriceInfo p_i45811_2_) {
 			field_179403_a = new ItemStack(p_i45811_1_);
 			field_179402_b = p_i45811_2_;
 		}
 
-		public ListItemForEmeralds(ItemStack p_i45812_1_, EntityPigman.PriceInfo p_i45812_2_) {
+		public ListItemForEmeralds(ItemStack p_i45812_1_, EntityPigmanVillager.PriceInfo p_i45812_2_) {
 			field_179403_a = p_i45812_1_;
 			field_179402_b = p_i45812_2_;
 		}
@@ -218,10 +218,10 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 			ItemStack itemstack1;
 
 			if (i < 0) {
-				itemstack = new ItemStack(mod_Rediscovered.gemRuby, 1, 0);
+				itemstack = new ItemStack(Rediscovered.gemRuby, 1, 0);
 				itemstack1 = new ItemStack(field_179403_a.getItem(), -i, field_179403_a.getMetadata());
 			} else {
-				itemstack = new ItemStack(mod_Rediscovered.gemRuby, i, 0);
+				itemstack = new ItemStack(Rediscovered.gemRuby, i, 0);
 				itemstack1 = new ItemStack(field_179403_a.getItem(), 1, field_179403_a.getMetadata());
 			}
 
@@ -248,156 +248,186 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 	 * career levels that a Villager may offer
 	 */
 	@Deprecated // Use PigmanRegistry
-	private static final EntityPigman.ITradeList[][][][] DEFAULT_TRADE_LIST_MAP = new EntityPigman.ITradeList[][][][] {
-			{ { { new EntityPigman.EmeraldForItems(Items.wheat, new EntityPigman.PriceInfo(18, 22)),
-					new EntityPigman.EmeraldForItems(Items.potato, new EntityPigman.PriceInfo(15, 19)),
-					new EntityPigman.EmeraldForItems(Items.carrot, new EntityPigman.PriceInfo(15, 19)),
-					new EntityPigman.ListItemForEmeralds(Items.bread, new EntityPigman.PriceInfo(-4, -2)) },
-					{
-							new EntityPigman.EmeraldForItems(Item.getItemFromBlock(Blocks.pumpkin),
-									new EntityPigman.PriceInfo(8, 13)),
-							new EntityPigman.ListItemForEmeralds(Items.pumpkin_pie,
-									new EntityPigman.PriceInfo(-3, -2)) },
-					{ new EntityPigman.EmeraldForItems(Item.getItemFromBlock(Blocks.melon_block),
-							new EntityPigman.PriceInfo(7, 12)),
-							new EntityPigman.ListItemForEmeralds(Items.apple, new EntityPigman.PriceInfo(-5, -7)) },
-					{ new EntityPigman.ListItemForEmeralds(Items.cookie, new EntityPigman.PriceInfo(-6, -10)),
-							new EntityPigman.ListItemForEmeralds(Items.cake, new EntityPigman.PriceInfo(1, 1)) } },
-					{ { new EntityPigman.EmeraldForItems(Items.string, new EntityPigman.PriceInfo(15, 20)),
-							new EntityPigman.EmeraldForItems(Items.coal, new EntityPigman.PriceInfo(16, 24)),
-							new EntityPigman.ItemAndEmeraldToItem(Items.fish, new EntityPigman.PriceInfo(6, 6),
-									Items.cooked_fish, new EntityPigman.PriceInfo(6, 6)) },
-							{ new EntityPigman.ListEnchantedItemForEmeralds(Items.fishing_rod,
-									new EntityPigman.PriceInfo(7, 8)) } },
-					{ { new EntityPigman.EmeraldForItems(Item.getItemFromBlock(Blocks.wool),
-							new EntityPigman.PriceInfo(16, 22)),
-							new EntityPigman.ListItemForEmeralds(Items.shears, new EntityPigman.PriceInfo(3, 4)) }, {
-									new EntityPigman.ListItemForEmeralds(
-											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 0),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+	private static final EntityPigmanVillager.ITradeList[][][][] DEFAULT_TRADE_LIST_MAP = new EntityPigmanVillager.ITradeList[][][][] {
+			{ { { new EntityPigmanVillager.EmeraldForItems(Items.wheat, new EntityPigmanVillager.PriceInfo(18, 22)),
+					new EntityPigmanVillager.EmeraldForItems(Items.potato, new EntityPigmanVillager.PriceInfo(15, 19)),
+					new EntityPigmanVillager.EmeraldForItems(Items.carrot, new EntityPigmanVillager.PriceInfo(15, 19)),
+					new EntityPigmanVillager.ListItemForEmeralds(Items.bread,
+							new EntityPigmanVillager.PriceInfo(-4, -2)) },
+					{ new EntityPigmanVillager.EmeraldForItems(Item.getItemFromBlock(Blocks.pumpkin),
+							new EntityPigmanVillager.PriceInfo(8, 13)),
+							new EntityPigmanVillager.ListItemForEmeralds(
+									Items.pumpkin_pie, new EntityPigmanVillager.PriceInfo(-3, -2)) },
+					{ new EntityPigmanVillager.EmeraldForItems(Item.getItemFromBlock(Blocks.melon_block),
+							new EntityPigmanVillager.PriceInfo(7, 12)),
+							new EntityPigmanVillager.ListItemForEmeralds(
+									Items.apple, new EntityPigmanVillager.PriceInfo(-5, -7)) },
+					{ new EntityPigmanVillager.ListItemForEmeralds(Items.cookie,
+							new EntityPigmanVillager.PriceInfo(-6, -10)),
+							new EntityPigmanVillager.ListItemForEmeralds(
+									Items.cake, new EntityPigmanVillager.PriceInfo(1, 1)) } },
+					{ { new EntityPigmanVillager.EmeraldForItems(Items.string,
+							new EntityPigmanVillager.PriceInfo(15, 20)),
+							new EntityPigmanVillager.EmeraldForItems(
+									Items.coal, new EntityPigmanVillager.PriceInfo(16, 24)),
+							new EntityPigmanVillager.ItemAndEmeraldToItem(Items.fish,
+									new EntityPigmanVillager.PriceInfo(6, 6), Items.cooked_fish,
+									new EntityPigmanVillager.PriceInfo(6, 6)) },
+							{ new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.fishing_rod,
+									new EntityPigmanVillager.PriceInfo(7, 8)) } },
+					{ { new EntityPigmanVillager.EmeraldForItems(Item.getItemFromBlock(Blocks.wool),
+							new EntityPigmanVillager.PriceInfo(16, 22)),
+							new EntityPigmanVillager.ListItemForEmeralds(
+									Items.shears, new EntityPigmanVillager.PriceInfo(3, 4)) },
+							{ new EntityPigmanVillager.ListItemForEmeralds(
+									new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 0),
+									new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 1),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 2),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 3),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 4),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 5),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 6),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 7),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 8),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 9),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 10),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 11),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 12),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 13),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 14),
-											new EntityPigman.PriceInfo(1, 2)),
-									new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)),
+									new EntityPigmanVillager.ListItemForEmeralds(
 											new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, 15),
-											new EntityPigman.PriceInfo(1, 2)) } },
-					{ { new EntityPigman.EmeraldForItems(Items.string, new EntityPigman.PriceInfo(15, 20)),
-							new EntityPigman.ListItemForEmeralds(Items.arrow, new EntityPigman.PriceInfo(-12, -8)) },
-							{ new EntityPigman.ListItemForEmeralds(Items.bow, new EntityPigman.PriceInfo(2, 3)),
-									new EntityPigman.ItemAndEmeraldToItem(Item.getItemFromBlock(Blocks.gravel),
-											new EntityPigman.PriceInfo(10, 10), Items.flint,
-											new EntityPigman.PriceInfo(6, 10)) } } },
-			{ { { new EntityPigman.EmeraldForItems(Items.paper, new EntityPigman.PriceInfo(24, 36)),
-					new EntityPigman.ListEnchantedBookForEmeralds() },
-					{ new EntityPigman.EmeraldForItems(Items.book, new EntityPigman.PriceInfo(8, 10)),
-							new EntityPigman.ListItemForEmeralds(Items.compass, new EntityPigman.PriceInfo(10, 12)),
-							new EntityPigman.ListItemForEmeralds(Item.getItemFromBlock(Blocks.bookshelf),
-									new EntityPigman.PriceInfo(3, 4)) },
-					{ new EntityPigman.EmeraldForItems(Items.written_book, new EntityPigman.PriceInfo(2, 2)),
-							new EntityPigman.ListItemForEmeralds(Items.clock, new EntityPigman.PriceInfo(10, 12)),
-							new EntityPigman.ListItemForEmeralds(Item.getItemFromBlock(Blocks.glass),
-									new EntityPigman.PriceInfo(-5, -3)) },
-					{ new EntityPigman.ListEnchantedBookForEmeralds() },
-					{ new EntityPigman.ListEnchantedBookForEmeralds() },
-					{ new EntityPigman.ListItemForEmeralds(Items.name_tag, new EntityPigman.PriceInfo(20, 22)) } } },
-			{ { { new EntityPigman.EmeraldForItems(Items.rotten_flesh, new EntityPigman.PriceInfo(36, 40)),
-					new EntityPigman.EmeraldForItems(Items.gold_ingot, new EntityPigman.PriceInfo(8, 10)) },
-					{ new EntityPigman.ListItemForEmeralds(Items.redstone, new EntityPigman.PriceInfo(-4, -1)),
-							new EntityPigman.ListItemForEmeralds(
+											new EntityPigmanVillager.PriceInfo(1, 2)) } },
+					{ { new EntityPigmanVillager.EmeraldForItems(Items.string,
+							new EntityPigmanVillager.PriceInfo(15, 20)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.arrow,
+									new EntityPigmanVillager.PriceInfo(-12, -8)) },
+							{ new EntityPigmanVillager.ListItemForEmeralds(Items.bow,
+									new EntityPigmanVillager.PriceInfo(2, 3)),
+									new EntityPigmanVillager.ItemAndEmeraldToItem(Item.getItemFromBlock(Blocks.gravel),
+											new EntityPigmanVillager.PriceInfo(10, 10), Items.flint,
+											new EntityPigmanVillager.PriceInfo(6, 10)) } } },
+			{ { { new EntityPigmanVillager.EmeraldForItems(Items.paper, new EntityPigmanVillager.PriceInfo(24, 36)),
+					new EntityPigmanVillager.ListEnchantedBookForEmeralds() },
+					{ new EntityPigmanVillager.EmeraldForItems(Items.book, new EntityPigmanVillager.PriceInfo(8, 10)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.compass,
+									new EntityPigmanVillager.PriceInfo(10, 12)),
+							new EntityPigmanVillager.ListItemForEmeralds(Item.getItemFromBlock(Blocks.bookshelf),
+									new EntityPigmanVillager.PriceInfo(3, 4)) },
+					{ new EntityPigmanVillager.EmeraldForItems(Items.written_book,
+							new EntityPigmanVillager.PriceInfo(2, 2)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.clock,
+									new EntityPigmanVillager.PriceInfo(10, 12)),
+							new EntityPigmanVillager.ListItemForEmeralds(Item.getItemFromBlock(Blocks.glass),
+									new EntityPigmanVillager.PriceInfo(-5, -3)) },
+					{ new EntityPigmanVillager.ListEnchantedBookForEmeralds() },
+					{ new EntityPigmanVillager.ListEnchantedBookForEmeralds() },
+					{ new EntityPigmanVillager.ListItemForEmeralds(Items.name_tag,
+							new EntityPigmanVillager.PriceInfo(20, 22)) } } },
+			{ { { new EntityPigmanVillager.EmeraldForItems(Items.rotten_flesh,
+					new EntityPigmanVillager.PriceInfo(36, 40)),
+					new EntityPigmanVillager.EmeraldForItems(Items.gold_ingot,
+							new EntityPigmanVillager.PriceInfo(8, 10)) },
+					{ new EntityPigmanVillager.ListItemForEmeralds(Items.redstone,
+							new EntityPigmanVillager.PriceInfo(-4, -1)),
+							new EntityPigmanVillager.ListItemForEmeralds(
 									new ItemStack(Items.dye, 1, EnumDyeColor.BLUE.getDyeDamage()),
-									new EntityPigman.PriceInfo(-2, -1)) },
-					{ new EntityPigman.ListItemForEmeralds(Items.ender_eye, new EntityPigman.PriceInfo(7, 11)),
-							new EntityPigman.ListItemForEmeralds(Item.getItemFromBlock(Blocks.glowstone),
-									new EntityPigman.PriceInfo(-3, -1)) },
-					{ new EntityPigman.ListItemForEmeralds(Items.experience_bottle,
-							new EntityPigman.PriceInfo(3, 11)) } } },
-			{ { { new EntityPigman.EmeraldForItems(Items.coal, new EntityPigman.PriceInfo(16, 24)),
-					new EntityPigman.ListItemForEmeralds(Items.iron_helmet, new EntityPigman.PriceInfo(4, 6)) },
-					{ new EntityPigman.EmeraldForItems(Items.iron_ingot, new EntityPigman.PriceInfo(7, 9)),
-							new EntityPigman.ListItemForEmeralds(Items.iron_chestplate,
-									new EntityPigman.PriceInfo(10, 14)) },
-					{ new EntityPigman.EmeraldForItems(Items.diamond, new EntityPigman.PriceInfo(3, 4)),
-							new EntityPigman.ListEnchantedItemForEmeralds(Items.diamond_chestplate,
-									new EntityPigman.PriceInfo(16, 19)) },
-					{ new EntityPigman.ListItemForEmeralds(Items.chainmail_boots, new EntityPigman.PriceInfo(5, 7)),
-							new EntityPigman.ListItemForEmeralds(Items.chainmail_leggings,
-									new EntityPigman.PriceInfo(9, 11)),
-							new EntityPigman.ListItemForEmeralds(Items.chainmail_helmet,
-									new EntityPigman.PriceInfo(5, 7)),
-							new EntityPigman.ListItemForEmeralds(Items.chainmail_chestplate,
-									new EntityPigman.PriceInfo(11, 15)) } },
-					{ { new EntityPigman.EmeraldForItems(Items.coal, new EntityPigman.PriceInfo(16, 24)),
-							new EntityPigman.ListItemForEmeralds(Items.iron_axe, new EntityPigman.PriceInfo(6, 8)) },
-							{ new EntityPigman.EmeraldForItems(Items.iron_ingot, new EntityPigman.PriceInfo(7, 9)),
-									new EntityPigman.ListEnchantedItemForEmeralds(Items.iron_sword,
-											new EntityPigman.PriceInfo(9, 10)) },
-							{ new EntityPigman.EmeraldForItems(Items.diamond, new EntityPigman.PriceInfo(3, 4)),
-									new EntityPigman.ListEnchantedItemForEmeralds(Items.diamond_sword,
-											new EntityPigman.PriceInfo(12, 15)),
-									new EntityPigman.ListEnchantedItemForEmeralds(Items.diamond_axe,
-											new EntityPigman.PriceInfo(9, 12)) } },
-					{ { new EntityPigman.EmeraldForItems(Items.coal, new EntityPigman.PriceInfo(16, 24)),
-							new EntityPigman.ListEnchantedItemForEmeralds(Items.iron_shovel,
-									new EntityPigman.PriceInfo(5, 7)) },
-							{ new EntityPigman.EmeraldForItems(Items.iron_ingot, new EntityPigman.PriceInfo(7, 9)),
-									new EntityPigman.ListEnchantedItemForEmeralds(Items.iron_pickaxe,
-											new EntityPigman.PriceInfo(9, 11)) },
-							{ new EntityPigman.EmeraldForItems(Items.diamond, new EntityPigman.PriceInfo(3, 4)),
-									new EntityPigman.ListEnchantedItemForEmeralds(Items.diamond_pickaxe,
-											new EntityPigman.PriceInfo(12, 15)) } } },
-			{ { { new EntityPigman.EmeraldForItems(Items.porkchop, new EntityPigman.PriceInfo(14, 18)),
-					new EntityPigman.EmeraldForItems(Items.chicken, new EntityPigman.PriceInfo(14, 18)) },
-					{ new EntityPigman.EmeraldForItems(Items.coal, new EntityPigman.PriceInfo(16, 24)),
-							new EntityPigman.ListItemForEmeralds(Items.cooked_porkchop,
-									new EntityPigman.PriceInfo(-7, -5)),
-							new EntityPigman.ListItemForEmeralds(Items.cooked_chicken,
-									new EntityPigman.PriceInfo(-8, -6)) } },
-					{ { new EntityPigman.EmeraldForItems(Items.leather, new EntityPigman.PriceInfo(9, 12)),
-							new EntityPigman.ListItemForEmeralds(Items.leather_leggings,
-									new EntityPigman.PriceInfo(2, 4)) },
-							{ new EntityPigman.ListEnchantedItemForEmeralds(Items.leather_chestplate,
-									new EntityPigman.PriceInfo(7, 12)) },
-							{ new EntityPigman.ListItemForEmeralds(Items.saddle,
-									new EntityPigman.PriceInfo(8, 10)) } } } };
+									new EntityPigmanVillager.PriceInfo(-2, -1)) },
+					{ new EntityPigmanVillager.ListItemForEmeralds(Items.ender_eye,
+							new EntityPigmanVillager.PriceInfo(7, 11)),
+							new EntityPigmanVillager.ListItemForEmeralds(Item.getItemFromBlock(Blocks.glowstone),
+									new EntityPigmanVillager.PriceInfo(-3, -1)) },
+					{ new EntityPigmanVillager.ListItemForEmeralds(Items.experience_bottle,
+							new EntityPigmanVillager.PriceInfo(3, 11)) } } },
+			{ { { new EntityPigmanVillager.EmeraldForItems(Items.coal, new EntityPigmanVillager.PriceInfo(16, 24)),
+					new EntityPigmanVillager.ListItemForEmeralds(Items.iron_helmet,
+							new EntityPigmanVillager.PriceInfo(4, 6)) },
+					{ new EntityPigmanVillager.EmeraldForItems(Items.iron_ingot,
+							new EntityPigmanVillager.PriceInfo(7, 9)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.iron_chestplate,
+									new EntityPigmanVillager.PriceInfo(10, 14)) },
+					{ new EntityPigmanVillager.EmeraldForItems(Items.diamond, new EntityPigmanVillager.PriceInfo(3, 4)),
+							new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.diamond_chestplate,
+									new EntityPigmanVillager.PriceInfo(16, 19)) },
+					{ new EntityPigmanVillager.ListItemForEmeralds(Items.chainmail_boots,
+							new EntityPigmanVillager.PriceInfo(5, 7)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.chainmail_leggings,
+									new EntityPigmanVillager.PriceInfo(9, 11)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.chainmail_helmet,
+									new EntityPigmanVillager.PriceInfo(5, 7)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.chainmail_chestplate,
+									new EntityPigmanVillager.PriceInfo(11, 15)) } },
+					{ { new EntityPigmanVillager.EmeraldForItems(Items.coal,
+							new EntityPigmanVillager.PriceInfo(16, 24)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.iron_axe,
+									new EntityPigmanVillager.PriceInfo(6, 8)) },
+							{ new EntityPigmanVillager.EmeraldForItems(Items.iron_ingot,
+									new EntityPigmanVillager.PriceInfo(7, 9)),
+									new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.iron_sword,
+											new EntityPigmanVillager.PriceInfo(9, 10)) },
+							{ new EntityPigmanVillager.EmeraldForItems(Items.diamond,
+									new EntityPigmanVillager.PriceInfo(3, 4)),
+									new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.diamond_sword,
+											new EntityPigmanVillager.PriceInfo(12, 15)),
+									new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.diamond_axe,
+											new EntityPigmanVillager.PriceInfo(9, 12)) } },
+					{ { new EntityPigmanVillager.EmeraldForItems(Items.coal,
+							new EntityPigmanVillager.PriceInfo(16, 24)),
+							new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.iron_shovel,
+									new EntityPigmanVillager.PriceInfo(5, 7)) },
+							{ new EntityPigmanVillager.EmeraldForItems(Items.iron_ingot,
+									new EntityPigmanVillager.PriceInfo(7, 9)),
+									new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.iron_pickaxe,
+											new EntityPigmanVillager.PriceInfo(9, 11)) },
+							{ new EntityPigmanVillager.EmeraldForItems(Items.diamond,
+									new EntityPigmanVillager.PriceInfo(3, 4)),
+									new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.diamond_pickaxe,
+											new EntityPigmanVillager.PriceInfo(12, 15)) } } },
+			{ { { new EntityPigmanVillager.EmeraldForItems(Items.porkchop, new EntityPigmanVillager.PriceInfo(14, 18)),
+					new EntityPigmanVillager.EmeraldForItems(Items.chicken,
+							new EntityPigmanVillager.PriceInfo(14, 18)) },
+					{ new EntityPigmanVillager.EmeraldForItems(Items.coal, new EntityPigmanVillager.PriceInfo(16, 24)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.cooked_porkchop,
+									new EntityPigmanVillager.PriceInfo(-7, -5)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.cooked_chicken,
+									new EntityPigmanVillager.PriceInfo(-8, -6)) } },
+					{ { new EntityPigmanVillager.EmeraldForItems(Items.leather,
+							new EntityPigmanVillager.PriceInfo(9, 12)),
+							new EntityPigmanVillager.ListItemForEmeralds(Items.leather_leggings,
+									new EntityPigmanVillager.PriceInfo(2, 4)) },
+							{ new EntityPigmanVillager.ListEnchantedItemForEmeralds(Items.leather_chestplate,
+									new EntityPigmanVillager.PriceInfo(7, 12)) },
+							{ new EntityPigmanVillager.ListItemForEmeralds(Items.saddle,
+									new EntityPigmanVillager.PriceInfo(8, 10)) } } } };
 	private int randomTickDivider;
 	private boolean isMating;
 	private boolean isPlaying;
@@ -423,15 +453,13 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 
 	private boolean isLookingForHome;
 
-	private boolean areAdditionalTasksSet;
-
 	private InventoryBasic villagerInventory;
 
-	public EntityPigman(World worldIn) {
+	public EntityPigmanVillager(World worldIn) {
 		this(worldIn, 0);
 	}
 
-	public EntityPigman(World worldIn, int professionId) {
+	public EntityPigmanVillager(World worldIn, int professionId) {
 		super(worldIn);
 		villagerInventory = new InventoryBasic("Items", false, 8);
 		setProfession(professionId);
@@ -473,8 +501,8 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 	}
 
 	@Override
-	public EntityPigman createChild(EntityAgeable ageable) {
-		EntityPigman entityvillager = new EntityPigman(worldObj);
+	public EntityPigmanVillager createChild(EntityAgeable ageable) {
+		EntityPigmanVillager entityvillager = new EntityPigmanVillager(worldObj);
 		entityvillager.onInitialSpawn(worldObj.getDifficultyForLocation(new BlockPos(entityvillager)),
 				(IEntityLivingData) null);
 		return entityvillager;
@@ -580,9 +608,9 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			worldObj.spawnParticle(p_180489_1_, (posX + rand.nextFloat() * width * 2.0F) - width,
-					posY + 1.0D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width * 2.0F) - width, d0, d1,
-					d2, new int[0]);
+			worldObj.spawnParticle(p_180489_1_, (posX + (rand.nextFloat() * width * 2.0F)) - width,
+					posY + 1.0D + (rand.nextFloat() * height), (posZ + (rand.nextFloat() * width * 2.0F)) - width, d0,
+					d1, d2, new int[0]);
 		}
 	}
 
@@ -824,7 +852,7 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 	}
 
 	private void populateBuyingList() {
-		EntityPigman.ITradeList[][][] aitradelist = DEFAULT_TRADE_LIST_MAP[rand.nextInt(5)];
+		EntityPigmanVillager.ITradeList[][][] aitradelist = DEFAULT_TRADE_LIST_MAP[rand.nextInt(5)];
 
 		if ((careerId != 0) && (careerLevel != 0)) {
 			++careerLevel;
@@ -838,17 +866,17 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 		}
 
 		int i = careerId - 1;
-		EntityPigman.ITradeList[][] aitradelist1 = aitradelist[i];
+		EntityPigmanVillager.ITradeList[][] aitradelist1 = aitradelist[i];
 		careerLevel = rand.nextInt(aitradelist1.length) + 1;
 		int j = careerLevel - 1;
 
 		if (j < aitradelist1.length) {
-			EntityPigman.ITradeList[] aitradelist2 = aitradelist1[j];
-			EntityPigman.ITradeList[] aitradelist3 = aitradelist2;
+			EntityPigmanVillager.ITradeList[] aitradelist2 = aitradelist1[j];
+			EntityPigmanVillager.ITradeList[] aitradelist3 = aitradelist2;
 			int k = aitradelist2.length;
 
 			for (int l = 0; l < k; ++l) {
-				EntityPigman.ITradeList itradelist = aitradelist3[l];
+				EntityPigmanVillager.ITradeList itradelist = aitradelist3[l];
 				itradelist.modifyMerchantRecipeList(buyingList, rand);
 			}
 		}
@@ -1026,7 +1054,7 @@ public class EntityPigman extends EntityAgeable implements INpc, IMerchant {
 			i += 5;
 		}
 
-		if (p_70933_1_.getItemToBuy().getItem() == mod_Rediscovered.gemRuby) {
+		if (p_70933_1_.getItemToBuy().getItem() == Rediscovered.gemRuby) {
 			wealth += p_70933_1_.getItemToBuy().stackSize;
 		}
 
