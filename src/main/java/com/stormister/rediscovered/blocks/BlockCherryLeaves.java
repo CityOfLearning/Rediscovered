@@ -3,7 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.List;
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -34,7 +34,7 @@ public class BlockCherryLeaves extends BlockLeaves {
 	public BlockCherryLeaves() {
 		super();
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setCreativeTab(CreativeTabs.tabDecorations);
 	}
 
@@ -63,12 +63,12 @@ public class BlockCherryLeaves extends BlockLeaves {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World worldIn, BlockPos pos) {
-		return Item.getItemFromBlock(mod_Rediscovered.CherrySapling);
+		return Item.getItemFromBlock(Rediscovered.CherrySapling);
 	}
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(mod_Rediscovered.CherrySapling);
+		return Item.getItemFromBlock(Rediscovered.CherrySapling);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class BlockCherryLeaves extends BlockLeaves {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.CherryLeaves);
+		return new ItemStack(Rediscovered.CherryLeaves);
 	}
 
 	@Override

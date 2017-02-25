@@ -1,13 +1,13 @@
 package com.stormister.rediscovered.blocks;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 public class BlockCherryDoubleSlab extends BlockCherrySlab {
 
 	private final String name = "CherryDoubleSlab";
 
 	public BlockCherryDoubleSlab() {
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	public String getName() {

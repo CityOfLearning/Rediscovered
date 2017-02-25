@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.items;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -18,12 +18,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemLectern extends Item {
 	private final String name = "ItemLectern";
-	private Block block = mod_Rediscovered.Lectern;
+	private Block block = Rediscovered.Lectern;
 
 	public ItemLectern() {
 		super();
 		GameRegistry.registerItem(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	public String getName() {

@@ -65,7 +65,7 @@ public class MapGenSkyCaves extends MapGenSky {
 		int j1 = random.nextInt(l / 2) + (l / 4);
 		boolean flag1 = random.nextInt(6) == 0;
 		for (; k < l; k++) {
-			double d6 = 1.5D + MathHelper.sin((k * 3.141593F) / l) * f * 1.0F;
+			double d6 = 1.5D + (MathHelper.sin((k * 3.141593F) / l) * f * 1.0F);
 			double d7 = d6 * d3;
 			float f5 = MathHelper.cos(f2);
 			float f6 = MathHelper.sin(f2);

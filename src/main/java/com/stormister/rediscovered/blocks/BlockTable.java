@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.blocks.tiles.TileEntityTable;
 
 import net.minecraft.block.Block;
@@ -31,7 +31,7 @@ public class BlockTable extends Block implements ITileEntityProvider {
 		super(Material.wood);
 		field_94443_a = par2;
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setLightOpacity(0);
 		useNeighborBrightness = true;
 		setCreativeTab(CreativeTabs.tabDecorations);
@@ -65,7 +65,7 @@ public class BlockTable extends Block implements ITileEntityProvider {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(mod_Rediscovered.Table);
+		return Item.getItemFromBlock(Rediscovered.Table);
 	}
 
 	public String getName() {
@@ -75,7 +75,7 @@ public class BlockTable extends Block implements ITileEntityProvider {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.Table);
+		return new ItemStack(Rediscovered.Table);
 	}
 
 	@Override

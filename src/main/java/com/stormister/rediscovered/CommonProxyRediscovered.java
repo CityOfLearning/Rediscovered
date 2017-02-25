@@ -23,7 +23,7 @@ public class CommonProxyRediscovered {
 
 	/**
 	 * Adds an entity's custom data to the map for temporary storage
-	 * 
+	 *
 	 * @param compound
 	 *            An NBT Tag Compound that stores the IExtendedEntityProperties
 	 *            data only

@@ -53,7 +53,7 @@ public class GreenRegistry {
 		/**
 		 * Build an instance of the village component
 		 * {@link net.minecraft.world.gen.structure.StructureVillagePieces}
-		 * 
+		 *
 		 * @param villagePiece
 		 * @param startPiece
 		 * @param pieces
@@ -353,7 +353,7 @@ public class GreenRegistry {
 
 	/**
 	 * Register your villager id
-	 * 
+	 *
 	 * @param id
 	 */
 	public void registerVillagerId(int id) {

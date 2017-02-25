@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
@@ -34,7 +34,7 @@ public abstract class BlockDirtSlab extends BlockSlab {
 
 	/**
 	 * Creates the block state object.
-	 * 
+	 *
 	 * @return the block state with properties defined.
 	 */
 	@Override
@@ -48,7 +48,7 @@ public abstract class BlockDirtSlab extends BlockSlab {
 
 	/**
 	 * Gets the damage for the block's item when dropped.
-	 * 
+	 *
 	 * @param state
 	 *            the block's state.
 	 * @return the metadata or color value.
@@ -61,17 +61,17 @@ public abstract class BlockDirtSlab extends BlockSlab {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World worldIn, BlockPos pos) {
-		return Item.getItemFromBlock(mod_Rediscovered.DirtSlab);
+		return Item.getItemFromBlock(Rediscovered.DirtSlab);
 	}
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(mod_Rediscovered.DirtSlab);
+		return Item.getItemFromBlock(Rediscovered.DirtSlab);
 	}
 
 	/**
 	 * Gets the metadata value from a block state.
-	 * 
+	 *
 	 * @param state
 	 *            the block state.
 	 * @return the metadata or color value.
@@ -91,7 +91,7 @@ public abstract class BlockDirtSlab extends BlockSlab {
 
 	/**
 	 * Gets a block state from metadata.
-	 * 
+	 *
 	 * @param meta
 	 *            the metadata or color value.
 	 * @return a block state with the meta encoded as the variant property.
@@ -114,7 +114,7 @@ public abstract class BlockDirtSlab extends BlockSlab {
 
 	/**
 	 * Gets the unlocalized name based on metadata/damage.
-	 * 
+	 *
 	 * @param metadata
 	 *            block metadata.
 	 * @return the unlocalized name.
@@ -126,7 +126,7 @@ public abstract class BlockDirtSlab extends BlockSlab {
 
 	/**
 	 * Gets the value of the variant property based on the item.
-	 * 
+	 *
 	 * @param itemStack
 	 *            item stack.
 	 * @return the variant value null.
@@ -138,7 +138,7 @@ public abstract class BlockDirtSlab extends BlockSlab {
 
 	/**
 	 * Gets the variant property.
-	 * 
+	 *
 	 * @return the variant property null.
 	 */
 	@Override

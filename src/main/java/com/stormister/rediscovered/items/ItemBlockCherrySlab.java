@@ -9,7 +9,7 @@ import net.minecraft.item.ItemSlab;
 public class ItemBlockCherrySlab extends ItemSlab {
 	/**
 	 * Initializes a new instance of the ItemBlockStainedBrickSlab class.
-	 * 
+	 *
 	 * @param block
 	 *            the block behind the item.
 	 * @param slab

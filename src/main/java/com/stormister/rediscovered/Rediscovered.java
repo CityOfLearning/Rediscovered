@@ -3,7 +3,6 @@ package com.stormister.rediscovered;
 import java.util.HashMap;
 import java.util.Random;
 
-import com.stormister.rediscovered.blocks.BlockAbsorb;
 import com.stormister.rediscovered.blocks.BlockChair;
 import com.stormister.rediscovered.blocks.BlockCherryDoubleSlab;
 import com.stormister.rediscovered.blocks.BlockCherryHalfSlab;
@@ -12,7 +11,6 @@ import com.stormister.rediscovered.blocks.BlockCherryLog;
 import com.stormister.rediscovered.blocks.BlockCherrySapling;
 import com.stormister.rediscovered.blocks.BlockCherryStairs;
 import com.stormister.rediscovered.blocks.BlockCherryWood;
-import com.stormister.rediscovered.blocks.BlockCryingObsidian;
 import com.stormister.rediscovered.blocks.BlockDirtDoubleSlab;
 import com.stormister.rediscovered.blocks.BlockDirtHalfSlab;
 import com.stormister.rediscovered.blocks.BlockDragonEggRed;
@@ -20,7 +18,6 @@ import com.stormister.rediscovered.blocks.BlockEmptyPeonyBush;
 import com.stormister.rediscovered.blocks.BlockEmptyPeonyBushTop;
 import com.stormister.rediscovered.blocks.BlockEmptyRoseBush;
 import com.stormister.rediscovered.blocks.BlockEmptyRoseBushTop;
-import com.stormister.rediscovered.blocks.BlockGear;
 import com.stormister.rediscovered.blocks.BlockLantern;
 import com.stormister.rediscovered.blocks.BlockLanternPhys;
 import com.stormister.rediscovered.blocks.BlockLectern;
@@ -43,7 +40,7 @@ import com.stormister.rediscovered.entity.EntityGreenVillager;
 import com.stormister.rediscovered.entity.EntityMeleePigman;
 import com.stormister.rediscovered.entity.EntityMountableBlock;
 import com.stormister.rediscovered.entity.EntityParrow;
-import com.stormister.rediscovered.entity.EntityPigman;
+import com.stormister.rediscovered.entity.EntityPigmanVillager;
 import com.stormister.rediscovered.entity.EntityRangedPigman;
 import com.stormister.rediscovered.entity.EntityRediscoveredPotion;
 import com.stormister.rediscovered.entity.EntityScarecrow;
@@ -53,7 +50,6 @@ import com.stormister.rediscovered.entity.EntityZombieHorse;
 import com.stormister.rediscovered.items.ItemBlockCherrySlab;
 import com.stormister.rediscovered.items.ItemBlockDirtSlab;
 import com.stormister.rediscovered.items.ItemDreamPillow;
-import com.stormister.rediscovered.items.ItemGear;
 import com.stormister.rediscovered.items.ItemLC;
 import com.stormister.rediscovered.items.ItemLantern;
 import com.stormister.rediscovered.items.ItemPotionRediscovered;
@@ -63,7 +59,6 @@ import com.stormister.rediscovered.items.ItemScarecrow;
 import com.stormister.rediscovered.world.BiomeGenSky;
 import com.stormister.rediscovered.world.WorldGeneratorPigmanVillage;
 import com.stormister.rediscovered.world.WorldGeneratorRuby;
-import com.stormister.rediscovered.world.WorldGeneratorSponge;
 import com.stormister.rediscovered.world.WorldProviderHeaven;
 
 import net.minecraft.block.Block;
@@ -106,7 +101,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = mod_Rediscovered.modid, name = "Minecraft Rediscovered Mod", version = "1.3")
+@Mod(modid = Rediscovered.modid, name = "Minecraft Rediscovered Mod", version = "1.3")
 
 /*
  * Current Changelog - 1.3 -Added splash potions and changed how current potions
@@ -114,15 +109,15 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  * -Added Studded Chestplate with quiver
  */
 
-public class mod_Rediscovered {
+public class Rediscovered {
 	public static final String modid = "Rediscovered";
 	@Instance
-	public static mod_Rediscovered instance;
-	public static Configuration c;
+	public static Rediscovered instance;
+	public static Configuration config;
 	public static HashMap<String, BlockPos> usernameLastPosMap = new HashMap<String, BlockPos>();
 	public static final int guiIDLockedChest = 0;
-	public static Block Gear;
-	public static Item ItemGear;
+	// public static Block Gear;
+	// public static Item ItemGear;
 	public static BlockDirtHalfSlab DirtSlab;
 	public static BlockDirtDoubleSlab DirtDoubleSlab;
 	public static BlockCherryHalfSlab CherrySlab;
@@ -140,11 +135,11 @@ public class mod_Rediscovered {
 	public static Item LeatherChainLegs;
 	public static Item LeatherChainBoots;
 	public static Item RediscoveredPotion;
-	public static Block Sponge;
+	// public static Block Sponge;
 	public static Block RubyOre;
 	public static Block RubyBlock;
 	public static Item gemRuby;
-	public static Block CryingObsidian;
+	// public static Block CryingObsidian;
 	public static BlockCherryLog CherryLog;
 	public static Block CherryPlank;
 	public static Block CherryLeaves;
@@ -192,11 +187,9 @@ public class mod_Rediscovered {
 	public static int DimID;
 	public static int HeavenBiomeID;
 	public static boolean EnablePigmanVillages;
-	public static boolean EnableSpongeGenerate;
 	public static boolean EnableQuivers;
 	public static boolean EnableDungeonLoot;
 	public static boolean EnableRubyOre;
-	public static boolean anmen;
 	public static boolean GVillagerSpawn;
 	public static boolean ScarecrowAttractsMobs;
 	public static boolean DreamPillowRecipe;
@@ -230,8 +223,8 @@ public class mod_Rediscovered {
 	}
 
 	public static int nextInternalID() {
-		mod_Rediscovered.nextID++;
-		return mod_Rediscovered.nextID - 1;
+		Rediscovered.nextID++;
+		return Rediscovered.nextID - 1;
 	}
 
 	// Block Renders
@@ -239,36 +232,37 @@ public class mod_Rediscovered {
 		Item item = Item.getItemFromBlock(block);
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
 		renderItem.getItemModelMesher().register(item, 0,
-				new ModelResourceLocation(mod_Rediscovered.modid + ":" + name, "inventory"));
+				new ModelResourceLocation(Rediscovered.modid + ":" + name, "inventory"));
 	}
 
 	public static void registerItemRenders(Item item, int meta, String name) {
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
 		renderItem.getItemModelMesher().register(item, meta,
-				new ModelResourceLocation(mod_Rediscovered.modid + ":" + name, "inventory"));
+				new ModelResourceLocation(Rediscovered.modid + ":" + name, "inventory"));
 	}
 
 	// Item Renders
 	public static void registerItemRenders(Item item, String name) {
 		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
 		renderItem.getItemModelMesher().register(item, 0,
-				new ModelResourceLocation(mod_Rediscovered.modid + ":" + name, "inventory"));
+				new ModelResourceLocation(Rediscovered.modid + ":" + name, "inventory"));
 	}
 
 	// Entity Renders
 	public static void registerRediscoveredMob(Class<? extends Entity> var0, String var1, int id) {
 		if (id == -1) {
-			EntityRegistry.registerModEntity(var0, var1, nextInternalID(), mod_Rediscovered.instance, 80, 3, true);
+			EntityRegistry.registerModEntity(var0, var1, nextInternalID(), Rediscovered.instance, 80, 3, true);
 		} else {
-			EntityRegistry.registerModEntity(var0, var1, id, mod_Rediscovered.instance, 80, 3, true);
+			EntityRegistry.registerModEntity(var0, var1, id, Rediscovered.instance, 80, 3, true);
 		}
 	}
 
 	public static void registerRediscoveredMob(Class<? extends Entity> var0, String var1, int back, int fore, int id) {
 		if (id == -1) {
-			EntityRegistry.registerModEntity(var0, var1, nextInternalID(), mod_Rediscovered.instance, 80, 3, true, back, fore);
+			EntityRegistry.registerModEntity(var0, var1, nextInternalID(), Rediscovered.instance, 80, 3, true, back,
+					fore);
 		} else {
-			EntityRegistry.registerModEntity(var0, var1, id, mod_Rediscovered.instance, 80, 3, true, back, fore);
+			EntityRegistry.registerModEntity(var0, var1, id, Rediscovered.instance, 80, 3, true, back, fore);
 		}
 	}
 
@@ -286,8 +280,8 @@ public class mod_Rediscovered {
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
 		if (e.getSide() == Side.CLIENT) {
-			registerBlockRenders(CryingObsidian, "CryingObsidian");
-			registerBlockRenders(Sponge, "Sponge");
+			// registerBlockRenders(CryingObsidian, "CryingObsidian");
+			// registerBlockRenders(Sponge, "Sponge");
 			registerBlockRenders(Spikes, "Spikes");
 			registerBlockRenders(DragonEggRed, "DragonEggRed");
 			registerBlockRenders(RubyOre, "RubyOre");
@@ -314,7 +308,7 @@ public class mod_Rediscovered {
 			registerBlockRenders(CherryPlank, "CherryPlank");
 			registerBlockRenders(CherrySapling, "CherrySapling");
 			registerBlockRenders(CherryStairs, "CherryStairs");
-			registerBlockRenders(Gear, "GearWall");
+			// registerBlockRenders(Gear, "GearWall");
 
 			if (EnableQuivers) {
 				registerItemRenders(Quiver, "Quiver");
@@ -339,9 +333,9 @@ public class mod_Rediscovered {
 			registerItemRenders(ItemLantern, "ItemLantern");
 			registerItemRenders(Scarecrow, "Scarecrow");
 			registerItemRenders(DreamPillow, "DreamPillow");
-			registerItemRenders(ItemGear, "ItemGear");
+			// registerItemRenders(ItemGear, "ItemGear");
 		}
-		proxy.registerRenderThings();
+
 		registerRecipes();
 	}
 
@@ -349,10 +343,12 @@ public class mod_Rediscovered {
 	public void preInit(FMLPreInitializationEvent e) {
 		registerConfig(e);
 		// Blocks
-		CryingObsidian = (new BlockCryingObsidian()).setHardness(50F).setResistance(2000F)
-				.setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabs.tabBlock);
-		Sponge = (new BlockAbsorb()).setHardness(0.6F).setStepSound(Block.soundTypeGrass)
-				.setCreativeTab(CreativeTabs.tabBlock);
+		// CryingObsidian = (new
+		// BlockCryingObsidian()).setHardness(50F).setResistance(2000F)
+		// .setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabs.tabBlock);
+		// Sponge = (new
+		// BlockAbsorb()).setHardness(0.6F).setStepSound(Block.soundTypeGrass)
+		// .setCreativeTab(CreativeTabs.tabBlock);
 		Spikes = (new BlockSpikes()).setHardness(1.5F).setResistance(5.0F).setStepSound(Block.soundTypeWood);
 		DragonEggRed = (new BlockDragonEggRed()).setHardness(3.0F).setResistance(15.0F)
 				.setStepSound(Block.soundTypeStone).setLightLevel(0.125F).setCreativeTab(CreativeTabs.tabMisc);
@@ -391,7 +387,8 @@ public class mod_Rediscovered {
 				.setStepSound(Block.soundTypeWood);
 		CherrySapling = (new BlockCherrySapling()).setHardness(0.0F).setStepSound(Block.soundTypeGrass);
 		CherryStairs = (new BlockCherryStairs(CherryPlank.getDefaultState()));
-		Gear = (new BlockGear()).setHardness(1.0F).setStepSound(Block.soundTypeMetal);
+		// Gear = (new
+		// BlockGear()).setHardness(1.0F).setStepSound(Block.soundTypeMetal);
 
 		// Items
 		if (EnableQuivers) {
@@ -418,7 +415,7 @@ public class mod_Rediscovered {
 		ItemLantern = new ItemLantern();
 		Scarecrow = (new ItemScarecrow()).setCreativeTab(CreativeTabs.tabDecorations);
 		DreamPillow = (new ItemDreamPillow()).setCreativeTab(CreativeTabs.tabMisc);
-		ItemGear = (new ItemGear()).setCreativeTab(CreativeTabs.tabRedstone);
+		// ItemGear = (new ItemGear()).setCreativeTab(CreativeTabs.tabRedstone);
 
 		heaven = (new BiomeGenSky(HeavenBiomeID)).setColor(16421912).setBiomeName("Heaven").setDisableRain();
 
@@ -443,54 +440,63 @@ public class mod_Rediscovered {
 				BiomeGenBase.megaTaiga, BiomeGenBase.roofedForest, BiomeGenBase.mesa, BiomeGenBase.savanna);
 
 		registerGameRegistryThings();
+
+		proxy.registerRenderThings();
 	}
 
 	// Config
 	public void registerConfig(FMLPreInitializationEvent e) {
-		c = new Configuration(e.getSuggestedConfigurationFile());
-		c.load();
+		config = new Configuration(e.getSuggestedConfigurationFile());
+		config.load();
 
 		// IDs
-		PurpleArrowID = c.get("ID's", "Purple Arrow ID (-1 means it will automatically assign an ID)", -1).getInt();
-		PotionID = c.get("ID's", "Thrown Potion ID (-1 means it will automatically assign an ID)", -1).getInt();
-		MountableBlockID = c.get("ID's", "Mountable Block ID (-1 means it will automatically assign an ID)", -1)
+		PurpleArrowID = config.get("ID's", "Purple Arrow ID (-1 means it will automatically assign an ID)", -1)
 				.getInt();
-		PigmanID = c.get("ID's", "Pigman ID (-1 means it will automatically assign an ID)", -1).getInt();
-		MeleePigmanID = c.get("ID's", "Melee Pigman ID (-1 means it will automatically assign an ID)", -1).getInt();
-		RangedPigmanID = c.get("ID's", "Ranged Pigman ID (-1 means it will automatically assign an ID)", -1).getInt();
-		GreenVillagerID = c.get("ID's", "Green Villager ID (-1 means it will automatically assign an ID)", -1).getInt();
-		SkyChickenID = c.get("ID's", "Sky Chicken ID (-1 means it will automatically assign an ID)", -1).getInt();
-		GiantID = c.get("ID's", "Giant ID (-1 means it will automatically assign an ID)", -1).getInt();
-		FishID = c.get("ID's", "Fish ID (-1 means it will automatically assign an ID)", -1).getInt();
-		ZombieHorseID = c.get("ID's", "Zombie Horse ID (-1 means it will automatically assign an ID)", -1).getInt();
-		SkeletonHorseID = c.get("ID's", "Skeleton Horse ID (-1 means it will automatically assign an ID)", -1).getInt();
-		ScarecrowID = c.get("ID's", "Scarecrow ID (-1 means it will automatically assign an ID)", -1).getInt();
-		RedDragonID = c.get("ID's", "Red Dragon ID (-1 means it will automatically assign an ID)", -1).getInt();
-		DimID = c.get("ID's", "Sky Dimension ID", 2).getInt();
-		HeavenBiomeID = c.get("ID's", "Sky Biome ID", 153).getInt();
+		PotionID = config.get("ID's", "Thrown Potion ID (-1 means it will automatically assign an ID)", -1).getInt();
+		MountableBlockID = config.get("ID's", "Mountable Block ID (-1 means it will automatically assign an ID)", -1)
+				.getInt();
+		PigmanID = config.get("ID's", "Pigman ID (-1 means it will automatically assign an ID)", -1).getInt();
+		MeleePigmanID = config.get("ID's", "Melee Pigman ID (-1 means it will automatically assign an ID)", -1)
+				.getInt();
+		RangedPigmanID = config.get("ID's", "Ranged Pigman ID (-1 means it will automatically assign an ID)", -1)
+				.getInt();
+		GreenVillagerID = config.get("ID's", "Green Villager ID (-1 means it will automatically assign an ID)", -1)
+				.getInt();
+		SkyChickenID = config.get("ID's", "Sky Chicken ID (-1 means it will automatically assign an ID)", -1).getInt();
+		GiantID = config.get("ID's", "Giant ID (-1 means it will automatically assign an ID)", -1).getInt();
+		FishID = config.get("ID's", "Fish ID (-1 means it will automatically assign an ID)", -1).getInt();
+		ZombieHorseID = config.get("ID's", "Zombie Horse ID (-1 means it will automatically assign an ID)", -1)
+				.getInt();
+		SkeletonHorseID = config.get("ID's", "Skeleton Horse ID (-1 means it will automatically assign an ID)", -1)
+				.getInt();
+		ScarecrowID = config.get("ID's", "Scarecrow ID (-1 means it will automatically assign an ID)", -1).getInt();
+		RedDragonID = config.get("ID's", "Red Dragon ID (-1 means it will automatically assign an ID)", -1).getInt();
+		DimID = config.get("ID's", "Sky Dimension ID", 2).getInt();
+		HeavenBiomeID = config.get("ID's", "Sky Biome ID", 153).getInt();
 
 		// Booleans
-		EnableSpongeGenerate = c.get("Options", "Enable Sponges Appear in Ocean", true).getBoolean(true);
-		EnableQuivers = c.get("Options", "Enable Quivers", true).getBoolean(true);
-		EnableDungeonLoot = c.get("Options", "Enable Lanterns appear in Dungeon Chests", true).getBoolean(true);
-		EnableRubyOre = c.get("Options", "Enable Ruby Ore Generates Underground", true).getBoolean(true);
-		EnablePigmanVillages = c.get("Options", "Enable Pigman Villages in the Sky Dimension", true).getBoolean(true);
-		anmen = c.get("Options", "Enable Steve, Black Steve, and Beast Boy jogging", true).getBoolean(true);
-		GVillagerSpawn = c.get("Options", "Enable Green Villager Spawn in Villages", true).getBoolean(true);
-		ZombieHorseSpawn = c.get("Options", "Zombie Horse Spawn Rate", 25).getInt();
-		SkeletonHorseSpawn = c.get("Options", "Skeleton Horse Spawn Rate", 25).getInt();
-		RedDragonSpawn = c.get("Options", "Red Dragon Spawn Rate", 50).getInt();
-		SkyChickenSpawn = c.get("Options", "Sky Chicken Spawn Rate", 150).getInt();
-		GiantSpawn = c.get("Options", "Giant Spawn Rate", 150).getInt();
-		FishSpawn = c.get("Options", "Fish Spawn Rate", 150).getInt();
-		ScarecrowAttractsMobs = c.get("Options",
+		EnableQuivers = config.get("Options", "Enable Quivers", true).getBoolean(true);
+		EnableDungeonLoot = config.get("Options", "Enable Lanterns appear in Dungeon Chests", true).getBoolean(true);
+		EnableRubyOre = config.get("Options", "Enable Ruby Ore Generates Underground", true).getBoolean(true);
+		EnablePigmanVillages = config.get("Options", "Enable Pigman Villages in the Sky Dimension", true)
+				.getBoolean(true);
+		GVillagerSpawn = config.get("Options", "Enable Green Villager Spawn in Villages", true).getBoolean(true);
+		ZombieHorseSpawn = config.get("Options", "Zombie Horse Spawn Rate", 25).getInt();
+		SkeletonHorseSpawn = config.get("Options", "Skeleton Horse Spawn Rate", 25).getInt();
+		RedDragonSpawn = config.get("Options", "Red Dragon Spawn Rate", 50).getInt();
+		SkyChickenSpawn = config.get("Options", "Sky Chicken Spawn Rate", 150).getInt();
+		GiantSpawn = config.get("Options", "Giant Spawn Rate", 150).getInt();
+		FishSpawn = config.get("Options", "Fish Spawn Rate", 150).getInt();
+		ScarecrowAttractsMobs = config.get("Options",
 				"Scarecrow attracts zombies (True by default. Set to false to have zombies avoid scarecrows)", true)
 				.getBoolean(true);
-		DreamPillowRecipe = c.get("Options", "Enable Dream Pillow recipe", false).getBoolean(false);
-		DreamChance = c.get("Options", "Percent chance out of 100 of going to Sky Dimension on sleep.", 12).getInt();
-		DaytimeBed = c.get("Options", "Can go to Sky Dimension without Restrictions (Daytime, Monsters nearby).", false)
+		DreamPillowRecipe = config.get("Options", "Enable Dream Pillow recipe", false).getBoolean(false);
+		DreamChance = config.get("Options", "Percent chance out of 100 of going to Sky Dimension on sleep.", 12)
+				.getInt();
+		DaytimeBed = config
+				.get("Options", "Can go to Sky Dimension without Restrictions (Daytime, Monsters nearby).", false)
 				.getBoolean(false);
-		c.save();
+		config.save();
 	}
 
 	// GameRegistry
@@ -522,7 +528,7 @@ public class mod_Rediscovered {
 		registerRediscoveredMob(EntityParrow.class, "ParrowRediscovered", PurpleArrowID);
 		registerRediscoveredMob(EntityRediscoveredPotion.class, "PotionRediscovered", PotionID);
 		registerRediscoveredMob(EntityMountableBlock.class, "EntityMountableBlockRediscovered", MountableBlockID);
-		registerRediscoveredMob(EntityPigman.class, "PigmanRediscovered", 0xf0a5a2, 0xa1a1a1, PigmanID);
+		registerRediscoveredMob(EntityPigmanVillager.class, "PigmanRediscovered", 0xf0a5a2, 0xa1a1a1, PigmanID);
 		registerRediscoveredMob(EntityMeleePigman.class, "MeleePigmanRediscovered", 0xf0a5a2, 0xa1a1a1, MeleePigmanID);
 		registerRediscoveredMob(EntityRangedPigman.class, "RangedPigmanRediscovered", 0xf0a5a2, 0xa1a1a1,
 				RangedPigmanID);
@@ -546,9 +552,6 @@ public class mod_Rediscovered {
 
 		if (EnableRubyOre) {
 			GameRegistry.registerWorldGenerator(new WorldGeneratorRuby(), 0);
-		}
-		if (EnableSpongeGenerate) {
-			GameRegistry.registerWorldGenerator(new WorldGeneratorSponge(), 0);
 		}
 		if (EnablePigmanVillages) {
 			GameRegistry.registerWorldGenerator(new WorldGeneratorPigmanVillage(), 0);
@@ -602,8 +605,9 @@ public class mod_Rediscovered {
 		GameRegistry.addShapelessRecipe(new ItemStack(CherryPlank, 4), new Object[] { CherryLog });
 		GameRegistry.addRecipe(new ItemStack(CherrySlab, 6), new Object[] { "SSS", 'S', CherryPlank });
 		GameRegistry.addRecipe(new ItemStack(CherryStairs, 4), new Object[] { "  S", " SS", "SSS", 'S', CherryPlank });
-		GameRegistry.addRecipe(new ItemStack(CryingObsidian, 1),
-				new Object[] { " L ", "LOL", " L ", 'L', new ItemStack(Items.dye, 1, 4), 'O', Blocks.obsidian });
+		// GameRegistry.addRecipe(new ItemStack(CryingObsidian, 1),
+		// new Object[] { " L ", "LOL", " L ", 'L', new ItemStack(Items.dye, 1,
+		// 4), 'O', Blocks.obsidian });
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Spikes, 1), true,
 				new Object[] { "   ", "I I", "LLL", 'L', "plankWood", 'I', Items.iron_ingot }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Scarecrow, 1), true,
@@ -638,7 +642,8 @@ public class mod_Rediscovered {
 				new Object[] { "   ", "LLL", "L L", 'L', "plankWood" }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Lectern, 1), true,
 				new Object[] { " B ", " L ", "LGL", 'L', "plankWood", 'G', Items.gold_ingot, 'B', Items.book }));
-		GameRegistry.addRecipe(new ItemStack(ItemGear, 8), new Object[] { " I ", "III", " I ", 'I', Items.iron_ingot });
+		// GameRegistry.addRecipe(new ItemStack(ItemGear, 8), new Object[] { " I
+		// ", "III", " I ", 'I', Items.iron_ingot });
 		GameRegistry.addRecipe(new ItemStack(ItemLantern, 1),
 				new Object[] { " I ", " S ", " I ", 'I', Items.iron_ingot, 'S', Items.glowstone_dust });
 	}

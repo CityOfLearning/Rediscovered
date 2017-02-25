@@ -3,7 +3,7 @@ package com.stormister.rediscovered.items;
 import java.util.List;
 
 import com.google.common.base.Predicates;
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
@@ -69,7 +69,7 @@ public class ItemQuiver extends ItemArmor {
 		this.material = material;
 		this.armorType = armorType;
 		GameRegistry.registerItem(this, this.name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + this.name);
+		setUnlocalizedName(Rediscovered.modid + "_" + this.name);
 		this.renderIndex = renderIndex;
 		damageReduceAmount = material.getDamageReductionAmount(armorType);
 		setMaxDamage(material.getDurability(armorType));
@@ -85,7 +85,7 @@ public class ItemQuiver extends ItemArmor {
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-		return mod_Rediscovered.modid + ":textures/models/" + name + "_" + (armorType == 2 ? "2" : "1") + ".png";
+		return Rediscovered.modid + ":textures/models/" + name + "_" + (armorType == 2 ? "2" : "1") + ".png";
 	}
 
 	@Override

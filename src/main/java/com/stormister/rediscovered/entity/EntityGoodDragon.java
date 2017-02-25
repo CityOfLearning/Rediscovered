@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.stormister.rediscovered.IEntityMultiPartRed;
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockTorch;
 import net.minecraft.entity.Entity;
@@ -161,9 +161,9 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 		float var4 = (rotationYaw * (float) Math.PI) / 180.0F;
 		float var5 = MathHelper.sin(var4);
 		float var6 = MathHelper.cos(var4);
-		targetX = posX + var5 * 5.0F + (rand.nextFloat() - 0.5F) * 2.0F;
-		targetY = posY + rand.nextFloat() * 3.0F + 1.0D;
-		targetZ = (posZ - var6 * 5.0F) + (rand.nextFloat() - 0.5F) * 2.0F;
+		targetX = posX + (var5 * 5.0F) + ((rand.nextFloat() - 0.5F) * 2.0F);
+		targetY = posY + (rand.nextFloat() * 3.0F) + 1.0D;
+		targetZ = (posZ - (var6 * 5.0F)) + ((rand.nextFloat() - 0.5F) * 2.0F);
 		target = null;
 
 		if ((par2DamageSource.getEntity() instanceof EntityPlayer) || par2DamageSource.isExplosion()) {
@@ -236,12 +236,12 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 
 						if (i < 0) {
 							if (d2 <= 6.25D) {
-								worldObj.setBlockState(blockpos1, mod_Rediscovered.CryingObsidian.getDefaultState());
+								worldObj.setBlockState(blockpos1, Blocks.obsidian.getDefaultState());
 							}
 						} else if (i > 0) {
 							worldObj.setBlockState(blockpos1, Blocks.air.getDefaultState());
 						} else if (d2 > 6.25D) {
-							worldObj.setBlockState(blockpos1, mod_Rediscovered.CryingObsidian.getDefaultState());
+							worldObj.setBlockState(blockpos1, Blocks.obsidian.getDefaultState());
 						} else {
 							worldObj.setBlockState(blockpos1, Blocks.fire.getDefaultState());
 						}
@@ -250,10 +250,10 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 			}
 		}
 
-		worldObj.setBlockState(p_175499_1_, mod_Rediscovered.CryingObsidian.getDefaultState());
-		worldObj.setBlockState(p_175499_1_.up(), mod_Rediscovered.CryingObsidian.getDefaultState());
+		worldObj.setBlockState(p_175499_1_, Blocks.obsidian.getDefaultState());
+		worldObj.setBlockState(p_175499_1_.up(), Blocks.obsidian.getDefaultState());
 		BlockPos blockpos2 = p_175499_1_.up(2);
-		worldObj.setBlockState(blockpos2, mod_Rediscovered.CryingObsidian.getDefaultState());
+		worldObj.setBlockState(blockpos2, Blocks.obsidian.getDefaultState());
 		worldObj.setBlockState(blockpos2.west(),
 				Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.EAST));
 		worldObj.setBlockState(blockpos2.east(),
@@ -262,8 +262,8 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 				Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.SOUTH));
 		worldObj.setBlockState(blockpos2.south(),
 				Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.NORTH));
-		worldObj.setBlockState(p_175499_1_.up(3), mod_Rediscovered.CryingObsidian.getDefaultState());
-		worldObj.setBlockState(p_175499_1_.up(4), mod_Rediscovered.DragonEggRed.getDefaultState());
+		worldObj.setBlockState(p_175499_1_.up(3), Blocks.obsidian.getDefaultState());
+		worldObj.setBlockState(p_175499_1_.up(4), Rediscovered.DragonEggRed.getDefaultState());
 	}
 
 	@Override
@@ -649,11 +649,11 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 			float f11 = MathHelper.sin(f10);
 			float f12 = MathHelper.cos(f10);
 			dragonPartBody.onUpdate();
-			dragonPartBody.setLocationAndAngles(posX + f11 * 0.5F, posY, posZ - f12 * 0.5F, 0.0F, 0.0F);
+			dragonPartBody.setLocationAndAngles(posX + (f11 * 0.5F), posY, posZ - (f12 * 0.5F), 0.0F, 0.0F);
 			dragonPartWing1.onUpdate();
-			dragonPartWing1.setLocationAndAngles(posX + f12 * 4.5F, posY + 2.0D, posZ + f11 * 4.5F, 0.0F, 0.0F);
+			dragonPartWing1.setLocationAndAngles(posX + (f12 * 4.5F), posY + 2.0D, posZ + (f11 * 4.5F), 0.0F, 0.0F);
 			dragonPartWing2.onUpdate();
-			dragonPartWing2.setLocationAndAngles(posX - f12 * 4.5F, posY + 2.0D, posZ - f11 * 4.5F, 0.0F, 0.0F);
+			dragonPartWing2.setLocationAndAngles(posX - (f12 * 4.5F), posY + 2.0D, posZ - (f11 * 4.5F), 0.0F, 0.0F);
 
 			if (!worldObj.isRemote && (hurtTime == 0)) {
 				collideWithEntities(worldObj.getEntitiesWithinAABBExcludingEntity(this,
@@ -669,8 +669,8 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 			f3 = MathHelper.sin(((rotationYaw * (float) Math.PI) / 180.0F) - (randomYawVelocity * 0.01F));
 			float f13 = MathHelper.cos(((rotationYaw * (float) Math.PI) / 180.0F) - (randomYawVelocity * 0.01F));
 			dragonPartHead.onUpdate();
-			dragonPartHead.setLocationAndAngles(posX + f3 * 5.5F * f2,
-					posY + ((adouble1[1] - adouble[1]) * 1.0D) + f9 * 5.5F, posZ - f13 * 5.5F * f2, 0.0F, 0.0F);
+			dragonPartHead.setLocationAndAngles(posX + (f3 * 5.5F * f2),
+					posY + ((adouble1[1] - adouble[1]) * 1.0D) + (f9 * 5.5F), posZ - (f13 * 5.5F * f2), 0.0F, 0.0F);
 
 			for (int j = 0; j < 3; ++j) {
 				EntityGoodDragonPart entitydragonpart = null;
@@ -695,9 +695,9 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 				float f17 = 1.5F;
 				float f18 = (j + 1) * 2.0F;
 				entitydragonpart.onUpdate();
-				entitydragonpart.setLocationAndAngles(posX - ((f11 * f17) + (f15 * f18)) * f2,
-						((posY + ((adouble2[1] - adouble[1]) * 1.0D)) - (f18 + f17) * f9) + 1.5D,
-						posZ + ((f12 * f17) + (f16 * f18)) * f2, 0.0F, 0.0F);
+				entitydragonpart.setLocationAndAngles(posX - (((f11 * f17) + (f15 * f18)) * f2),
+						((posY + ((adouble2[1] - adouble[1]) * 1.0D)) - ((f18 + f17) * f9)) + 1.5D,
+						posZ + (((f12 * f17) + (f16 * f18)) * f2), 0.0F, 0.0F);
 			}
 
 			// if (!this.worldObj.isRemote)

@@ -2,7 +2,7 @@ package com.stormister.rediscovered.entity;
 
 import java.util.List;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -63,7 +63,7 @@ public class EntityParrow extends Entity implements IProjectile {
 
 		posY = (shooter.posY + shooter.getEyeHeight()) - 0.10000000149011612D;
 		double d0 = p_i1755_3_.posX - shooter.posX;
-		double d1 = (p_i1755_3_.getEntityBoundingBox().minY + p_i1755_3_.height / 3.0F) - posY;
+		double d1 = (p_i1755_3_.getEntityBoundingBox().minY + (p_i1755_3_.height / 3.0F)) - posY;
 		double d2 = p_i1755_3_.posZ - shooter.posZ;
 		double d3 = MathHelper.sqrt_double((d0 * d0) + (d2 * d2));
 
@@ -242,9 +242,9 @@ public class EntityParrow extends Entity implements IProjectile {
 					DamageSource damagesource;
 
 					if (shootingEntity == null) {
-						damagesource = mod_Rediscovered.causeParrowDamage(this, this);
+						damagesource = Rediscovered.causeParrowDamage(this, this);
 					} else {
-						damagesource = mod_Rediscovered.causeParrowDamage(this, shootingEntity);
+						damagesource = Rediscovered.causeParrowDamage(this, shootingEntity);
 					}
 
 					if (isBurning() && !(movingobjectposition.entityHit instanceof EntityEnderman)) {

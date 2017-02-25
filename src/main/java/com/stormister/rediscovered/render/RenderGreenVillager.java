@@ -8,14 +8,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerCustomHead;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderGreenVillager extends RenderLiving {
+public class RenderGreenVillager extends RenderLiving<EntityGreenVillager> {
 	private static final ResourceLocation villagerTextures = new ResourceLocation(
 			"textures/entity/villager/villager.png");
 
@@ -29,10 +27,6 @@ public class RenderGreenVillager extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		return this.getEntityTexture((EntityGreenVillager) entity);
-	}
-
 	protected ResourceLocation getEntityTexture(EntityGreenVillager entity) {
 
 		return net.minecraftforge.fml.common.registry.VillagerRegistry.getVillagerSkin(entity.getProfession(),
@@ -45,6 +39,7 @@ public class RenderGreenVillager extends RenderLiving {
 		return func_177134_g();
 	}
 
+	@Override
 	protected void preRenderCallback(EntityGreenVillager p_77041_1_, float p_77041_2_) {
 		float f1 = 0.9375F;
 
@@ -56,10 +51,5 @@ public class RenderGreenVillager extends RenderLiving {
 		}
 
 		GlStateManager.scale(f1, f1, f1);
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLivingBase p_77041_1_, float p_77041_2_) {
-		this.preRenderCallback((EntityGreenVillager) p_77041_1_, p_77041_2_);
 	}
 }

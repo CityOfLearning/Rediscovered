@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,7 +15,7 @@ public class BlockRuby extends Block {
 		super(Material.rock);
 		this.setHarvestLevel("pickaxe", 1);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	public String getName() {
@@ -26,7 +26,7 @@ public class BlockRuby extends Block {
 	 * Returns the ID of the items to drop on destruction.
 	 */
 	public Block idDropped(int i, Random random, int j) {
-		return mod_Rediscovered.RubyBlock;
+		return Rediscovered.RubyBlock;
 	}
 
 	/**

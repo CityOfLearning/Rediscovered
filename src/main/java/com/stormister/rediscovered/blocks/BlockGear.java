@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -62,9 +62,9 @@ public class BlockGear extends Block {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		worldIn.setBlockState(pos,
-				mod_Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 		worldIn.setBlockState(pos,
-				mod_Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 	}
 
 	private final String name = "GearWall";
@@ -73,7 +73,7 @@ public class BlockGear extends Block {
 		super(Material.circuits);
 		setTickRandomly(true);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
 		this.setHarvestLevel("pickaxe", 0);
 	}
@@ -139,7 +139,7 @@ public class BlockGear extends Block {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return mod_Rediscovered.ItemGear;
+		return null;// Rediscovered.ItemGear;
 	}
 
 	@Override
@@ -154,7 +154,7 @@ public class BlockGear extends Block {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.ItemGear);
+		return null;// new ItemStack(Rediscovered.ItemGear);
 	}
 
 	@Override

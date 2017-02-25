@@ -18,7 +18,7 @@ public class RediscoveredGuiHandler implements IGuiHandler {
 		TileEntity tileentity = world.getTileEntity(new BlockPos(x, y, z));
 
 		switch (ID) {
-		case mod_Rediscovered.guiIDLockedChest:
+		case Rediscovered.guiIDLockedChest:
 			if (tileentity instanceof TileEntityLockedChest) {
 				return new GuiLockedChest(player);
 			}
@@ -31,7 +31,7 @@ public class RediscoveredGuiHandler implements IGuiHandler {
 		TileEntity tileentity = world.getTileEntity(new BlockPos(x, y, z));
 
 		switch (ID) {
-		case mod_Rediscovered.guiIDLockedChest:
+		case Rediscovered.guiIDLockedChest:
 			if (tileentity instanceof TileEntityLockedChest) {
 				return new ContainerLockedChest(player);
 			}

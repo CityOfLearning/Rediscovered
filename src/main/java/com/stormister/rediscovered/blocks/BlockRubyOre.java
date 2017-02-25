@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
@@ -17,7 +17,7 @@ public class BlockRubyOre extends BlockOre {
 	public BlockRubyOre(String texture) {
 		super();
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setCreativeTab(CreativeTabs.tabBlock);
 		this.setHarvestLevel("pickaxe", 2);
 	}
@@ -32,7 +32,7 @@ public class BlockRubyOre extends BlockOre {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return mod_Rediscovered.gemRuby;
+		return Rediscovered.gemRuby;
 	}
 
 	public String getName() {

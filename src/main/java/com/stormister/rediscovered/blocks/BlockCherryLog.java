@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.blocks;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.properties.IProperty;
@@ -42,7 +42,7 @@ public class BlockCherryLog extends BlockLog {
 	public BlockCherryLog(String texture) {
 		super();
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setCreativeTab(CreativeTabs.tabBlock);
 	}
 

@@ -1,13 +1,13 @@
 package com.stormister.rediscovered.blocks;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 public class BlockDirtDoubleSlab extends BlockDirtSlab {
 
 	private final String name = "DirtDoubleSlab";
 
 	public BlockDirtDoubleSlab() {
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	public String getName() {

@@ -143,7 +143,7 @@ public class ChunkManagerOld extends WorldChunkManager {
 	}
 
 	public int getBetaBiomes(float f, float f1) {
-		return mod_Rediscovered.heaven.biomeID;
+		return Rediscovered.heaven.biomeID;
 	}
 
 	@Override
@@ -178,20 +178,20 @@ public class ChunkManagerOld extends WorldChunkManager {
 	/*
 	 * public float[] getTemperatures(float[] par1ArrayOfFloat, int par2, int
 	 * par3, int par4, int par5) { IntCache.resetIntCache();
-	 * 
+	 *
 	 * if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5) {
 	 * par1ArrayOfFloat = new float[par4 * par5]; }
-	 * 
+	 *
 	 * int var6[] = getBiomesGens(par2, par3, par4, par5);
-	 * 
+	 *
 	 * for (int var7 = 0; var7 < par4 * par5; ++var7) { float var8 =
 	 * (float)BiomeGenBase.func_150568_d(var6[var7]).getIntTemperature() /
 	 * 65536.0F;
-	 * 
+	 *
 	 * if (var8 > 1.0F) { var8 = 1.0F; }
-	 * 
+	 *
 	 * par1ArrayOfFloat[var7] = var8; }
-	 * 
+	 *
 	 * return par1ArrayOfFloat; }
 	 */
 	@Override

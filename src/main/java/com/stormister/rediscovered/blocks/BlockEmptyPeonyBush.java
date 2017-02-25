@@ -3,7 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.List;
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -126,7 +126,7 @@ public class BlockEmptyPeonyBush extends BlockBush {
 	public BlockEmptyPeonyBush(int par1) {
 		super(Material.plants);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class BlockEmptyPeonyBush extends BlockBush {
 	 */
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.EmptyPeonyBush);
+		return new ItemStack(Rediscovered.EmptyPeonyBush);
 	}
 
 	/**
@@ -232,8 +232,8 @@ public class BlockEmptyPeonyBush extends BlockBush {
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ,
 			int meta, EntityLivingBase placer) {
-		worldIn.setBlockState(pos.up(), mod_Rediscovered.EmptyPeonyBushTop.getDefaultState());
-		return mod_Rediscovered.EmptyPeonyBush.getDefaultState();
+		worldIn.setBlockState(pos.up(), Rediscovered.EmptyPeonyBushTop.getDefaultState());
+		return Rediscovered.EmptyPeonyBush.getDefaultState();
 	}
 
 	/**

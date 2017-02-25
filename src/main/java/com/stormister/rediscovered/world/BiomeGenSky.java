@@ -2,7 +2,7 @@ package com.stormister.rediscovered.world;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityGiant;
 import com.stormister.rediscovered.entity.EntityGoodDragon;
 import com.stormister.rediscovered.entity.EntitySkyChicken;
@@ -17,12 +17,11 @@ public class BiomeGenSky extends BiomeGenBase {
 		spawnableCreatureList.clear();
 		spawnableWaterCreatureList.clear();
 		spawnableCaveCreatureList.clear();
+		spawnableCreatureList.add(new BiomeGenBase.SpawnListEntry(EntityGiant.class, Rediscovered.GiantSpawn, 2, 2));
 		spawnableCreatureList
-				.add(new BiomeGenBase.SpawnListEntry(EntityGiant.class, mod_Rediscovered.GiantSpawn, 2, 2));
+				.add(new BiomeGenBase.SpawnListEntry(EntityGoodDragon.class, Rediscovered.RedDragonSpawn, 4, 4));
 		spawnableCreatureList
-				.add(new BiomeGenBase.SpawnListEntry(EntityGoodDragon.class, mod_Rediscovered.RedDragonSpawn, 4, 4));
-		spawnableCreatureList
-				.add(new BiomeGenBase.SpawnListEntry(EntitySkyChicken.class, mod_Rediscovered.SkyChickenSpawn, 6, 6));
+				.add(new BiomeGenBase.SpawnListEntry(EntitySkyChicken.class, Rediscovered.SkyChickenSpawn, 6, 6));
 	}
 
 	/**

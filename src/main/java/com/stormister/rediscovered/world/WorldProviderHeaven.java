@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.world;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.WorldChunkManagerHell;
@@ -88,8 +88,8 @@ public class WorldProviderHeaven extends WorldProvider {
 
 	@Override
 	public void registerWorldChunkManager() {
-		worldChunkMgr = new WorldChunkManagerHell(mod_Rediscovered.heaven, dimensionId);
-		dimensionId = mod_Rediscovered.DimID;
+		worldChunkMgr = new WorldChunkManagerHell(Rediscovered.heaven, dimensionId);
+		dimensionId = Rediscovered.DimID;
 		hasNoSky = false;
 	}
 

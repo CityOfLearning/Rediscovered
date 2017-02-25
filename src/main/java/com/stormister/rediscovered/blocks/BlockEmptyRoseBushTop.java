@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -31,7 +31,7 @@ public class BlockEmptyRoseBushTop extends Block {
 		super(p_i45395_1_);
 		setTickRandomly(true);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
@@ -40,7 +40,7 @@ public class BlockEmptyRoseBushTop extends Block {
 	 * gets checked often with plants.
 	 */
 	public boolean canBlockStay(World p_149718_1_, BlockPos pos) {
-		return p_149718_1_.getBlockState(pos.down()).equals(mod_Rediscovered.EmptyRoseBush.getDefaultState());
+		return p_149718_1_.getBlockState(pos.down()).equals(Rediscovered.EmptyRoseBush.getDefaultState());
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class BlockEmptyRoseBushTop extends Block {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(mod_Rediscovered.EmptyRoseBush);
+		return Item.getItemFromBlock(Rediscovered.EmptyRoseBush);
 	}
 
 	public String getName() {
@@ -100,7 +100,7 @@ public class BlockEmptyRoseBushTop extends Block {
 	 */
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.EmptyRoseBush);
+		return new ItemStack(Rediscovered.EmptyRoseBush);
 	}
 
 	@Override

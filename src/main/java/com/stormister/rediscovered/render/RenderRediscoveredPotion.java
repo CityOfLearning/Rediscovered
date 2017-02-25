@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.render;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityRediscoveredPotion;
 
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderRediscoveredPotion extends RenderSnowball {
 	public RenderRediscoveredPotion(RenderManager p_i46136_1_, RenderItem p_i46136_2_) {
-		super(p_i46136_1_, mod_Rediscovered.RediscoveredPotion, p_i46136_2_);
+		super(p_i46136_1_, Rediscovered.RediscoveredPotion, p_i46136_2_);
 	}
 
 	@Override

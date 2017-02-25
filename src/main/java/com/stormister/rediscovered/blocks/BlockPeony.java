@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.blocks;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockFlower;
@@ -63,7 +63,7 @@ public class BlockPeony extends BlockBush {
 	public BlockPeony(int par1) {
 		super(Material.plants);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	public String getName() {

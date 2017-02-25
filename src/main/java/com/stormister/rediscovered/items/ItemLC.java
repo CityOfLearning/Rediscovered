@@ -3,7 +3,7 @@ package com.stormister.rediscovered.items;
 import java.util.List;
 
 import com.google.common.base.Predicates;
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
@@ -79,7 +79,7 @@ public class ItemLC extends ItemArmor {
 			name = "LeatherChainHelmet";
 		}
 		GameRegistry.registerItem(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 
 		this.renderIndex = renderIndex;
 		damageReduceAmount = material.getDamageReductionAmount(armorType);
@@ -96,8 +96,7 @@ public class ItemLC extends ItemArmor {
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-		return mod_Rediscovered.modid + ":textures/models/" + "leatherchain" + "_" + (armorType == 2 ? "2" : "1")
-				+ ".png";
+		return Rediscovered.modid + ":textures/models/" + "leatherchain" + "_" + (armorType == 2 ? "2" : "1") + ".png";
 	}
 
 	@Override

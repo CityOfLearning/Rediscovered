@@ -3,7 +3,7 @@ package com.stormister.rediscovered.render;
 
 import org.lwjgl.opengl.GL11;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.blocks.tiles.TileEntityLecternOpen;
 import com.stormister.rediscovered.models.ModelLecternOpen;
 
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderTileEntityLecternOpen extends TileEntitySpecialRenderer {
 	private static final ResourceLocation field_110871_a = new ResourceLocation(
-			mod_Rediscovered.modid + ":" + "textures/models/Lectern.png");
+			Rediscovered.modid + ":" + "textures/models/Lectern.png");
 
 	private ModelLecternOpen model;
 

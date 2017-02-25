@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -82,9 +82,9 @@ public class BlockSpikes extends Block {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		worldIn.setBlockState(pos,
-				mod_Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 		worldIn.setBlockState(pos,
-				mod_Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 	}
 
 	private Random random = new Random();
@@ -99,7 +99,7 @@ public class BlockSpikes extends Block {
 	public BlockSpikes() {
 		super(Material.wood);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		useNeighborBrightness = true;
 		setLightOpacity(0);
 		setBlockBounds(0.05F, 0.05F, 0.05F, 0.95F, 0.95F, 0.95F);
@@ -158,7 +158,7 @@ public class BlockSpikes extends Block {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.Spikes);
+		return new ItemStack(Rediscovered.Spikes);
 	}
 
 	@Override

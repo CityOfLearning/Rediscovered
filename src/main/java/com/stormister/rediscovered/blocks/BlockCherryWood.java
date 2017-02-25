@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.blocks;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,7 +15,7 @@ public class BlockCherryWood extends Block {
 	public BlockCherryWood(String texture) {
 		super(Material.wood);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setCreativeTab(CreativeTabs.tabBlock);
 	}
 

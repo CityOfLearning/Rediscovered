@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -38,7 +38,7 @@ public class BlockChair extends Block {
 		super(Material.wood);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.5F, 0.875F);
 		setLightOpacity(0);
 		setCreativeTab(CreativeTabs.tabDecorations);
@@ -67,7 +67,7 @@ public class BlockChair extends Block {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(mod_Rediscovered.Chair);
+		return Item.getItemFromBlock(Rediscovered.Chair);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class BlockChair extends Block {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.Chair);
+		return new ItemStack(Rediscovered.Chair);
 	}
 
 	/**
@@ -139,7 +139,8 @@ public class BlockChair extends Block {
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		EnumFacing enumfacing = EnumFacing
-				.getHorizontal(MathHelper.floor_double((placer.rotationYaw * 4.0F) / 360.0F + 0.5D) & 3).getOpposite();
+				.getHorizontal(MathHelper.floor_double(((placer.rotationYaw * 4.0F) / 360.0F) + 0.5D) & 3)
+				.getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		worldIn.setBlockState(pos, state, 3);
 	}

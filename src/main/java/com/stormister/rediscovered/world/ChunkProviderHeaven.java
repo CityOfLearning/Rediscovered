@@ -5,7 +5,7 @@ import java.util.Random;
 
 import com.stormister.rediscovered.ChunkManagerOld;
 import com.stormister.rediscovered.NoiseOctavesBeta;
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -375,7 +375,7 @@ public class ChunkProviderHeaven implements IChunkProvider {
 			worldObj.getClass();
 			int i16 = rand.nextInt(128);
 			int l18 = l + rand.nextInt(16) + 8;
-			(new WorldGenRose(mod_Rediscovered.Rose, EnumFlowerType.POPPY)).generate(worldObj, rand,
+			(new WorldGenRose(Rediscovered.Rose, EnumFlowerType.POPPY)).generate(worldObj, rand,
 					new BlockPos(k11, i16, l18));
 		}
 

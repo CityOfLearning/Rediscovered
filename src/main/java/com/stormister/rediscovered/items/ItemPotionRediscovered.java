@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityRediscoveredPotion;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -55,7 +55,7 @@ public class ItemPotionRediscovered extends Item {
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabs.tabBrewing);
 		GameRegistry.registerItem(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	/**

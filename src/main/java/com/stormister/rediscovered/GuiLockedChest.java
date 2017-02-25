@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiLockedChest extends GuiContainer implements GuiYesNoCallback {
-	public final ResourceLocation texture = new ResourceLocation(mod_Rediscovered.modid.toLowerCase(),
+	public final ResourceLocation texture = new ResourceLocation(Rediscovered.modid.toLowerCase(),
 			"textures/gui/LockedChest.png");
 	private final int PROMPT_REPLY_ACTION = 0;
 	private URI displayedURI = null;

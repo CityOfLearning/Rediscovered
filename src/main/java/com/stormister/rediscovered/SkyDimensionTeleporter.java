@@ -206,7 +206,7 @@ public class SkyDimensionTeleporter extends Teleporter {
 		}
 
 		for (j3 = 0; j3 < 4; ++j3) {
-			if (worldServerInstance.getBiomeGenForCoords(new BlockPos(k5 - 10, 64, k2)) == mod_Rediscovered.heaven) {
+			if (worldServerInstance.getBiomeGenForCoords(new BlockPos(k5 - 10, 64, k2)) == Rediscovered.heaven) {
 				(new WorldGenSkySpawn()).generate(worldServerInstance, random, new BlockPos(k5 - 3, j2, k2));
 			} else {
 				// (new WorldGenSkyExit()).generate(worldServerInstance, random,
@@ -357,8 +357,8 @@ public class SkyDimensionTeleporter extends Teleporter {
 				double d3 = entityIn.motionZ;
 				entityIn.motionX = (d2 * f2) + (d3 * f5);
 				entityIn.motionZ = (d2 * f4) + (d3 * f3);
-				entityIn.rotationYaw = (p_180620_2_ - enumfacing1.getHorizontalIndex() * 90)
-						+ enumfacing.getHorizontalIndex() * 90;
+				entityIn.rotationYaw = (p_180620_2_ - (enumfacing1.getHorizontalIndex() * 90))
+						+ (enumfacing.getHorizontalIndex() * 90);
 			} else {
 				entityIn.motionX = entityIn.motionY = entityIn.motionZ = 0.0D;
 			}

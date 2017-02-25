@@ -70,6 +70,7 @@ public class ExtendedPlayer implements IExtendedEntityProperties {
 		respawnX = x;
 		respawnY = y;
 		respawnZ = z;
-		//System.out.println("[REDISCOVERED]Respawn coords from NBT: " + respawnX + "/" + respawnY + "/" + respawnZ);
+		// System.out.println("[REDISCOVERED]Respawn coords from NBT: " +
+		// respawnX + "/" + respawnY + "/" + respawnZ);
 	}
 }

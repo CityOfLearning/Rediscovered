@@ -1,7 +1,6 @@
 package com.stormister.rediscovered.items;
 
-import com.stormister.rediscovered.mod_Rediscovered;
-import com.stormister.rediscovered.blocks.BlockGear;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,7 +16,7 @@ public class ItemGear extends Item {
 	public ItemGear() {
 		super();
 		GameRegistry.registerItem(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	public String getName() {
@@ -40,8 +39,9 @@ public class ItemGear extends Item {
 			if (!playerIn.canPlayerEdit(pos, side, stack)) {
 				return false;
 			} else {
-				worldIn.setBlockState(pos, mod_Rediscovered.Gear.getDefaultState().withProperty(BlockGear.FACING, side),
-						3);
+				// worldIn.setBlockState(pos,
+				// Rediscovered.Gear.getDefaultState().withProperty(BlockGear.FACING,
+				// side), 3);
 
 				--stack.stackSize;
 

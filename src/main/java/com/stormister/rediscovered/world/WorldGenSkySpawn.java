@@ -2,7 +2,7 @@ package com.stormister.rediscovered.world;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.blocks.BlockChair;
 
 import net.minecraft.block.Block;
@@ -35,8 +35,8 @@ public class WorldGenSkySpawn extends WorldGenerator {
 
 		Block planks = Blocks.planks;
 		Block bed = Blocks.bed;
-		Block chair = mod_Rediscovered.Chair;
-		Block table = mod_Rediscovered.Table;
+		Block chair = Rediscovered.Chair;
+		Block table = Rediscovered.Table;
 		Block glass = Blocks.glass;
 		Block stone = Blocks.cobblestone;
 		Block door = Blocks.oak_door;

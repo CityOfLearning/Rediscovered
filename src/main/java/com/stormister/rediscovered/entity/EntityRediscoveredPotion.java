@@ -3,7 +3,7 @@ package com.stormister.rediscovered.entity;
 import java.util.Iterator;
 import java.util.List;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,7 +34,7 @@ public class EntityRediscoveredPotion extends EntityThrowable implements IEntity
 	public EntityRediscoveredPotion(World worldIn, double p_i1791_2_, double p_i1791_4_, double p_i1791_6_,
 			int p_i1791_8_) {
 		this(worldIn, p_i1791_2_, p_i1791_4_, p_i1791_6_,
-				new ItemStack(mod_Rediscovered.RediscoveredPotion, 1, p_i1791_8_));
+				new ItemStack(Rediscovered.RediscoveredPotion, 1, p_i1791_8_));
 	}
 
 	public EntityRediscoveredPotion(World worldIn, double p_i1792_2_, double p_i1792_4_, double p_i1792_6_,
@@ -44,7 +44,7 @@ public class EntityRediscoveredPotion extends EntityThrowable implements IEntity
 	}
 
 	public EntityRediscoveredPotion(World worldIn, EntityLivingBase p_i1789_2_, int p_i1789_3_) {
-		this(worldIn, p_i1789_2_, new ItemStack(mod_Rediscovered.RediscoveredPotion, 1, p_i1789_3_));
+		this(worldIn, p_i1789_2_, new ItemStack(Rediscovered.RediscoveredPotion, 1, p_i1789_3_));
 	}
 
 	public EntityRediscoveredPotion(World worldIn, EntityLivingBase p_i1790_2_, ItemStack p_i1790_3_) {

@@ -71,6 +71,18 @@ public class EntityMountableBlock extends Entity {
 	public void entityInit() {
 	}
 
+	public int getOrgBlockPosX() {
+		return orgBlockPosX;
+	}
+
+	public int getOrgBlockPosY() {
+		return orgBlockPosY;
+	}
+
+	public int getOrgBlockPosZ() {
+		return orgBlockPosZ;
+	}
+
 	// This method handles mounting and dismounting.
 	public boolean interact(EntityPlayer entityplayer) {
 		if ((riddenByEntity != null) && (riddenByEntity instanceof EntityPlayer) && (riddenByEntity != entityplayer)) {
@@ -102,32 +114,20 @@ public class EntityMountableBlock extends Entity {
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
 	}
 
-	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
+	public void setOrgBlockPosX(int orgBlockPosX) {
+		this.orgBlockPosX = orgBlockPosX;
 	}
 
-	public int getOrgBlockPosZ() {
-		return orgBlockPosZ;
+	public void setOrgBlockPosY(int orgBlockPosY) {
+		this.orgBlockPosY = orgBlockPosY;
 	}
 
 	public void setOrgBlockPosZ(int orgBlockPosZ) {
 		this.orgBlockPosZ = orgBlockPosZ;
 	}
 
-	public int getOrgBlockPosX() {
-		return orgBlockPosX;
-	}
-
-	public void setOrgBlockPosX(int orgBlockPosX) {
-		this.orgBlockPosX = orgBlockPosX;
-	}
-
-	public int getOrgBlockPosY() {
-		return orgBlockPosY;
-	}
-
-	public void setOrgBlockPosY(int orgBlockPosY) {
-		this.orgBlockPosY = orgBlockPosY;
+	@Override
+	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
 	}
 
 }

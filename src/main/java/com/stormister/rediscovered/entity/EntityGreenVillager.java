@@ -593,9 +593,9 @@ public class EntityGreenVillager extends EntityAgeable implements INpc, IMerchan
 			double d0 = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			worldObj.spawnParticle(p_180489_1_, (posX + rand.nextFloat() * width * 2.0F) - width,
-					posY + 1.0D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width * 2.0F) - width, d0, d1,
-					d2, new int[0]);
+			worldObj.spawnParticle(p_180489_1_, (posX + (rand.nextFloat() * width * 2.0F)) - width,
+					posY + 1.0D + (rand.nextFloat() * height), (posZ + (rand.nextFloat() * width * 2.0F)) - width, d0,
+					d1, d2, new int[0]);
 		}
 	}
 

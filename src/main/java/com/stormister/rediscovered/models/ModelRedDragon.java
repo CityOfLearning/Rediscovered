@@ -147,7 +147,7 @@ public class ModelRedDragon extends ModelBase {
 		double[] var15 = var8.getMovementOffsets(6, partialTicks);
 		float var16 = updateRotations(
 				var8.getMovementOffsets(5, partialTicks)[0] - var8.getMovementOffsets(10, partialTicks)[0]);
-		float var17 = updateRotations(var8.getMovementOffsets(5, partialTicks)[0] + var16 / 2.0F);
+		float var17 = updateRotations(var8.getMovementOffsets(5, partialTicks)[0] + (var16 / 2.0F));
 		var11 += 2.0F;
 		float var18 = var9 * (float) Math.PI * 2.0F;
 		var11 = 20.0F;

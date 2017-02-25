@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.blocks.tiles.TileEntityLockedChest;
 
 import net.minecraft.block.Block;
@@ -66,9 +66,9 @@ public class BlockLockedChest extends BlockContainer {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		worldIn.setBlockState(pos,
-				mod_Rediscovered.LockedChest.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				Rediscovered.LockedChest.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 		worldIn.setBlockState(pos,
-				mod_Rediscovered.LockedChest.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				Rediscovered.LockedChest.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
 
 		if (tileentity != null) {
 			tileentity.validate();
@@ -82,7 +82,7 @@ public class BlockLockedChest extends BlockContainer {
 		super(Material.wood);
 		setCreativeTab(CreativeTabs.tabDecorations);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class BlockLockedChest extends BlockContainer {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(mod_Rediscovered.LockedChest);
+		return Item.getItemFromBlock(Rediscovered.LockedChest);
 	}
 
 	@Override
@@ -141,8 +141,8 @@ public class BlockLockedChest extends BlockContainer {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			playerIn.openGui(mod_Rediscovered.instance, mod_Rediscovered.guiIDLockedChest, world, pos.getX(),
-					pos.getY(), pos.getZ());
+			playerIn.openGui(Rediscovered.instance, Rediscovered.guiIDLockedChest, world, pos.getX(), pos.getY(),
+					pos.getZ());
 		}
 		return true;
 	}

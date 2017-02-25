@@ -2,7 +2,7 @@ package com.stormister.rediscovered.world;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public class WorldGeneratorRuby implements IWorldGenerator {
 			int Xcoord = BlockX + random.nextInt(16);
 			int Zcoord = BlockZ + random.nextInt(16);
 			int yCoord = random.nextInt(32);
-			(new WorldGenMinable(mod_Rediscovered.RubyOre.getDefaultState(), 4)).generate(world, random,
+			(new WorldGenMinable(Rediscovered.RubyOre.getDefaultState(), 4)).generate(world, random,
 					new BlockPos(Xcoord, yCoord, Zcoord));
 		}
 	}

@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityGoodDragon;
 
 import net.minecraft.block.Block;
@@ -24,7 +24,7 @@ public class BlockDragonEggRed extends Block {
 		super(Material.dragonEgg);
 		setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 	}
 
 	public String getName() {
@@ -33,7 +33,7 @@ public class BlockDragonEggRed extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public Block idDropped(int i, Random random, int j) {
-		return mod_Rediscovered.DragonEggRed;
+		return Rediscovered.DragonEggRed;
 	}
 
 	@Override

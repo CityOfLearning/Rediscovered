@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,7 +26,7 @@ public class BlockLanternPhys extends Block {
 		setLightLevel(1.0f);
 		setHardness(0.1f);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		float f = 0.4F;
 		setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 1.0F, 0.5F + f);
 		setTickRandomly(true);
@@ -50,7 +50,7 @@ public class BlockLanternPhys extends Block {
 	 */
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return mod_Rediscovered.ItemLantern;
+		return Rediscovered.ItemLantern;
 	}
 
 	public String getName() {
@@ -65,7 +65,7 @@ public class BlockLanternPhys extends Block {
 	 */
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.ItemLantern);
+		return new ItemStack(Rediscovered.ItemLantern);
 	}
 
 	@Override

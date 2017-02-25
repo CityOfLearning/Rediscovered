@@ -1,6 +1,6 @@
 package com.stormister.rediscovered.blocks;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
@@ -12,7 +12,7 @@ public class BlockCherryStairs extends BlockStairs {
 	public BlockCherryStairs(IBlockState state) {
 		super(state);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setLightOpacity(0);
 	}
 

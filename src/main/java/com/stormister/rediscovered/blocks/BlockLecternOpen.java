@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.mod_Rediscovered;
+import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.blocks.tiles.TileEntityLecternOpen;
 
 import net.minecraft.block.BlockContainer;
@@ -40,7 +40,7 @@ public class BlockLecternOpen extends BlockContainer implements ITileEntityProvi
 	public BlockLecternOpen() {
 		super(Material.wood);
 		GameRegistry.registerBlock(this, name);
-		setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
+		setUnlocalizedName(Rediscovered.modid + "_" + name);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 1.0F, 0.875F);
 		setLightOpacity(0);
@@ -90,7 +90,7 @@ public class BlockLecternOpen extends BlockContainer implements ITileEntityProvi
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(mod_Rediscovered.Lectern);
+		return Item.getItemFromBlock(Rediscovered.Lectern);
 	}
 
 	/**
@@ -108,12 +108,12 @@ public class BlockLecternOpen extends BlockContainer implements ITileEntityProvi
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(mod_Rediscovered.Lectern);
+		return new ItemStack(Rediscovered.Lectern);
 	}
 
 	@Override
 	public int getRenderType() {
-		return mod_Rediscovered.proxy.getBlockRender(this);
+		return Rediscovered.proxy.getBlockRender(this);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class BlockLecternOpen extends BlockContainer implements ITileEntityProvi
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		meta = world.getBlockState(pos).getBlock().getMetaFromState(state);
-		world.setBlockState(pos, mod_Rediscovered.Lectern.getStateFromMeta(meta), 3);
+		world.setBlockState(pos, Rediscovered.Lectern.getStateFromMeta(meta), 3);
 		return true;
 	}
 
@@ -181,7 +181,8 @@ public class BlockLecternOpen extends BlockContainer implements ITileEntityProvi
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		EnumFacing enumfacing = EnumFacing
-				.getHorizontal(MathHelper.floor_double((placer.rotationYaw * 4.0F) / 360.0F + 0.5D) & 3).getOpposite();
+				.getHorizontal(MathHelper.floor_double(((placer.rotationYaw * 4.0F) / 360.0F) + 0.5D) & 3)
+				.getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		worldIn.setBlockState(pos, state, 3);
 	}
