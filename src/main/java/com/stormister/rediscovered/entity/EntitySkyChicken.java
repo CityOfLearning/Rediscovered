@@ -1,20 +1,44 @@
 package com.stormister.rediscovered.entity;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIControlledByPlayer;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntitySkyChicken extends EntityChicken {
+	private static String togglekey;
+	private static int itogglekey;
 
-	public EntitySkyChicken(World worldIn) {
-		super(worldIn);
-		tasks.addTask(3, new EntityAIControlledByPlayer(this, 1.0F));
+	public static void assignToggleButton(String s) {
+		togglekey = s;
+		itogglekey = Keyboard.getKeyIndex(togglekey);
 	}
 
+	/** AI task for player control. */
+	private final EntityAIControlledByPlayer aiControlledByPlayer;
+
+	public EntitySkyChicken(World par1World) {
+		super(par1World);
+		togglekey = "SPACE";
+		itogglekey = Keyboard.getKeyIndex(togglekey);
+		tasks.addTask(3, aiControlledByPlayer = new EntityAIControlledByPlayer(this, 1.0F));
+	}
 	/**
 	 * returns true if all the conditions for steering the entity are met. For
 	 * pigs, this is true if it is being ridden by a player and the player is
@@ -26,9 +50,11 @@ public class EntitySkyChicken extends EntityChicken {
 		return (itemstack != null) && (itemstack.getItem() == Items.wheat_seeds);
 	}
 
-	@Override
-	public EntitySkyChicken createChild(EntityAgeable ageable) {
-		return new EntitySkyChicken(worldObj);
+	/**
+	 * Return the AI task for player control.
+	 */
+	public EntityAIControlledByPlayer getAIControlledByPlayer() {
+		return aiControlledByPlayer;
 	}
 
 	/**
@@ -48,6 +74,13 @@ public class EntitySkyChicken extends EntityChicken {
 	}
 
 	/**
+	 * Returns true if the newer Entity AI code should be run
+	 */
+	public boolean isAIEnabled() {
+		return true;
+	}
+
+	/**
 	 * Called frequently so the entity can update its state every tick as
 	 * required. For example, zombies and skeletons use this to react to
 	 * sunlight and start to burn.
@@ -55,14 +88,26 @@ public class EntitySkyChicken extends EntityChicken {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		// if
-		// (net.minecraft.client.Minecraft.getMinecraft().thePlayer.movementInput.jump
-		// && (riddenByEntity != null)) {
-		// motionY = 0.05D;
-		// motionX *= 1.05;
-		// motionZ *= 1.05;
-		// super.moveEntity(motionX, motionY, motionZ);
-		// super.jump();
-		// }
+
+		if (Keyboard.getEventKeyState() && (Keyboard.getEventKey() == itogglekey) && (riddenByEntity != null)) {
+			motionY = 0.05D;
+			motionX *= 1.05;
+			motionZ *= 1.05;
+			super.moveEntity(motionX, motionY, motionZ);
+			super.jump();
+		}
+	}
+
+	/**
+	 * This function is used when two same-species animals in 'love mode' breed
+	 * to generate the new baby animal.
+	 */
+	public EntitySkyChicken spawnBabyAnimal(EntityAgeable par1EntityAgeable) {
+		return new EntitySkyChicken(worldObj);
+	}
+
+	@Override
+	protected void updateAITasks() {
+		super.updateAITasks();
 	}
 }

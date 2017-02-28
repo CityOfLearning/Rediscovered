@@ -2,6 +2,7 @@ package com.stormister.rediscovered;
 
 import java.util.Random;
 
+import com.stormister.rediscovered.blocks.BlockCherrySapling;
 import com.stormister.rediscovered.entity.EntityScarecrow;
 
 import net.minecraft.enchantment.Enchantment;
@@ -12,6 +13,8 @@ import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntitySilverfish;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -31,25 +34,15 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class RediscoveredEventHandler {
 	protected static Random itemRand = new Random();
-
-	public static BlockPos verifyRespawnCoordinates(World par0World, BlockPos par1ChunkCoordinates, boolean par2,
-			EntityPlayerMP player) {
-		if (player.mcServer.worldServerForDimension(0).getBlockState(par1ChunkCoordinates).getBlock()
-				.equals(Blocks.bed)) {
-			return par1ChunkCoordinates;
-		} else {
-			return null;
-		}
-	}
-
-	Random gen = new Random();
 
 	@SubscribeEvent
 	public void onArrowLooseEvent(ArrowLooseEvent event) {
@@ -115,67 +108,23 @@ public class RediscoveredEventHandler {
 
 	}
 
-	@SubscribeEvent
-	public void onEntityConstructing(EntityConstructing event) {
-		if ((event.entity instanceof EntityPlayer) && (ExtendedPlayer.get((EntityPlayer) event.entity) == null)) {
-			ExtendedPlayer.register((EntityPlayer) event.entity);
-		}
-	}
+	// @SubscribeEvent
+	// public void onEntityConstructing(EntityConstructing event) {
+	// if ((event.entity instanceof EntityPlayer) &&
+	// (ExtendedPlayer.get((EntityPlayer) event.entity) == null)) {
+	// ExtendedPlayer.register((EntityPlayer) event.entity);
+	// }
+	// }
 
 	// Mob AI
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityMob) {
-			EntityCreature entity = (EntityCreature) event.entity;
-			if (Rediscovered.ScarecrowAttractsMobs) {
-				entity.targetTasks.addTask(2,
-						new EntityAINearestAttackableTarget(entity, EntityScarecrow.class, false));
-				entity.tasks.addTask(4, new EntityAIAttackOnCollide(entity, EntityScarecrow.class, 0.8D, true));
-			} else {
-				entity.tasks.addTask(1, new EntityAIAvoidEntity(entity, EntityScarecrow.class, 8.0F, 0.6D, 0.6D));
-			}
-		}
-		if (event.entity instanceof EntityAnimal) {
-			EntityCreature entity = (EntityCreature) event.entity;
-			entity.tasks.addTask(1, new EntityAIAvoidEntity(entity, EntityScarecrow.class, 8.0F, 0.6D, 0.6D));
-		}
-	}
-
-	@SubscribeEvent
-	public void onLivingHurtEvent(LivingHurtEvent event) {
-		if (!event.entityLiving.worldObj.isRemote && (event.entityLiving instanceof EntityPlayerMP)
-				&& (event.entityLiving.dimension == Rediscovered.DimID)
-				&& event.source.damageType.equals("outOfWorld")) {
-			final WorldServer world = (WorldServer) event.entityLiving.worldObj;
-			final Object[] entityList = world.loadedEntityList.toArray();
-			for (final Object o : entityList) {
-				if (o instanceof EntityPlayerMP) {
-					final EntityPlayerMP e = (EntityPlayerMP) o;
-
-					if (e.posY <= 10) {
-						ExtendedPlayer props = ExtendedPlayer.get((EntityPlayer) event.entity);
-						event.setCanceled(true);
-						e.mcServer.getConfigurationManager().transferPlayerToDimension(e, 0,
-								new SkyDimensionTeleporter(e.mcServer.worldServerForDimension(0)));
-						BlockPos coordinates = props.getRespawn();
-						if (coordinates != null) {
-							coordinates = verifyRespawnCoordinates(e.mcServer.worldServerForDimension(0), coordinates,
-									true, e);
-						}
-						if (coordinates == null) {
-							coordinates = world.getSpawnPoint();
-							e.setPositionAndUpdate(coordinates.getX() + 0.5D, (double) coordinates.getY() + 3,
-									coordinates.getZ() + 0.5D);
-							e.addChatComponentMessage(
-									new ChatComponentTranslation("message.missingbed", new Object[0]));
-						} else if (coordinates != null) {
-							e.setPositionAndUpdate(coordinates.getX() + 0.5D, (double) coordinates.getY() + 3,
-									coordinates.getZ() + 0.5D);
-						}
-						e.fallDistance = 0;
-					}
-
-				}
+			EntityMob entity = (EntityMob) event.entity;
+			entity.targetTasks.addTask(2,
+					new EntityAINearestAttackableTarget<EntityScarecrow>(entity, EntityScarecrow.class, true));
+			if (entity instanceof EntityZombie || entity instanceof EntitySilverfish) {
+				entity.tasks.addTask(2, new EntityAIAttackOnCollide(entity, EntityScarecrow.class, 0.8D, false));
 			}
 		}
 	}
@@ -186,40 +135,6 @@ public class RediscoveredEventHandler {
 		InventoryPlayer inv = player.inventory;
 		ItemStack itemStack = inv.getStackInSlot(inv.currentItem);
 		final World world = event.entityLiving.worldObj;
-
-		if (!event.entityLiving.worldObj.isRemote && (event.action == Action.RIGHT_CLICK_BLOCK)
-				&& world.getBlockState(event.pos).getBlock().equals(Blocks.bed)
-				&& (((itemStack != null) && itemStack.getItem().equals(Rediscovered.DreamPillow)
-						&& (Rediscovered.DaytimeBed || (!Rediscovered.DaytimeBed && !world.isDaytime())))
-						|| (player.dimension == Rediscovered.DimID))
-				&& (player instanceof EntityPlayerMP)) {
-			event.setCanceled(true);
-			EntityPlayerMP thePlayer = (EntityPlayerMP) player;
-			ExtendedPlayer props = ExtendedPlayer.get((EntityPlayer) event.entity);
-			if (Math.abs(player.dimension) != 1) { // not the end or nether
-				props.setRespawn(event.pos.getX(), event.pos.getY(), event.pos.getZ());
-				thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Rediscovered.DimID,
-						new SkyDimensionTeleporter(thePlayer.mcServer.worldServerForDimension(Rediscovered.DimID)));
-			} else if (player.dimension == Rediscovered.DimID) {
-				thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, 0,
-						new SkyDimensionTeleporter(thePlayer.mcServer.worldServerForDimension(0)));
-				BlockPos coordinates = props.getRespawn();
-				if (coordinates != null) {
-					coordinates = verifyRespawnCoordinates(thePlayer.mcServer.worldServerForDimension(0), coordinates,
-							true, thePlayer);
-				}
-				if (coordinates == null) {
-					coordinates = world.getSpawnPoint();
-					thePlayer.setPositionAndUpdate(coordinates.getX() + 0.5D, (double) coordinates.getY() + 3,
-							coordinates.getZ() + 0.5D);
-					player.addChatComponentMessage(new ChatComponentTranslation("message.missingbed", new Object[0]));
-				} else if (coordinates != null) {
-					thePlayer.setPositionAndUpdate(coordinates.getX() + 0.5D, (double) coordinates.getY() + 3,
-							coordinates.getZ() + 0.5D);
-				}
-
-			}
-		}
 
 		// Bush Shearing
 		if ((event.action == Action.RIGHT_CLICK_BLOCK)
@@ -255,71 +170,6 @@ public class RediscoveredEventHandler {
 				world.spawnEntityInWorld(item);
 			}
 			itemStack.damageItem(1, player);
-		}
-	}
-
-	// Lantern
-	@SubscribeEvent
-	public void onPlayerMove(LivingUpdateEvent e) {
-		if (e.entityLiving instanceof EntityPlayer) {
-			EntityPlayer p = (EntityPlayer) e.entityLiving;
-			if (!p.worldObj.isRemote) {
-				if (Rediscovered.hasLitLanternOnHotbar(p.inventory)) {
-					BlockPos pos = new BlockPos(MathHelper.floor_double(p.posX), MathHelper.floor_double(p.posY) + 1,
-							MathHelper.floor_double(p.posZ));
-
-					if (p.ridingEntity != null) {
-						pos = new BlockPos(MathHelper.floor_double(p.ridingEntity.posX),
-								MathHelper.floor_double(p.ridingEntity.posY) + 1,
-								MathHelper.floor_double(p.ridingEntity.posZ));
-					}
-
-					if (p.worldObj.getBlockState(pos).equals(Blocks.air.getDefaultState())) {
-						p.worldObj.setBlockState(pos, Rediscovered.Lantern.getDefaultState());
-					}
-
-					if (Rediscovered.usernameLastPosMap.containsKey(p.getDisplayNameString())) {
-						BlockPos pos2 = Rediscovered.usernameLastPosMap.get(p.getDisplayNameString());
-
-						if (((pos2.getX() != pos.getX()) || (pos2.getY() != pos.getY()) || (pos2.getZ() != pos.getZ()))
-								&& p.worldObj.getBlockState(pos2).equals(Rediscovered.Lantern.getDefaultState())) {
-							p.worldObj.setBlockToAir(pos2);
-						}
-					}
-					// TODO Find correct string for username
-					Rediscovered.usernameLastPosMap.put(p.getDisplayNameString(), pos);
-				} else {
-					if (Rediscovered.usernameLastPosMap.containsKey(p.getDisplayNameString())) {
-						BlockPos pos = Rediscovered.usernameLastPosMap.get(p.getDisplayNameString());
-
-						if (p.worldObj.getBlockState(pos).equals(Rediscovered.Lantern.getDefaultState())) {
-							p.worldObj.setBlockToAir(pos);
-						}
-
-						Rediscovered.usernameLastPosMap.remove(p.getDisplayNameString());
-					}
-				}
-			}
-		}
-	}
-
-	// Sky Dimension Teleportation
-	@SubscribeEvent
-	public void onPlayerSleepInBed(PlayerSleepInBedEvent event) {
-		EntityPlayer player = event.entityPlayer;
-		InventoryPlayer inv = player.inventory;
-		ItemStack itemStack = inv.getStackInSlot(inv.currentItem);
-		World world = event.entityLiving.worldObj;
-
-		if ((Math.abs(player.dimension) != 1) && !world.isDaytime()
-				&& (itemRand.nextInt(100) <= Rediscovered.DreamChance)
-				&& ((itemStack == null) || (itemStack.getItem() != Rediscovered.DreamPillow))
-				&& (player instanceof EntityPlayerMP)) {
-			ExtendedPlayer props = ExtendedPlayer.get((EntityPlayer) event.entity);
-			props.setRespawn(event.pos.getX(), event.pos.getY(), event.pos.getZ());
-			EntityPlayerMP thePlayer = (EntityPlayerMP) player;
-			thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Rediscovered.DimID,
-					new SkyDimensionTeleporter(thePlayer.mcServer.worldServerForDimension(Rediscovered.DimID)));
 		}
 	}
 }
