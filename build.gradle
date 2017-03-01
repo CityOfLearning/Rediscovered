@@ -1,8 +1,17 @@
+import com.amazonaws.auth.policy.Policy
+import com.amazonaws.auth.policy.Principal
+import com.amazonaws.auth.policy.Statement
+import com.amazonaws.auth.policy.actions.S3Actions
+import com.amazonaws.auth.policy.resources.S3BucketResource
+import com.amazonaws.auth.policy.resources.S3ObjectResource
+import com.amazonaws.services.s3.model.ObjectMetadata
 
-// For those who want the bleeding edge
+import jp.classmethod.aws.gradle.s3.SyncTask
+
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()		
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -10,16 +19,20 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+		classpath "jp.classmethod.aws:gradle-aws-plugin:0.+"
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
 
-/*
-// for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
-plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: "jp.classmethod.aws.s3"
+
+aws {
+	profileName = "minecraft"
+	region = "us-east-1"
 }
-*/
+
+def myBucketName = 'broad-participation'
+
 version = "1.8.9"
 group= "com.stormister.rediscovered" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Rediscovered"
@@ -41,22 +54,51 @@ dependencies {
 
 }
 
+artifacts {
+    archives jar
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
 processResources
 {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
-    // copy everything else, thats not the mcmod.info
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+reobfJar.doLast {
+    ant.checksum file: tasks.jar.archivePath
+}
+
+build.doLast {
+	File jarFile = file('./build/libs/' + archivesBaseName + '-' + version +".jar")
+	File md5File = file('./build/libs/' + archivesBaseName + '-' + version +".jar.MD5")
+	jarFile.renameTo(file('./build/libs/' + archivesBaseName+".jar"))
+	md5File.renameTo(file('./build/libs/' + archivesBaseName+".MD5"))
+}
+
+task publish(type: SyncTask, dependsOn: build) {
+	source file('./build/libs/') //must be a directory
+	bucketName myBucketName
+	
+	metadataProvider { bucket, key, file ->
+	
+		ObjectMetadata m = new ObjectMetadata()
+		m.setCacheControl("no-cache, no-store")
+		return m
+	}
+	
+	setAcl 'PublicRead'
 }
