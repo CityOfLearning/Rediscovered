@@ -315,12 +315,12 @@ public class Rediscovered {
 			registerItemRenders(LeatherChainLegs, "LeatherChainLegs");
 			registerItemRenders(LeatherChainBoots, "LeatherChainBoots");
 			registerItemRenders(gemRuby, "gemRuby");
-			registerItemRenders(RediscoveredPotion, 0, "RediscoveredPotion_Nausea");
-			registerItemRenders(RediscoveredPotion, 1, "RediscoveredPotion_Blindness");
-			registerItemRenders(RediscoveredPotion, 2, "RediscoveredPotion_Dullness");
-			registerItemRenders(RediscoveredPotion, 100, "RediscoveredPotion_NauseaSplash");
-			registerItemRenders(RediscoveredPotion, 101, "RediscoveredPotion_BlindnessSplash");
-			registerItemRenders(RediscoveredPotion, 102, "RediscoveredPotion_DullnessSplash");
+			registerItemRenders(RediscoveredPotion, 0, "Nausea");
+			registerItemRenders(RediscoveredPotion, 1, "Blindness");
+			registerItemRenders(RediscoveredPotion, 2, "Dullness");
+			registerItemRenders(RediscoveredPotion, 100, "NauseaSplash");
+			registerItemRenders(RediscoveredPotion, 101, "BlindnessSplash");
+			registerItemRenders(RediscoveredPotion, 102, "DullnessSplash");
 			registerItemRenders(ItemLantern, "ItemLantern");
 			registerItemRenders(Scarecrow, "Scarecrow");
 			// registerItemRenders(ItemGear, "ItemGear");

@@ -58,12 +58,12 @@ public class ClientProxyRediscovered extends CommonProxyRediscovered {
 		MinecraftForge.EVENT_BUS.register(Rediscovered.config);
 
 		ModelBakery.registerItemVariants(Rediscovered.RediscoveredPotion,
-				new ResourceLocation("rediscovered:RediscoveredPotion_Nausea"),
-				new ResourceLocation("rediscovered:RediscoveredPotion_Blindness"),
-				new ResourceLocation("rediscovered:RediscoveredPotion_Dullness"),
-				new ResourceLocation("rediscovered:RediscoveredPotion_NauseaSplash"),
-				new ResourceLocation("rediscovered:RediscoveredPotion_BlindnessSplash"),
-				new ResourceLocation("rediscovered:RediscoveredPotion_DullnessSplash"));
+				new ResourceLocation("rediscovered:Nausea"),
+				new ResourceLocation("rediscovered:Blindness"),
+				new ResourceLocation("rediscovered:Dullness"),
+				new ResourceLocation("rediscovered:NauseaSplash"),
+				new ResourceLocation("rediscovered:BlindnessSplash"),
+				new ResourceLocation("rediscovered:DullnessSplash"));
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPigmanVillager.class,
 				new IRenderFactory<EntityPigmanVillager>() {
