@@ -22,7 +22,7 @@ import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemLC extends ItemArmor {
+public class ItemLeatherChain extends ItemArmor {
 	public static final String[] EMPTY_SLOT_NAMES = new String[] { "minecraft:items/empty_armor_slot_helmet",
 			"minecraft:items/empty_armor_slot_chestplate", "minecraft:items/empty_armor_slot_leggings",
 			"minecraft:items/empty_armor_slot_boots" };
@@ -63,7 +63,7 @@ public class ItemLC extends ItemArmor {
 	private final ItemArmor.ArmorMaterial material;
 	String name;
 
-	public ItemLC(ItemArmor.ArmorMaterial material, int renderIndex, int armorType) {
+	public ItemLeatherChain(ItemArmor.ArmorMaterial material, int renderIndex, int armorType) {
 		super(material, renderIndex, armorType);
 		this.material = material;
 		this.armorType = armorType;
