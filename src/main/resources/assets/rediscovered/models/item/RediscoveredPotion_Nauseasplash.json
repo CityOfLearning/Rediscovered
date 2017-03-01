@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "rediscovered:items/Nauseasplash"
+		"layer0": "rediscovered:items/NauseaSplash"
 	},
 	"display": {
 		"thirdperson": {

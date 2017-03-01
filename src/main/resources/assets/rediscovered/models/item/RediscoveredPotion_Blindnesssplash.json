@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "rediscovered:items/Blindnesssplash"
+		"layer0": "rediscovered:items/BlindnessSplash"
 	},
 	"display": {
 		"thirdperson": {
