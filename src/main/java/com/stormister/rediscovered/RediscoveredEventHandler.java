@@ -2,20 +2,16 @@ package com.stormister.rediscovered;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.blocks.BlockCherrySapling;
 import com.stormister.rediscovered.entity.EntityScarecrow;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -23,22 +19,12 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
-import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
-import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class RediscoveredEventHandler {
@@ -123,7 +109,7 @@ public class RediscoveredEventHandler {
 			EntityMob entity = (EntityMob) event.entity;
 			entity.targetTasks.addTask(2,
 					new EntityAINearestAttackableTarget<EntityScarecrow>(entity, EntityScarecrow.class, true));
-			if (entity instanceof EntityZombie || entity instanceof EntitySilverfish) {
+			if ((entity instanceof EntityZombie) || (entity instanceof EntitySilverfish)) {
 				entity.tasks.addTask(2, new EntityAIAttackOnCollide(entity, EntityScarecrow.class, 0.8D, false));
 			}
 		}

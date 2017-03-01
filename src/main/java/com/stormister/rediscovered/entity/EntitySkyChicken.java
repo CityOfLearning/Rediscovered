@@ -3,23 +3,12 @@ package com.stormister.rediscovered.entity;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIControlledByPlayer;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntitySkyChicken extends EntityChicken {
 	private static String togglekey;
@@ -39,6 +28,7 @@ public class EntitySkyChicken extends EntityChicken {
 		itogglekey = Keyboard.getKeyIndex(togglekey);
 		tasks.addTask(3, aiControlledByPlayer = new EntityAIControlledByPlayer(this, 1.0F));
 	}
+
 	/**
 	 * returns true if all the conditions for steering the entity are met. For
 	 * pigs, this is true if it is being ridden by a player and the player is
