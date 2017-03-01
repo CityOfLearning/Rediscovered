@@ -55,11 +55,11 @@ public class ChunkProviderHeaven implements IChunkProvider {
 	int field_914_i[][];
 	private boolean nether;
 
-	public ChunkProviderHeaven(World world, long l) {
+	public ChunkProviderHeaven(World world, long seed) {
 		field_902_u = new MapGenSkyCaves();
 		field_914_i = new int[32][32];
 		worldObj = world;
-		rand = new Random(l);
+		rand = new Random(seed);
 		nether = false;
 		field_912_k = new NoiseOctavesBeta(rand, 16);
 		field_911_l = new NoiseOctavesBeta(rand, 16);
@@ -406,6 +406,7 @@ public class ChunkProviderHeaven implements IChunkProvider {
 				}
 			}
 		}
+		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, i, j, false));
 
 		BlockFalling.fallInstantly = false;
 	}

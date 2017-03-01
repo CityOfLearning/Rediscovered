@@ -19,24 +19,19 @@ public class RenderGreenVillager extends RenderLiving<EntityGreenVillager> {
 
 	public RenderGreenVillager(RenderManager p_i46132_1_) {
 		super(p_i46132_1_, new ModelVillager(0.0F), 0.5F);
-		addLayer(new LayerCustomHead(func_177134_g().villagerHead));
-	}
-
-	public ModelVillager func_177134_g() {
-		return (ModelVillager) super.getMainModel();
+		addLayer(new LayerCustomHead(getMainModel().villagerHead));
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityGreenVillager entity) {
-
 		return net.minecraftforge.fml.common.registry.VillagerRegistry.getVillagerSkin(entity.getProfession(),
 				villagerTextures);
 
 	}
 
 	@Override
-	public ModelBase getMainModel() {
-		return func_177134_g();
+	public ModelVillager getMainModel() {
+		return (ModelVillager) super.getMainModel();
 	}
 
 	@Override

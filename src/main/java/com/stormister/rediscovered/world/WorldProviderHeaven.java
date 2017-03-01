@@ -15,13 +15,8 @@ public class WorldProviderHeaven extends WorldProvider {
 	}
 
 	@Override
-	public boolean canCoordinateBeSpawn(int par1, int par2) {
-		return false;
-	}
-
-	@Override
 	public boolean canRespawnHere() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -37,7 +32,7 @@ public class WorldProviderHeaven extends WorldProvider {
 
 	@Override
 	public int getAverageGroundLevel() {
-		return 200;
+		return 25;
 	}
 
 	@Override
@@ -65,19 +60,7 @@ public class WorldProviderHeaven extends WorldProvider {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public double getVoidFogYFactor() {
-		return 30;
-	}
-
-	// public ChunkCoordinates getEntrancePortalLocation() {
-	// return new ChunkCoordinates(50, 75, 0);
-	// }
-	@Override
-	@SideOnly(Side.CLIENT)
-	public String getWelcomeMessage() {
-		if ((this instanceof WorldProviderHeaven)) {
-			return "Falling Asleep...";
-		}
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -89,7 +72,8 @@ public class WorldProviderHeaven extends WorldProvider {
 	@Override
 	public void registerWorldChunkManager() {
 		worldChunkMgr = new WorldChunkManagerHell(Rediscovered.heaven, dimensionId);
-		dimensionId = Rediscovered.DimID;
+//		dimensionId = Rediscovered.DimID;
+		worldObj.setSeaLevel(25);
 		hasNoSky = false;
 	}
 
