@@ -2,7 +2,9 @@ package com.stormister.rediscovered.world;
 
 import com.stormister.rediscovered.Rediscovered;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.relauncher.Side;
@@ -13,7 +15,7 @@ public class WorldProviderHeaven extends WorldProvider {
 	public float calculateCelestialAngle(long par1, float par3) {
 		return 0.0F;
 	}
-
+	
 	@Override
 	public boolean canRespawnHere() {
 		return true;
@@ -53,14 +55,9 @@ public class WorldProviderHeaven extends WorldProvider {
 	}
 
 	@Override
-	public double getMovementFactor() {
-		return 1.2;
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
 	public double getVoidFogYFactor() {
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -72,9 +69,22 @@ public class WorldProviderHeaven extends WorldProvider {
 	@Override
 	public void registerWorldChunkManager() {
 		worldChunkMgr = new WorldChunkManagerHell(Rediscovered.heaven, dimensionId);
-//		dimensionId = Rediscovered.DimID;
 		worldObj.setSeaLevel(25);
 		hasNoSky = false;
 	}
+	
+	public BlockPos getRandomizedSpawnPoint()
+    {
+		BlockPos ret = this.worldObj.getSpawnPoint();
 
+        if (worldObj.getWorldInfo().getGameType() != WorldSettings.GameType.ADVENTURE)
+        {
+            ret = worldObj.getTopSolidOrLiquidBlock(ret.add(worldObj.rand.nextInt(64) - 32, 0, worldObj.rand.nextInt(64) - 32));
+            
+            while(!canCoordinateBeSpawn(ret.getX(), ret.getZ())){
+            	ret = worldObj.getTopSolidOrLiquidBlock(ret.add(worldObj.rand.nextInt(64) - 32, 0, worldObj.rand.nextInt(64) - 32));
+            }
+        }
+        return ret;
+    }
 }
