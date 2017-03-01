@@ -49,8 +49,7 @@ import com.stormister.rediscovered.entity.EntitySkyChicken;
 import com.stormister.rediscovered.entity.EntityZombieHorse;
 import com.stormister.rediscovered.items.ItemBlockCherrySlab;
 import com.stormister.rediscovered.items.ItemBlockDirtSlab;
-import com.stormister.rediscovered.items.ItemDreamPillow;
-import com.stormister.rediscovered.items.ItemLC;
+import com.stormister.rediscovered.items.ItemLeatherChain;
 import com.stormister.rediscovered.items.ItemLantern;
 import com.stormister.rediscovered.items.ItemPotionRediscovered;
 import com.stormister.rediscovered.items.ItemQuiver;
@@ -135,11 +134,9 @@ public class Rediscovered {
 	public static Item LeatherChainLegs;
 	public static Item LeatherChainBoots;
 	public static Item RediscoveredPotion;
-	// public static Block Sponge;
 	public static Block RubyOre;
 	public static Block RubyBlock;
 	public static Item gemRuby;
-	// public static Block CryingObsidian;
 	public static BlockCherryLog CherryLog;
 	public static Block CherryPlank;
 	public static Block CherryLeaves;
@@ -157,12 +154,10 @@ public class Rediscovered {
 	public static BlockTable Table;
 	public static Block Lectern;
 	public static Block LecternOpen;
-	public static Item DreamPillow;
 	public static Block Lantern;
 	public static Block LanternPhys;
 	public static Item ItemLantern;
 	public static Item Scarecrow;
-	public static int DreamChance;
 	public static int ZombieHorseSpawn;
 
 	public static int SkeletonHorseSpawn;
@@ -184,16 +179,12 @@ public class Rediscovered {
 	public static int SkeletonHorseID;
 	public static int ScarecrowID;
 	public static int RedDragonID;
-	public static int DimID;
 	public static int HeavenBiomeID;
 	public static boolean EnablePigmanVillages;
 	public static boolean EnableQuivers;
 	public static boolean EnableDungeonLoot;
 	public static boolean EnableRubyOre;
 	public static boolean GVillagerSpawn;
-	public static boolean ScarecrowAttractsMobs;
-	public static boolean DreamPillowRecipe;
-	public static boolean DaytimeBed;
 	public static int nextID = 0;
 	public static BiomeGenBase heaven;
 	public static ArmorMaterial EnumArmorMaterialInvinc = EnumHelper.addArmorMaterial("Invincible", "Quiver", -1,
@@ -332,7 +323,6 @@ public class Rediscovered {
 			registerItemRenders(RediscoveredPotion, 102, "RediscoveredPotion_DullnessSplash");
 			registerItemRenders(ItemLantern, "ItemLantern");
 			registerItemRenders(Scarecrow, "Scarecrow");
-			registerItemRenders(DreamPillow, "DreamPillow");
 			// registerItemRenders(ItemGear, "ItemGear");
 		}
 
@@ -406,15 +396,14 @@ public class Rediscovered {
 			LeatherChainQuiver = (new ItemQuiver(EnumArmorMaterialLC, 0, 1, "LeatherChainQuiver"))
 					.setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
 		}
-		LeatherChainHelmet = (new ItemLC(EnumArmorMaterialLC, 0, 0)).setCreativeTab(CreativeTabs.tabCombat);
-		LeatherChainChest = (new ItemLC(EnumArmorMaterialLC, 0, 1)).setCreativeTab(CreativeTabs.tabCombat);
-		LeatherChainLegs = (new ItemLC(EnumArmorMaterialLC, 0, 2)).setCreativeTab(CreativeTabs.tabCombat);
-		LeatherChainBoots = (new ItemLC(EnumArmorMaterialLC, 0, 3)).setCreativeTab(CreativeTabs.tabCombat);
+		LeatherChainHelmet = (new ItemLeatherChain(EnumArmorMaterialLC, 0, 0)).setCreativeTab(CreativeTabs.tabCombat);
+		LeatherChainChest = (new ItemLeatherChain(EnumArmorMaterialLC, 0, 1)).setCreativeTab(CreativeTabs.tabCombat);
+		LeatherChainLegs = (new ItemLeatherChain(EnumArmorMaterialLC, 0, 2)).setCreativeTab(CreativeTabs.tabCombat);
+		LeatherChainBoots = (new ItemLeatherChain(EnumArmorMaterialLC, 0, 3)).setCreativeTab(CreativeTabs.tabCombat);
 		gemRuby = (new ItemRuby()).setCreativeTab(CreativeTabs.tabMaterials);
 		RediscoveredPotion = (new ItemPotionRediscovered());
 		ItemLantern = new ItemLantern();
 		Scarecrow = (new ItemScarecrow()).setCreativeTab(CreativeTabs.tabDecorations);
-		DreamPillow = (new ItemDreamPillow()).setCreativeTab(CreativeTabs.tabMisc);
 		// ItemGear = (new ItemGear()).setCreativeTab(CreativeTabs.tabRedstone);
 
 		heaven = (new BiomeGenSky(HeavenBiomeID)).setColor(16421912).setBiomeName("Heaven").setDisableRain();
@@ -471,7 +460,6 @@ public class Rediscovered {
 				.getInt();
 		ScarecrowID = config.get("ID's", "Scarecrow ID (-1 means it will automatically assign an ID)", -1).getInt();
 		RedDragonID = config.get("ID's", "Red Dragon ID (-1 means it will automatically assign an ID)", -1).getInt();
-		DimID = config.get("ID's", "Sky Dimension ID", 2).getInt();
 		HeavenBiomeID = config.get("ID's", "Sky Biome ID", 153).getInt();
 
 		// Booleans
@@ -487,15 +475,6 @@ public class Rediscovered {
 		SkyChickenSpawn = config.get("Options", "Sky Chicken Spawn Rate", 150).getInt();
 		GiantSpawn = config.get("Options", "Giant Spawn Rate", 150).getInt();
 		FishSpawn = config.get("Options", "Fish Spawn Rate", 150).getInt();
-		ScarecrowAttractsMobs = config.get("Options",
-				"Scarecrow attracts zombies (True by default. Set to false to have zombies avoid scarecrows)", true)
-				.getBoolean(true);
-		DreamPillowRecipe = config.get("Options", "Enable Dream Pillow recipe", false).getBoolean(false);
-		DreamChance = config.get("Options", "Percent chance out of 100 of going to Sky Dimension on sleep.", 12)
-				.getInt();
-		DaytimeBed = config
-				.get("Options", "Can go to Sky Dimension without Restrictions (Daytime, Monsters nearby).", false)
-				.getBoolean(false);
 		config.save();
 	}
 
@@ -543,8 +522,7 @@ public class Rediscovered {
 		registerRediscoveredMob(EntityScarecrow.class, "ScarecrowRediscovered", ScarecrowID);
 		registerRediscoveredMob(EntityGoodDragon.class, "RedDragonRediscovered", RedDragonID);
 
-		DimensionManager.registerProviderType(DimID, WorldProviderHeaven.class, true);
-		DimensionManager.registerDimension(DimID, DimID);
+		DimensionManager.registerProviderType(2, WorldProviderHeaven.class, true);
 		BiomeManager.removeSpawnBiome(heaven);
 		BiomeManager.removeStrongholdBiome(heaven);
 		BiomeManager.removeVillageBiome(heaven);
@@ -605,17 +583,10 @@ public class Rediscovered {
 		GameRegistry.addShapelessRecipe(new ItemStack(CherryPlank, 4), new Object[] { CherryLog });
 		GameRegistry.addRecipe(new ItemStack(CherrySlab, 6), new Object[] { "SSS", 'S', CherryPlank });
 		GameRegistry.addRecipe(new ItemStack(CherryStairs, 4), new Object[] { "  S", " SS", "SSS", 'S', CherryPlank });
-		// GameRegistry.addRecipe(new ItemStack(CryingObsidian, 1),
-		// new Object[] { " L ", "LOL", " L ", 'L', new ItemStack(Items.dye, 1,
-		// 4), 'O', Blocks.obsidian });
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Spikes, 1), true,
 				new Object[] { "   ", "I I", "LLL", 'L', "plankWood", 'I', Items.iron_ingot }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Scarecrow, 1), true,
 				new Object[] { " P ", "SHS", " S ", 'S', Items.stick, 'H', Blocks.hay_block, 'P', Blocks.pumpkin }));
-		if (DreamPillowRecipe) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(DreamPillow, 1), true, new Object[] { "WWW", "WGW",
-					"WWW", 'G', Items.glowstone_dust, 'W', new ItemStack(Blocks.wool, 1, 11) }));
-		}
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(RubyBlock, 1), true,
 				new Object[] { "LLL", "LLL", "LLL", 'L', "gemRuby" }));
 		GameRegistry.addSmelting(RubyOre, new ItemStack(gemRuby), 1);
