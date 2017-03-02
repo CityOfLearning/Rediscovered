@@ -2,7 +2,6 @@ package com.stormister.rediscovered.render;
 
 import com.stormister.rediscovered.entity.EntityGreenVillager;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelVillager;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;

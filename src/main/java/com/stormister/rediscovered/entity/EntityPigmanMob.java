@@ -48,28 +48,26 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 	private Village villageObj;
 	private int randomTickDivider;
 
-	public EntityPigmanMob(World worldIn)
-	    {
-	        super(worldIn);
-	        tasks.addTask(1, new EntityAISwimming(this));
-	        tasks.addTask(3, new EntityAIAvoidEntity(this, EntityTNTPrimed.class, 8.0F, 0.6D, 0.6D));
-			tasks.addTask(3, new EntityAIAvoidEntity(this, EntityCreeper.class, 8.0F, 0.6D, 0.6D));
-			tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
-	        tasks.addTask(4, new EntityAIWander(this, 1.0D));
-	        tasks.addTask(5, new EntityAIMoveThroughVillage(this, 0.16F, true));
-			tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.16F));
-	        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-	        tasks.addTask(6, new EntityAILookIdle(this));
-	        tasks.addTask(14, new EntityAIRestrictOpenDoor(this));
-			tasks.addTask(15, new EntityAIOpenDoor(this, true));
-	        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-	        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+	public EntityPigmanMob(World worldIn) {
+		super(worldIn);
+		tasks.addTask(1, new EntityAISwimming(this));
+		tasks.addTask(3, new EntityAIAvoidEntity(this, EntityTNTPrimed.class, 8.0F, 0.6D, 0.6D));
+		tasks.addTask(3, new EntityAIAvoidEntity(this, EntityCreeper.class, 8.0F, 0.6D, 0.6D));
+		tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
+		tasks.addTask(4, new EntityAIWander(this, 1.0D));
+		tasks.addTask(5, new EntityAIMoveThroughVillage(this, 0.16F, true));
+		tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.16F));
+		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAILookIdle(this));
+		tasks.addTask(14, new EntityAIRestrictOpenDoor(this));
+		tasks.addTask(15, new EntityAIOpenDoor(this, true));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 
-	        if ((worldIn != null) && !worldIn.isRemote)
-	        {
-	            setCombatTask();
-	        }
-	    }
+		if ((worldIn != null) && !worldIn.isRemote) {
+			setCombatTask();
+		}
+	}
 
 	@Override
 	protected void applyEntityAttributes() {
@@ -86,17 +84,18 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Attack the specified entity using a ranged attack.
 	 */
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
 		EntityArrow entityarrow = new EntityArrow(worldObj, this, target, 1.6F,
 				14 - (worldObj.getDifficulty().getDifficultyId() * 4));
 		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, getHeldItem());
 		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, getHeldItem());
-		entityarrow.setDamage(
-				p_82196_2_ * 2.0F + (rand.nextGaussian() * 0.25D) + worldObj.getDifficulty().getDifficultyId() * 0.11F);
+		entityarrow.setDamage((p_82196_2_ * 2.0F) + (rand.nextGaussian() * 0.25D)
+				+ (worldObj.getDifficulty().getDifficultyId() * 0.11F));
 
 		if (i > 0) {
 			entityarrow.setDamage(entityarrow.getDamage() + (i * 0.5D) + 0.5D);
@@ -124,7 +123,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 
 	/**
 	 * Drop 0-2 items of this living's type
-	 * 
+	 *
 	 * @param wasRecentlyHit
 	 *            true if this this entity was recently hit by appropriate
 	 *            entity (generally only if player or tameable)
@@ -143,8 +142,8 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 			}
 		}
 
-			j = rand.nextInt(2 + lootingModifier);
-		
+		j = rand.nextInt(2 + lootingModifier);
+
 		for (int k = 0; k < j; ++k) {
 			if (isBurning()) {
 				dropItem(Items.cooked_porkchop, 1);
@@ -200,7 +199,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 	public Village getVillage() {
 		return villageObj;
 	}
-	
+
 	/**
 	 * Returns the Y Offset of this entity.
 	 */
@@ -217,7 +216,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		
+
 		if ((getRNG().nextInt(2) > 0)) {
 			tasks.addTask(4, aiAttackOnCollide);
 			setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
@@ -327,7 +326,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 			renderYawOffset = entitycreature.renderYawOffset;
 		}
 	}
-	
+
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */

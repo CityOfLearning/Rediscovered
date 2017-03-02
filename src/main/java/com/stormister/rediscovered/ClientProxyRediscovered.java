@@ -56,12 +56,9 @@ public class ClientProxyRediscovered extends CommonProxyRediscovered {
 
 		MinecraftForge.EVENT_BUS.register(Rediscovered.config);
 
-		ModelBakery.registerItemVariants(Rediscovered.RediscoveredPotion,
-				new ResourceLocation("rediscovered:Nausea"),
-				new ResourceLocation("rediscovered:Blindness"),
-				new ResourceLocation("rediscovered:Dullness"),
-				new ResourceLocation("rediscovered:NauseaSplash"),
-				new ResourceLocation("rediscovered:BlindnessSplash"),
+		ModelBakery.registerItemVariants(Rediscovered.RediscoveredPotion, new ResourceLocation("rediscovered:Nausea"),
+				new ResourceLocation("rediscovered:Blindness"), new ResourceLocation("rediscovered:Dullness"),
+				new ResourceLocation("rediscovered:NauseaSplash"), new ResourceLocation("rediscovered:BlindnessSplash"),
 				new ResourceLocation("rediscovered:DullnessSplash"));
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPigmanVillager.class,
@@ -71,13 +68,12 @@ public class ClientProxyRediscovered extends CommonProxyRediscovered {
 						return new RenderPigman(manager, new ModelBiped(), 0.5F);
 					}
 				});
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigmanMob.class,
-				new IRenderFactory<EntityPigmanMob>() {
-					@Override
-					public Render<? super EntityPigmanMob> createRenderFor(RenderManager manager) {
-						return new RenderPigman(manager, new ModelPigmanMob(), 0.5F);
-					}
-				});
+		RenderingRegistry.registerEntityRenderingHandler(EntityPigmanMob.class, new IRenderFactory<EntityPigmanMob>() {
+			@Override
+			public Render<? super EntityPigmanMob> createRenderFor(RenderManager manager) {
+				return new RenderPigman(manager, new ModelPigmanMob(), 0.5F);
+			}
+		});
 		RenderingRegistry.registerEntityRenderingHandler(EntityGreenVillager.class,
 				new IRenderFactory<EntityGreenVillager>() {
 					@Override

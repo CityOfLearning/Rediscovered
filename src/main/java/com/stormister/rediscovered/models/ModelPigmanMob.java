@@ -1,7 +1,6 @@
 package com.stormister.rediscovered.models;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -30,7 +29,7 @@ public class ModelPigmanMob extends ModelBiped {
 		if ((itemstack != null) && (itemstack.getItem() == Items.bow)) {
 			aimedBow = true;
 		}
-		
+
 		super.setLivingAnimations(par1EntityLivingBase, par2, par3, par4);
 	}
 }

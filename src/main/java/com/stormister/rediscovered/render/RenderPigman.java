@@ -9,7 +9,6 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,13 +21,9 @@ public class RenderPigman extends RenderBiped {
 	public RenderPigman(RenderManager renderManagerIn, ModelBiped modelBipedIn, float shadowSize) {
 		super(renderManagerIn, modelBipedIn, shadowSize);
 	}
-	
+
 	public RenderPigman(RenderManager renderManagerIn, ModelPigmanMob modelBipedIn, float shadowSize) {
 		super(renderManagerIn, modelBipedIn, shadowSize);
-	}
-
-	public void transformHeldFull3DItemLayer() {
-		GL11.glTranslatef(0.09375F, 0.1875F, 0.0F);
 	}
 
 	/**
@@ -38,5 +33,10 @@ public class RenderPigman extends RenderBiped {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLiving par1Entity) {
 		return PIGMAN_TEXTURE;
+	}
+
+	@Override
+	public void transformHeldFull3DItemLayer() {
+		GL11.glTranslatef(0.09375F, 0.1875F, 0.0F);
 	}
 }

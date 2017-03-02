@@ -15,7 +15,7 @@ public class WorldProviderHeaven extends WorldProvider {
 	public float calculateCelestialAngle(long par1, float par3) {
 		return 0.0F;
 	}
-	
+
 	@Override
 	public boolean canRespawnHere() {
 		return true;
@@ -55,6 +55,22 @@ public class WorldProviderHeaven extends WorldProvider {
 	}
 
 	@Override
+	public BlockPos getRandomizedSpawnPoint() {
+		BlockPos ret = worldObj.getSpawnPoint();
+
+		if (worldObj.getWorldInfo().getGameType() != WorldSettings.GameType.ADVENTURE) {
+			ret = worldObj.getTopSolidOrLiquidBlock(
+					ret.add(worldObj.rand.nextInt(64) - 32, 0, worldObj.rand.nextInt(64) - 32));
+
+			while (!canCoordinateBeSpawn(ret.getX(), ret.getZ())) {
+				ret = worldObj.getTopSolidOrLiquidBlock(
+						ret.add(worldObj.rand.nextInt(64) - 32, 0, worldObj.rand.nextInt(64) - 32));
+			}
+		}
+		return ret;
+	}
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public double getVoidFogYFactor() {
 		return 1;
@@ -72,19 +88,4 @@ public class WorldProviderHeaven extends WorldProvider {
 		worldObj.setSeaLevel(25);
 		hasNoSky = false;
 	}
-	
-	public BlockPos getRandomizedSpawnPoint()
-    {
-		BlockPos ret = this.worldObj.getSpawnPoint();
-
-        if (worldObj.getWorldInfo().getGameType() != WorldSettings.GameType.ADVENTURE)
-        {
-            ret = worldObj.getTopSolidOrLiquidBlock(ret.add(worldObj.rand.nextInt(64) - 32, 0, worldObj.rand.nextInt(64) - 32));
-            
-            while(!canCoordinateBeSpawn(ret.getX(), ret.getZ())){
-            	ret = worldObj.getTopSolidOrLiquidBlock(ret.add(worldObj.rand.nextInt(64) - 32, 0, worldObj.rand.nextInt(64) - 32));
-            }
-        }
-        return ret;
-    }
 }

@@ -48,8 +48,8 @@ import com.stormister.rediscovered.entity.EntitySkyChicken;
 import com.stormister.rediscovered.entity.EntityZombieHorse;
 import com.stormister.rediscovered.items.ItemBlockCherrySlab;
 import com.stormister.rediscovered.items.ItemBlockDirtSlab;
-import com.stormister.rediscovered.items.ItemLeatherChain;
 import com.stormister.rediscovered.items.ItemLantern;
+import com.stormister.rediscovered.items.ItemLeatherChain;
 import com.stormister.rediscovered.items.ItemPotionRediscovered;
 import com.stormister.rediscovered.items.ItemQuiver;
 import com.stormister.rediscovered.items.ItemRuby;
@@ -443,8 +443,7 @@ public class Rediscovered {
 		MountableBlockID = config.get("ID's", "Mountable Block ID (-1 means it will automatically assign an ID)", -1)
 				.getInt();
 		PigmanID = config.get("ID's", "Pigman ID (-1 means it will automatically assign an ID)", -1).getInt();
-		PigmanMobID = config.get("ID's", "Pigman Mob ID (-1 means it will automatically assign an ID)", -1)
-				.getInt();
+		PigmanMobID = config.get("ID's", "Pigman Mob ID (-1 means it will automatically assign an ID)", -1).getInt();
 		GreenVillagerID = config.get("ID's", "Green Villager ID (-1 means it will automatically assign an ID)", -1)
 				.getInt();
 		SkyChickenID = config.get("ID's", "Sky Chicken ID (-1 means it will automatically assign an ID)", -1).getInt();

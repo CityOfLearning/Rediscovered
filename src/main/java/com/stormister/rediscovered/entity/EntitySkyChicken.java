@@ -1,6 +1,5 @@
 package com.stormister.rediscovered.entity;
 
-
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
