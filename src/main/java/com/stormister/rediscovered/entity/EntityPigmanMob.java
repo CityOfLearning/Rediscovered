@@ -1,89 +1,117 @@
 package com.stormister.rediscovered.entity;
 
+import java.util.Calendar;
+
+import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
-import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAIRestrictOpenDoor;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
 import net.minecraft.village.Village;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public abstract class EntityPigmanMob extends EntityMob {
-	private static final ItemStack defaultHeldItem = new ItemStack(Items.iron_sword, 1);
-	Village villageObj;
-	private int field_48120_c;
-	private int field_48118_d;
-	public int type;
-	public float animSpeed;
-	private int randomTickDivider;
+public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
+	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D,
 			false);
+	private Village villageObj;
+	private int randomTickDivider;
 
-	public EntityPigmanMob(World par1World) {
-		super(par1World);
-		villageObj = null;
-		type = rand.nextInt(3);
-		animSpeed = (float) (0.89999997615814209D);
-		((PathNavigateGround) getNavigator()).setAvoidsWater(true);
-		tasks.addTask(1, new EntityAIAttackOnCollide(this, 0.25F, true));
-		tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.22F, 32F));
-		tasks.addTask(1, new EntityAIAvoidEntity(this, EntityTNTPrimed.class, 8.0F, 0.6D, 0.6D));
-		tasks.addTask(1, new EntityAIAvoidEntity(this, EntityCreeper.class, 8.0F, 0.6D, 0.6D));
-		tasks.addTask(3, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.0D, false));
-		tasks.addTask(5, new EntityAIMoveThroughVillage(this, 0.16F, true));
-		tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.16F));
-		tasks.addTask(8, new EntityAIWander(this, 0.16F));
-		tasks.addTask(9, new EntityAIWatchClosest2(this, net.minecraft.entity.player.EntityPlayer.class, 3F, 1.0F));
-		tasks.addTask(10,
-				new EntityAIWatchClosest2(this, net.minecraft.entity.passive.EntityVillager.class, 5F, 0.02F));
-		tasks.addTask(13, new EntityAILookIdle(this));
-		tasks.addTask(14, new EntityAIRestrictOpenDoor(this));
-		tasks.addTask(15, new EntityAIOpenDoor(this, true));
-		targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-		applyEntityAI();
-		if ((par1World != null) && !par1World.isRemote) {
-			setCombatTask();
-		}
-	}
+	public EntityPigmanMob(World worldIn)
+	    {
+	        super(worldIn);
+	        tasks.addTask(1, new EntityAISwimming(this));
+	        tasks.addTask(3, new EntityAIAvoidEntity(this, EntityTNTPrimed.class, 8.0F, 0.6D, 0.6D));
+			tasks.addTask(3, new EntityAIAvoidEntity(this, EntityCreeper.class, 8.0F, 0.6D, 0.6D));
+			tasks.addTask(3, new EntityAIAvoidEntity(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
+	        tasks.addTask(4, new EntityAIWander(this, 1.0D));
+	        tasks.addTask(5, new EntityAIMoveThroughVillage(this, 0.16F, true));
+			tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.16F));
+	        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+	        tasks.addTask(6, new EntityAILookIdle(this));
+	        tasks.addTask(14, new EntityAIRestrictOpenDoor(this));
+			tasks.addTask(15, new EntityAIOpenDoor(this, true));
+	        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+	        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 
-	protected void applyEntityAI() {
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-	}
+	        if ((worldIn != null) && !worldIn.isRemote)
+	        {
+	            setCombatTask();
+	        }
+	    }
 
 	@Override
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
-		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(1.2D);
+		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3D);
 	}
 
 	@Override
-	public boolean attackEntityAsMob(Entity par1Entity) {
-		field_48120_c = 10;
-		worldObj.setEntityState(this, (byte) 4);
-		boolean flag = par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 7 + rand.nextInt(15));
-		return flag;
+	public boolean attackEntityAsMob(Entity entityIn) {
+		if (super.attackEntityAsMob(entityIn)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Attack the specified entity using a ranged attack.
+	 */
+	public void attackEntityWithRangedAttack(EntityLivingBase target, float p_82196_2_) {
+		EntityArrow entityarrow = new EntityArrow(worldObj, this, target, 1.6F,
+				14 - (worldObj.getDifficulty().getDifficultyId() * 4));
+		int i = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, getHeldItem());
+		int j = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, getHeldItem());
+		entityarrow.setDamage(
+				p_82196_2_ * 2.0F + (rand.nextGaussian() * 0.25D) + worldObj.getDifficulty().getDifficultyId() * 0.11F);
+
+		if (i > 0) {
+			entityarrow.setDamage(entityarrow.getDamage() + (i * 0.5D) + 0.5D);
+		}
+
+		if (j > 0) {
+			entityarrow.setKnockbackStrength(j);
+		}
+
+		if ((EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, getHeldItem()) > 0)) {
+			entityarrow.setFire(100);
+		}
+
+		playSound("random.bow", 1.0F, 1.0F / ((getRNG().nextFloat() * 0.4F) + 0.8F));
+		worldObj.spawnEntityInWorld(entityarrow);
 	}
 
 	/**
@@ -95,22 +123,28 @@ public abstract class EntityPigmanMob extends EntityMob {
 	}
 
 	/**
-	 * Decrements the entity's air supply when underwater
+	 * Drop 0-2 items of this living's type
+	 * 
+	 * @param wasRecentlyHit
+	 *            true if this this entity was recently hit by appropriate
+	 *            entity (generally only if player or tameable)
+	 * @param lootingModifier
+	 *            level of enchanment to be applied to this drop
 	 */
 	@Override
-	protected int decreaseAirSupply(int par1) {
-		return par1;
-	}
+	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
+		int j = rand.nextInt(3) + 1 + rand.nextInt(1 + lootingModifier);
 
-	/**
-	 * Drop 0-2 items of this living's type. @param par1 - Whether this entity
-	 * has recently been hit by a player. @param par2 - Level of Looting used to
-	 * kill this mob.
-	 */
-	@Override
-	protected void dropFewItems(boolean par1, int par2) {
-		int j = rand.nextInt(3) + 1 + rand.nextInt(1 + par2);
+		ItemStack itemstack = getHeldItem();
 
+		if ((itemstack != null) && (itemstack.getItem() == Items.bow)) {
+			for (int k = 0; k < j; ++k) {
+				dropItem(Items.arrow, 1);
+			}
+		}
+
+			j = rand.nextInt(2 + lootingModifier);
+		
 		for (int k = 0; k < j; ++k) {
 			if (isBurning()) {
 				dropItem(Items.cooked_porkchop, 1);
@@ -123,34 +157,15 @@ public abstract class EntityPigmanMob extends EntityMob {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(20, Byte.valueOf((byte) 0));
+		dataWatcher.addObject(13, new Byte((byte) 0));
 	}
 
-	public boolean func_48112_E_() {
-		return (dataWatcher.getWatchableObjectByte(20) & 1) != 0;
-	}
-
-	public int func_48114_ab() {
-		return field_48120_c;
-	}
-
-	public void func_48115_b(boolean par1) {
-		byte byte0 = dataWatcher.getWatchableObjectByte(20);
-
-		if (par1) {
-			dataWatcher.updateObject(20, Byte.valueOf((byte) (byte0 | 1)));
-		} else {
-			dataWatcher.updateObject(20, Byte.valueOf((byte) (byte0 & -2)));
-		}
-	}
-
-	public void func_48116_a(boolean par1) {
-		field_48118_d = par1 ? 400 : 0;
-		worldObj.setEntityState(this, (byte) 11);
-	}
-
-	public int func_48117_D_() {
-		return field_48118_d;
+	/**
+	 * Get this Entity's EnumCreatureAttribute
+	 */
+	@Override
+	public EnumCreatureAttribute getCreatureAttribute() {
+		return EnumCreatureAttribute.UNDEAD;
 	}
 
 	/**
@@ -161,17 +176,9 @@ public abstract class EntityPigmanMob extends EntityMob {
 		return "mob.pig.death";
 	}
 
-	/**
-	 * Returns the item ID for the item the mob drops on death.
-	 */
 	@Override
 	protected Item getDropItem() {
 		return isBurning() ? Items.cooked_porkchop : Items.porkchop;
-	}
-
-	@Override
-	public ItemStack getHeldItem() {
-		return defaultHeldItem;
 	}
 
 	/**
@@ -179,7 +186,7 @@ public abstract class EntityPigmanMob extends EntityMob {
 	 */
 	@Override
 	protected String getHurtSound() {
-		return "mob.pig.say";
+		return "mob.pig.hurt";
 	}
 
 	/**
@@ -193,26 +200,50 @@ public abstract class EntityPigmanMob extends EntityMob {
 	public Village getVillage() {
 		return villageObj;
 	}
-
+	
 	/**
-	 * Returns true if the newer Entity AI code should be run
+	 * Returns the Y Offset of this entity.
 	 */
-	public boolean isAIEnabled() {
-		return true;
+	@Override
+	public double getYOffset() {
+		return isChild() ? 0.0D : -0.35D;
 	}
 
-	public boolean isExplosiveMob(Class par1Class) {
-		if (func_48112_E_() && (net.minecraft.entity.player.EntityPlayer.class).isAssignableFrom(par1Class)) {
-			return false;
+	/**
+	 * Called only once on an entity when first time spawned, via egg, mob
+	 * spawner, natural spawning etc, but not called when entity is reloaded
+	 * from nbt. Mainly used for initializing attributes and inventory
+	 */
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		
+		if ((getRNG().nextInt(2) > 0)) {
+			tasks.addTask(4, aiAttackOnCollide);
+			setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
+			getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
 		} else {
-			return super.canAttackClass(par1Class);
+			tasks.addTask(4, aiArrowAttack);
+			setEquipmentBasedOnDifficulty(difficulty);
+			setEnchantmentBasedOnDifficulty(difficulty);
 		}
+
+		setCanPickUpLoot(rand.nextFloat() < (0.55F * difficulty.getClampedAdditionalDifficulty()));
+
+		if (getEquipmentInSlot(4) == null) {
+			Calendar calendar = worldObj.getCurrentDate();
+
+			if (((calendar.get(2) + 1) == 10) && (calendar.get(5) == 31) && (rand.nextFloat() < 0.25F)) {
+				setCurrentItemOrArmor(4, new ItemStack(rand.nextFloat() < 0.1F ? Blocks.lit_pumpkin : Blocks.pumpkin));
+				equipmentDropChances[4] = 0.0F;
+			}
+		}
+
+		return livingdata;
 	}
 
-	/**
-	 * Plays step sound at given x, y, z for the entity
-	 */
-	protected void playStepSound(int par1, int par2, int par3, int par4) {
+	@Override
+	protected void playStepSound(BlockPos pos, Block blockIn) {
 		playSound("mob.pig.step", 0.15F, 1.0F);
 	}
 
@@ -220,8 +251,8 @@ public abstract class EntityPigmanMob extends EntityMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-		super.readEntityFromNBT(par1NBTTagCompound);
+	public void readEntityFromNBT(NBTTagCompound tagCompund) {
+		super.readEntityFromNBT(tagCompund);
 		setCombatTask();
 	}
 
@@ -229,8 +260,15 @@ public abstract class EntityPigmanMob extends EntityMob {
 	 * sets this entity's combat AI.
 	 */
 	public void setCombatTask() {
-		tasks.addTask(4, aiAttackOnCollide);
+		tasks.removeTask(aiAttackOnCollide);
+		tasks.removeTask(aiArrowAttack);
+		ItemStack itemstack = getHeldItem();
 
+		if ((itemstack != null) && (itemstack.getItem() == Items.bow)) {
+			tasks.addTask(4, aiArrowAttack);
+		} else {
+			tasks.addTask(4, aiAttackOnCollide);
+		}
 	}
 
 	/**
@@ -238,21 +276,21 @@ public abstract class EntityPigmanMob extends EntityMob {
 	 * armor. Params: Item, slot
 	 */
 	@Override
-	public void setCurrentItemOrArmor(int par1, ItemStack par2ItemStack) {
-		super.setCurrentItemOrArmor(par1, par2ItemStack);
+	public void setCurrentItemOrArmor(int slotIn, ItemStack stack) {
+		super.setCurrentItemOrArmor(slotIn, stack);
 
-		if (!worldObj.isRemote && (par1 == 0)) {
+		if (!worldObj.isRemote && (slotIn == 0)) {
 			setCombatTask();
 		}
 	}
 
 	/**
-	 * Makes entity wear random armor based on difficulty
+	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
 	@Override
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
 		super.setEquipmentBasedOnDifficulty(difficulty);
-		setCurrentItemOrArmor(0, new ItemStack(Items.iron_sword));
+		setCurrentItemOrArmor(0, new ItemStack(Items.bow));
 	}
 
 	/**
@@ -278,10 +316,23 @@ public abstract class EntityPigmanMob extends EntityMob {
 	}
 
 	/**
+	 * Handles updating while being ridden by an entity
+	 */
+	@Override
+	public void updateRidden() {
+		super.updateRidden();
+
+		if (ridingEntity instanceof EntityCreature) {
+			EntityCreature entitycreature = (EntityCreature) ridingEntity;
+			renderYawOffset = entitycreature.renderYawOffset;
+		}
+	}
+	
+	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	@Override
-	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-		super.writeEntityToNBT(par1NBTTagCompound);
+	public void writeEntityToNBT(NBTTagCompound tagCompound) {
+		super.writeEntityToNBT(tagCompound);
 	}
 }

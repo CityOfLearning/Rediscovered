@@ -37,11 +37,10 @@ import com.stormister.rediscovered.entity.EntityFish;
 import com.stormister.rediscovered.entity.EntityGiant;
 import com.stormister.rediscovered.entity.EntityGoodDragon;
 import com.stormister.rediscovered.entity.EntityGreenVillager;
-import com.stormister.rediscovered.entity.EntityMeleePigman;
 import com.stormister.rediscovered.entity.EntityMountableBlock;
 import com.stormister.rediscovered.entity.EntityParrow;
+import com.stormister.rediscovered.entity.EntityPigmanMob;
 import com.stormister.rediscovered.entity.EntityPigmanVillager;
-import com.stormister.rediscovered.entity.EntityRangedPigman;
 import com.stormister.rediscovered.entity.EntityRediscoveredPotion;
 import com.stormister.rediscovered.entity.EntityScarecrow;
 import com.stormister.rediscovered.entity.EntitySkeletonHorse;
@@ -169,8 +168,7 @@ public class Rediscovered {
 	public static int PotionID;
 	public static int MountableBlockID;
 	public static int PigmanID;
-	public static int MeleePigmanID;
-	public static int RangedPigmanID;
+	public static int PigmanMobID;
 	public static int GreenVillagerID;
 	public static int SkyChickenID;
 	public static int GiantID;
@@ -445,9 +443,7 @@ public class Rediscovered {
 		MountableBlockID = config.get("ID's", "Mountable Block ID (-1 means it will automatically assign an ID)", -1)
 				.getInt();
 		PigmanID = config.get("ID's", "Pigman ID (-1 means it will automatically assign an ID)", -1).getInt();
-		MeleePigmanID = config.get("ID's", "Melee Pigman ID (-1 means it will automatically assign an ID)", -1)
-				.getInt();
-		RangedPigmanID = config.get("ID's", "Ranged Pigman ID (-1 means it will automatically assign an ID)", -1)
+		PigmanMobID = config.get("ID's", "Pigman Mob ID (-1 means it will automatically assign an ID)", -1)
 				.getInt();
 		GreenVillagerID = config.get("ID's", "Green Villager ID (-1 means it will automatically assign an ID)", -1)
 				.getInt();
@@ -508,9 +504,7 @@ public class Rediscovered {
 		registerRediscoveredMob(EntityRediscoveredPotion.class, "PotionRediscovered", PotionID);
 		registerRediscoveredMob(EntityMountableBlock.class, "EntityMountableBlockRediscovered", MountableBlockID);
 		registerRediscoveredMob(EntityPigmanVillager.class, "PigmanRediscovered", 0xf0a5a2, 0xa1a1a1, PigmanID);
-		registerRediscoveredMob(EntityMeleePigman.class, "MeleePigmanRediscovered", 0xf0a5a2, 0xa1a1a1, MeleePigmanID);
-		registerRediscoveredMob(EntityRangedPigman.class, "RangedPigmanRediscovered", 0xf0a5a2, 0xa1a1a1,
-				RangedPigmanID);
+		registerRediscoveredMob(EntityPigmanMob.class, "PigmanMobRediscovered", 0xf0a5a2, 0xa1a1a1, PigmanMobID);
 		registerRediscoveredMob(EntityGreenVillager.class, "GreenVillagerRediscovered", 5651507, 7969893,
 				GreenVillagerID);
 		registerRediscoveredMob(EntitySkyChicken.class, "SkyChickenRediscovered", SkyChickenID);

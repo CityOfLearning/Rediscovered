@@ -6,17 +6,16 @@ import com.stormister.rediscovered.entity.EntityFish;
 import com.stormister.rediscovered.entity.EntityGiant;
 import com.stormister.rediscovered.entity.EntityGoodDragon;
 import com.stormister.rediscovered.entity.EntityGreenVillager;
-import com.stormister.rediscovered.entity.EntityMeleePigman;
 import com.stormister.rediscovered.entity.EntityParrow;
+import com.stormister.rediscovered.entity.EntityPigmanMob;
 import com.stormister.rediscovered.entity.EntityPigmanVillager;
-import com.stormister.rediscovered.entity.EntityRangedPigman;
 import com.stormister.rediscovered.entity.EntityRediscoveredPotion;
 import com.stormister.rediscovered.entity.EntityScarecrow;
 import com.stormister.rediscovered.entity.EntitySkeletonHorse;
 import com.stormister.rediscovered.entity.EntitySkyChicken;
 import com.stormister.rediscovered.entity.EntityZombieHorse;
 import com.stormister.rediscovered.models.ModelFish;
-import com.stormister.rediscovered.models.ModelRangedPigman;
+import com.stormister.rediscovered.models.ModelPigmanMob;
 import com.stormister.rediscovered.models.ModelScarecrow;
 import com.stormister.rediscovered.models.ModelSkeletonHorse;
 import com.stormister.rediscovered.models.ModelZombieHorse;
@@ -72,18 +71,11 @@ public class ClientProxyRediscovered extends CommonProxyRediscovered {
 						return new RenderPigman(manager, new ModelBiped(), 0.5F);
 					}
 				});
-		RenderingRegistry.registerEntityRenderingHandler(EntityMeleePigman.class,
-				new IRenderFactory<EntityMeleePigman>() {
+		RenderingRegistry.registerEntityRenderingHandler(EntityPigmanMob.class,
+				new IRenderFactory<EntityPigmanMob>() {
 					@Override
-					public Render<? super EntityMeleePigman> createRenderFor(RenderManager manager) {
-						return new RenderPigman(manager, new ModelBiped(), 0.5F);
-					}
-				});
-		RenderingRegistry.registerEntityRenderingHandler(EntityRangedPigman.class,
-				new IRenderFactory<EntityRangedPigman>() {
-					@Override
-					public Render<? super EntityRangedPigman> createRenderFor(RenderManager manager) {
-						return new RenderPigman(manager, new ModelRangedPigman(), 0.5F);
+					public Render<? super EntityPigmanMob> createRenderFor(RenderManager manager) {
+						return new RenderPigman(manager, new ModelPigmanMob(), 0.5F);
 					}
 				});
 		RenderingRegistry.registerEntityRenderingHandler(EntityGreenVillager.class,
