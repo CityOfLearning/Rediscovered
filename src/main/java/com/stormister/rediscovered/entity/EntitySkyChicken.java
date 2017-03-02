@@ -1,9 +1,7 @@
 package com.stormister.rediscovered.entity;
 
-import org.lwjgl.input.Keyboard;
 
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.ai.EntityAIControlledByPlayer;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -11,22 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class EntitySkyChicken extends EntityChicken {
-	private static String togglekey;
-	private static int itogglekey;
-
-	public static void assignToggleButton(String s) {
-		togglekey = s;
-		itogglekey = Keyboard.getKeyIndex(togglekey);
-	}
 
 	/** AI task for player control. */
-	private final EntityAIControlledByPlayer aiControlledByPlayer;
 
 	public EntitySkyChicken(World par1World) {
 		super(par1World);
-		togglekey = "SPACE";
-		itogglekey = Keyboard.getKeyIndex(togglekey);
-		tasks.addTask(3, aiControlledByPlayer = new EntityAIControlledByPlayer(this, 1.0F));
 	}
 
 	/**
@@ -38,13 +25,6 @@ public class EntitySkyChicken extends EntityChicken {
 	public boolean canBeSteered() {
 		ItemStack itemstack = ((EntityPlayer) riddenByEntity).getHeldItem();
 		return (itemstack != null) && (itemstack.getItem() == Items.wheat_seeds);
-	}
-
-	/**
-	 * Return the AI task for player control.
-	 */
-	public EntityAIControlledByPlayer getAIControlledByPlayer() {
-		return aiControlledByPlayer;
 	}
 
 	/**
@@ -78,14 +58,6 @@ public class EntitySkyChicken extends EntityChicken {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-
-		if (Keyboard.getEventKeyState() && (Keyboard.getEventKey() == itogglekey) && (riddenByEntity != null)) {
-			motionY = 0.05D;
-			motionX *= 1.05;
-			motionZ *= 1.05;
-			super.moveEntity(motionX, motionY, motionZ);
-			super.jump();
-		}
 	}
 
 	/**
