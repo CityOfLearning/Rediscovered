@@ -106,6 +106,14 @@ public class EntityScarecrow extends EntityCreature {
 	}
 
 	/**
+	 * Returns the sound this mob makes while it's alive.
+	 */
+	@Override
+	protected String getLivingSound() {
+		return "mob.skeleton.say";
+	}
+
+	/**
 	 * Returns true if the newer Entity AI code should be run
 	 */
 	public boolean isAIEnabled() {

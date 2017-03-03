@@ -2,6 +2,7 @@ package com.stormister.rediscovered;
 
 import java.util.Random;
 
+import com.stormister.rediscovered.entity.EntityPigmanMob;
 import com.stormister.rediscovered.entity.EntityScarecrow;
 
 import net.minecraft.enchantment.Enchantment;
@@ -94,14 +95,6 @@ public class RediscoveredEventHandler {
 
 	}
 
-	// @SubscribeEvent
-	// public void onEntityConstructing(EntityConstructing event) {
-	// if ((event.entity instanceof EntityPlayer) &&
-	// (ExtendedPlayer.get((EntityPlayer) event.entity) == null)) {
-	// ExtendedPlayer.register((EntityPlayer) event.entity);
-	// }
-	// }
-
 	// Mob AI
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
@@ -109,8 +102,9 @@ public class RediscoveredEventHandler {
 			EntityMob entity = (EntityMob) event.entity;
 			entity.targetTasks.addTask(2,
 					new EntityAINearestAttackableTarget<EntityScarecrow>(entity, EntityScarecrow.class, true));
-			if ((entity instanceof EntityZombie) || (entity instanceof EntitySilverfish)) {
-				entity.tasks.addTask(2, new EntityAIAttackOnCollide(entity, EntityScarecrow.class, 0.8D, false));
+			if ((entity instanceof EntityZombie) || (entity instanceof EntitySilverfish)
+					|| (entity instanceof EntityPigmanMob)) {
+				entity.tasks.addTask(2, new EntityAIAttackOnCollide(entity, EntityScarecrow.class, 1.2D, false));
 			}
 		}
 	}
