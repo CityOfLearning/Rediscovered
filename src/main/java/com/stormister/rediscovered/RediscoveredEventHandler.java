@@ -103,7 +103,8 @@ public class RediscoveredEventHandler {
 			entity.targetTasks.addTask(2,
 					new EntityAINearestAttackableTarget<EntityScarecrow>(entity, EntityScarecrow.class, true));
 			if ((entity instanceof EntityZombie) || (entity instanceof EntitySilverfish)
-					|| (entity instanceof EntityPigmanMob)) {
+					|| ((entity instanceof EntityPigmanMob) && (entity.getHeldItem() != null)
+							&& (entity.getHeldItem().getItem() != Items.bow))) {
 				entity.tasks.addTask(2, new EntityAIAttackOnCollide(entity, EntityScarecrow.class, 1.2D, false));
 			}
 		}
