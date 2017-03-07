@@ -28,6 +28,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -44,6 +45,8 @@ import net.minecraft.world.World;
 public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D,
+			false);
+	private EntityAIAttackOnCollide aiAttackOnCollide2 = new EntityAIAttackOnCollide(this, EntityPigZombie.class, 1.2D,
 			false);
 	private Village villageObj;
 	private int randomTickDivider;
@@ -63,6 +66,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 		tasks.addTask(15, new EntityAIOpenDoor(this, true));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPigZombie.class, true));
 
 		if ((worldIn != null) && !worldIn.isRemote) {
 			setCombatTask();
@@ -164,7 +168,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 	 */
 	@Override
 	public EnumCreatureAttribute getCreatureAttribute() {
-		return EnumCreatureAttribute.UNDEAD;
+		return EnumCreatureAttribute.UNDEFINED;
 	}
 
 	/**
@@ -219,6 +223,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 
 		if ((getRNG().nextInt(2) > 0)) {
 			tasks.addTask(4, aiAttackOnCollide);
+			tasks.addTask(4, aiAttackOnCollide2);
 			setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
 			getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
 		} else {
@@ -260,6 +265,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 	 */
 	public void setCombatTask() {
 		tasks.removeTask(aiAttackOnCollide);
+		tasks.removeTask(aiAttackOnCollide2);
 		tasks.removeTask(aiArrowAttack);
 		ItemStack itemstack = getHeldItem();
 
@@ -267,6 +273,7 @@ public class EntityPigmanMob extends EntityMob implements IRangedAttackMob {
 			tasks.addTask(4, aiArrowAttack);
 		} else {
 			tasks.addTask(4, aiAttackOnCollide);
+			tasks.addTask(4, aiAttackOnCollide2);
 		}
 	}
 
