@@ -49,6 +49,10 @@ public class EntitySkyChicken extends EntityChicken {
 		return true;
 	}
 
+	public void makeJump() {
+		jump();
+	}
+
 	/**
 	 * Called frequently so the entity can update its state every tick as
 	 * required. For example, zombies and skeletons use this to react to
