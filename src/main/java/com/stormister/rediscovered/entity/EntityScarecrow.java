@@ -67,6 +67,14 @@ public class EntityScarecrow extends EntityCreature {
 	}
 
 	/**
+	 * Determines if an entity can be despawned, used on idle far away entities
+	 */
+	@Override
+	protected boolean canDespawn() {
+		return false;
+	}
+
+	/**
 	 * returns if this entity triggers Block.onEntityWalking on the blocks they
 	 * walk on. used for spiders and wolves to prevent them from trampling crops
 	 */
