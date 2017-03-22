@@ -54,10 +54,11 @@ import com.stormister.rediscovered.items.ItemPotionRediscovered;
 import com.stormister.rediscovered.items.ItemQuiver;
 import com.stormister.rediscovered.items.ItemRuby;
 import com.stormister.rediscovered.items.ItemScarecrow;
-import com.stormister.rediscovered.world.BiomeGenSky;
 import com.stormister.rediscovered.world.WorldGeneratorPigmanVillage;
 import com.stormister.rediscovered.world.WorldGeneratorRuby;
-import com.stormister.rediscovered.world.WorldProviderHeaven;
+import com.stormister.rediscovered.world.empty.WorldProviderVoid;
+import com.stormister.rediscovered.world.sky.BiomeGenSky;
+import com.stormister.rediscovered.world.sky.WorldProviderHeaven;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -330,13 +331,6 @@ public class Rediscovered {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		registerConfig(e);
-		// Blocks
-		// CryingObsidian = (new
-		// BlockCryingObsidian()).setHardness(50F).setResistance(2000F)
-		// .setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabs.tabBlock);
-		// Sponge = (new
-		// BlockAbsorb()).setHardness(0.6F).setStepSound(Block.soundTypeGrass)
-		// .setCreativeTab(CreativeTabs.tabBlock);
 		Spikes = (new BlockSpikes()).setHardness(1.5F).setResistance(5.0F).setStepSound(Block.soundTypeWood);
 		DragonEggRed = (new BlockDragonEggRed()).setHardness(3.0F).setResistance(15.0F)
 				.setStepSound(Block.soundTypeStone).setLightLevel(0.125F).setCreativeTab(CreativeTabs.tabMisc);
@@ -516,6 +510,7 @@ public class Rediscovered {
 		registerRediscoveredMob(EntityGoodDragon.class, "RedDragonRediscovered", RedDragonID);
 
 		DimensionManager.registerProviderType(2, WorldProviderHeaven.class, true);
+		DimensionManager.registerProviderType(3, WorldProviderVoid.class, true);
 		BiomeManager.removeSpawnBiome(heaven);
 		BiomeManager.removeStrongholdBiome(heaven);
 		BiomeManager.removeVillageBiome(heaven);

@@ -1,4 +1,4 @@
-package com.stormister.rediscovered.world;
+package com.stormister.rediscovered.world.sky;
 
 import java.util.List;
 import java.util.Random;
@@ -6,6 +6,8 @@ import java.util.Random;
 import com.stormister.rediscovered.ChunkManagerOld;
 import com.stormister.rediscovered.NoiseOctavesBeta;
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.world.WorldGenCherryTrees;
+import com.stormister.rediscovered.world.WorldGenRose;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;

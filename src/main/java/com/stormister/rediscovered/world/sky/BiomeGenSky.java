@@ -1,4 +1,4 @@
-package com.stormister.rediscovered.world;
+package com.stormister.rediscovered.world.sky;
 
 import java.util.Random;
 
@@ -6,6 +6,7 @@ import com.stormister.rediscovered.Rediscovered;
 import com.stormister.rediscovered.entity.EntityGiant;
 import com.stormister.rediscovered.entity.EntityGoodDragon;
 import com.stormister.rediscovered.entity.EntitySkyChicken;
+import com.stormister.rediscovered.world.WorldGenCherryTrees;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;

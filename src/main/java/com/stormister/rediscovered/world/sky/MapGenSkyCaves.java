@@ -1,4 +1,4 @@
-package com.stormister.rediscovered.world;
+package com.stormister.rediscovered.world.sky;
 
 import java.util.Random;
 

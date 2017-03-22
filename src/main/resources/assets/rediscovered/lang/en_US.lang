@@ -20,7 +20,9 @@ tile.Rediscovered_GearWall.name=Gear
 tile.Rediscovered_Peony.name=Paeonia
 tile.Rediscovered_EmptyRoseBush.name=Empty Rose Bush
 tile.Rediscovered_EmptyPeonyBush.name=Empty Peony Bush
+
 death.attack.parrow=%1$s was shot by Ranged Pigman.
+
 item.Rediscovered_Quiver.name=Quiver
 item.Rediscovered_LeatherQuiver.name=Leather Tunic with Quiver
 item.Rediscovered_ChainQuiver.name=Chain Chestplate with Quiver
@@ -45,6 +47,7 @@ item.Rediscovered_Scarecrow.name=Scarecrow
 item.Rediscovered_ItemChair.name=Chair
 item.Rediscovered_ItemTable.name=Table
 item.Rediscovered_ItemLectern.name=Lectern
+
 entity.Rediscovered.PigmanRediscovered.name=Pigman
 entity.Rediscovered.PigmanMobRediscovered.name=Pigman Mob
 entity.Rediscovered.GreenVillagerRediscovered.name=Green Villager
@@ -55,4 +58,6 @@ entity.Rediscovered.FishRediscovered.name=Fish
 entity.Rediscovered.ZombieHorseRediscovered.name=Zombie Horse
 entity.Rediscovered.SkeletonHorseRediscovered.name=Skeleton Horse
 entity.Rediscovered.ScarecrowRediscovered.name=Scarecrow
+
 com.stormister.rediscovered.world.WorldProviderHeaven=sky
+com.stormister.rediscovered.world.WorldProviderVoid=void

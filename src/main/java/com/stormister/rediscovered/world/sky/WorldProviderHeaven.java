@@ -1,4 +1,4 @@
-package com.stormister.rediscovered.world;
+package com.stormister.rediscovered.world.sky;
 
 import com.stormister.rediscovered.Rediscovered;
 
