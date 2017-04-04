@@ -20,7 +20,7 @@ public class WorldProviderVoid extends WorldProvider {
 
 	@Override
 	public boolean canRespawnHere() {
-		return false;
+		return true;
 	}
 
 	@Override
