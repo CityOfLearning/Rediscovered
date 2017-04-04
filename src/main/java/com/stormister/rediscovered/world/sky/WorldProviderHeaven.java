@@ -45,7 +45,7 @@ public class WorldProviderHeaven extends WorldProvider {
 
 	@Override
 	public String getDimensionName() {
-		return "Sky";
+		return "provider.sky";
 	}
 
 	@Override

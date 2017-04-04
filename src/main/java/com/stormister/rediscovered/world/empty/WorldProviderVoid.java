@@ -30,7 +30,7 @@ public class WorldProviderVoid extends WorldProvider {
 
 	@Override
 	public String getDimensionName() {
-		return "Void";
+		return "provider.void";
 	}
 
 	@Override
