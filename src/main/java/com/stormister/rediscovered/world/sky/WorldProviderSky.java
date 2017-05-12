@@ -10,7 +10,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WorldProviderHeaven extends WorldProvider {
+public class WorldProviderSky extends WorldProvider {
 	@Override
 	public float calculateCelestialAngle(long par1, float par3) {
 		return 0.0F;
@@ -23,7 +23,7 @@ public class WorldProviderHeaven extends WorldProvider {
 
 	@Override
 	public IChunkProvider createChunkGenerator() {
-		return new ChunkProviderHeaven(worldObj, worldObj.getSeed());
+		return new ChunkProviderSky(worldObj, worldObj.getSeed());
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class WorldProviderHeaven extends WorldProvider {
 
 	@Override
 	public void registerWorldChunkManager() {
-		worldChunkMgr = new WorldChunkManagerHell(Rediscovered.heaven, dimensionId);
+		worldChunkMgr = new WorldChunkManagerHell(Rediscovered.sky, dimensionId);
 		worldObj.setSeaLevel(25);
 		hasNoSky = false;
 	}

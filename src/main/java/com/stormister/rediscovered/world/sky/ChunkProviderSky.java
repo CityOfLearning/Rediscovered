@@ -5,7 +5,7 @@ import java.util.Random;
 
 import com.stormister.rediscovered.ChunkManagerOld;
 import com.stormister.rediscovered.NoiseOctavesBeta;
-import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 import com.stormister.rediscovered.world.WorldGenCherryTrees;
 import com.stormister.rediscovered.world.WorldGenRose;
 
@@ -34,7 +34,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
-public class ChunkProviderHeaven implements IChunkProvider {
+public class ChunkProviderSky implements IChunkProvider {
 	private Random rand;
 	private NoiseOctavesBeta field_912_k;
 	private NoiseOctavesBeta field_911_l;
@@ -57,7 +57,7 @@ public class ChunkProviderHeaven implements IChunkProvider {
 	int field_914_i[][];
 	private boolean nether;
 
-	public ChunkProviderHeaven(World world, long seed) {
+	public ChunkProviderSky(World world, long seed) {
 		field_902_u = new MapGenSkyCaves();
 		field_914_i = new int[32][32];
 		worldObj = world;
@@ -377,7 +377,7 @@ public class ChunkProviderHeaven implements IChunkProvider {
 			worldObj.getClass();
 			int i16 = rand.nextInt(128);
 			int l18 = l + rand.nextInt(16) + 8;
-			(new WorldGenRose(Rediscovered.Rose, EnumFlowerType.POPPY)).generate(worldObj, rand,
+			(new WorldGenRose(RediscoveredItemsManager.Rose, EnumFlowerType.POPPY)).generate(worldObj, rand,
 					new BlockPos(k11, i16, l18));
 		}
 

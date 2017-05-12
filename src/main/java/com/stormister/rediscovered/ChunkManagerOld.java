@@ -143,7 +143,7 @@ public class ChunkManagerOld extends WorldChunkManager {
 	}
 
 	public int getBetaBiomes(float f, float f1) {
-		return Rediscovered.heaven.biomeID;
+		return Rediscovered.sky.biomeID;
 	}
 
 	@Override
