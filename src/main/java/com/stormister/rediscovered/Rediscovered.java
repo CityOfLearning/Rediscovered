@@ -70,7 +70,7 @@ public class Rediscovered {
 	public static boolean GVillagerSpawn;
 	public static int nextID = 0;
 	public static BiomeGenBase sky;
-	@SidedProxy(clientSide = "com.stormister.rediscovered.ClientProxyRediscovered", serverSide = "com.stormister.rediscovered.RediscoveredItemsManager")
+	@SidedProxy(clientSide = "com.stormister.rediscovered.ClientProxyRediscovered", serverSide = "com.stormister.rediscovered.CommonProxyRediscovered")
 	public static CommonProxyRediscovered proxy;
 
 	// Purple Arrow Damage
