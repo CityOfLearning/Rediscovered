@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -192,7 +193,7 @@ public class BlockEmptyRoseBush extends BlockBush {
 	 */
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(Rediscovered.EmptyRoseBush);
+		return new ItemStack(RediscoveredItemsManager.EmptyRoseBush);
 	}
 
 	/**
@@ -232,8 +233,8 @@ public class BlockEmptyRoseBush extends BlockBush {
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ,
 			int meta, EntityLivingBase placer) {
-		worldIn.setBlockState(pos.up(), Rediscovered.EmptyRoseBushTop.getDefaultState());
-		return Rediscovered.EmptyRoseBush.getDefaultState();
+		worldIn.setBlockState(pos.up(), RediscoveredItemsManager.EmptyRoseBushTop.getDefaultState());
+		return RediscoveredItemsManager.EmptyRoseBush.getDefaultState();
 	}
 
 	/**

@@ -3,7 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
-import com.stormister.rediscovered.entity.EntityGoodDragon;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -33,7 +33,7 @@ public class BlockDragonEggRed extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public Block idDropped(int i, Random random, int j) {
-		return Rediscovered.DragonEggRed;
+		return RediscoveredItemsManager.DragonEggRed;
 	}
 
 	@Override
@@ -61,10 +61,12 @@ public class BlockDragonEggRed extends Block {
 		if (worldIn.isRemote) {
 			return true;
 		} else {
-			EntityGoodDragon var6 = new EntityGoodDragon(worldIn);
-			var6.setLocationAndAngles(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 0.0F, 0.0F);
-			worldIn.spawnEntityInWorld(var6);
-			worldIn.setBlockToAir(pos);
+			// to easy to trigger this accidently
+			// EntityGoodDragon var6 = new EntityGoodDragon(worldIn);
+			// var6.setLocationAndAngles(pos.getX() + 0.5D, pos.getY(),
+			// pos.getZ() + 0.5D, 0.0F, 0.0F);
+			// worldIn.spawnEntityInWorld(var6);
+			// worldIn.setBlockToAir(pos);
 			return true;
 		}
 	}

@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
@@ -32,7 +33,7 @@ public class BlockRubyOre extends BlockOre {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Rediscovered.gemRuby;
+		return RediscoveredItemsManager.gemRuby;
 	}
 
 	public String getName() {

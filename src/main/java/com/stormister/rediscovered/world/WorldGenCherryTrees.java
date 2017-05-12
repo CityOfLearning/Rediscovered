@@ -2,7 +2,7 @@ package com.stormister.rediscovered.world;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 import com.stormister.rediscovered.blocks.BlockCherrySapling;
 
 import net.minecraft.block.Block;
@@ -66,7 +66,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 				BlockPos down = p_180709_3_.down();
 				Block block1 = worldIn.getBlockState(down).getBlock();
 				boolean isSoil = block1.canSustainPlant(worldIn, down, net.minecraft.util.EnumFacing.UP,
-						(BlockCherrySapling) Rediscovered.CherrySapling);
+						(BlockCherrySapling) RediscoveredItemsManager.CherrySapling);
 
 				if (isSoil && (p_180709_3_.getY() < (256 - i - 1))) {
 					block1.onPlantGrow(worldIn, down, p_180709_3_);
@@ -96,7 +96,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 									if (block.isAir(worldIn, blockpos1) || block.isLeaves(worldIn, blockpos1)
 											|| (block.getMaterial() == Material.vine)) {
 										setBlockAndNotifyAdequately(worldIn, blockpos1,
-												Rediscovered.CherryLeaves.getStateFromMeta(metaLeaves));
+												RediscoveredItemsManager.CherryLeaves.getStateFromMeta(metaLeaves));
 									}
 								}
 							}
@@ -109,7 +109,7 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree {
 						if (block2.isAir(worldIn, upN) || block2.isLeaves(worldIn, upN)
 								|| (block2.getMaterial() == Material.vine)) {
 							setBlockAndNotifyAdequately(worldIn, p_180709_3_.up(l),
-									Rediscovered.CherryLog.getStateFromMeta(metaWood));
+									RediscoveredItemsManager.CherryLog.getStateFromMeta(metaWood));
 						}
 					}
 

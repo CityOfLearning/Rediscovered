@@ -1,6 +1,7 @@
 package com.stormister.rediscovered.items;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -18,7 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemLectern extends Item {
 	private final String name = "ItemLectern";
-	private Block block = Rediscovered.Lectern;
+	private Block block = RediscoveredItemsManager.Lectern;
 
 	public ItemLectern() {
 		super();

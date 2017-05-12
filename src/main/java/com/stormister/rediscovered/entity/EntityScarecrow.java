@@ -2,7 +2,7 @@ package com.stormister.rediscovered.entity;
 
 import java.util.List;
 
-import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityCreature;
@@ -43,7 +43,7 @@ public class EntityScarecrow extends EntityCreature {
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
 		if (!worldObj.isRemote && !isDead) {
 			setDead();
-			dropItem(Rediscovered.Scarecrow, 1);
+			dropItem(RediscoveredItemsManager.Scarecrow, 1);
 		}
 		return true;
 	}
@@ -90,7 +90,7 @@ public class EntityScarecrow extends EntityCreature {
 	 */
 	@Override
 	protected void dropFewItems(boolean par1, int par2) {
-		dropItem(Rediscovered.Scarecrow, 1);
+		dropItem(RediscoveredItemsManager.Scarecrow, 1);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class EntityScarecrow extends EntityCreature {
 	 */
 	@Override
 	protected Item getDropItem() {
-		return Rediscovered.Scarecrow;
+		return RediscoveredItemsManager.Scarecrow;
 	}
 
 	public List<EntityMob> getEntitiesInRadius(World world, double x, double y, double z, int radius) {
@@ -135,7 +135,7 @@ public class EntityScarecrow extends EntityCreature {
 			if (worldObj.handleMaterialAcceleration(getEntityBoundingBox().expand(0.0D, -0.6000000238418579D, 0.0D),
 					Material.water, this)) {
 				setDead();
-				dropItem(Rediscovered.Scarecrow, 1);
+				dropItem(RediscoveredItemsManager.Scarecrow, 1);
 			}
 		}
 		motionX *= 0.0;

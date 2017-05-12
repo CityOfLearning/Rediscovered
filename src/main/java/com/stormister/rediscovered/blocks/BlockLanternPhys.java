@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -50,7 +51,7 @@ public class BlockLanternPhys extends Block {
 	 */
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Rediscovered.ItemLantern;
+		return RediscoveredItemsManager.ItemLantern;
 	}
 
 	public String getName() {
@@ -65,7 +66,7 @@ public class BlockLanternPhys extends Block {
 	 */
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(Rediscovered.ItemLantern);
+		return new ItemStack(RediscoveredItemsManager.ItemLantern);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.stormister.rediscovered.items;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -18,7 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemChair extends Item {
 	private final String name = "ItemChair";
-	private Block block = Rediscovered.Chair;
+	private Block block = RediscoveredItemsManager.Chair;
 
 	public ItemChair() {
 		super();

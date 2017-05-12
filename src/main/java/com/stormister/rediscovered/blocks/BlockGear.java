@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -62,9 +63,11 @@ public class BlockGear extends Block {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		worldIn.setBlockState(pos,
-				Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				RediscoveredItemsManager.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)),
+				3);
 		worldIn.setBlockState(pos,
-				Rediscovered.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+				RediscoveredItemsManager.Spikes.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)),
+				3);
 	}
 
 	private final String name = "GearWall";

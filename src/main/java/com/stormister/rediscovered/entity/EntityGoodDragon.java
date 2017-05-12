@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.stormister.rediscovered.IEntityMultiPartRed;
-import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.BlockTorch;
 import net.minecraft.entity.Entity;
@@ -263,7 +263,7 @@ public class EntityGoodDragon extends EntityTameable implements IEntityMultiPart
 		worldObj.setBlockState(blockpos2.south(),
 				Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.NORTH));
 		worldObj.setBlockState(p_175499_1_.up(3), Blocks.obsidian.getDefaultState());
-		worldObj.setBlockState(p_175499_1_.up(4), Rediscovered.DragonEggRed.getDefaultState());
+		worldObj.setBlockState(p_175499_1_.up(4), RediscoveredItemsManager.DragonEggRed.getDefaultState());
 	}
 
 	@Override

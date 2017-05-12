@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -67,7 +68,7 @@ public class BlockChair extends Block {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(Rediscovered.Chair);
+		return Item.getItemFromBlock(RediscoveredItemsManager.Chair);
 	}
 
 	/**
@@ -85,7 +86,7 @@ public class BlockChair extends Block {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(Rediscovered.Chair);
+		return new ItemStack(RediscoveredItemsManager.Chair);
 	}
 
 	/**

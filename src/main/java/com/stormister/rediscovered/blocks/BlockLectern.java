@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 import com.stormister.rediscovered.blocks.tiles.TileEntityLectern;
 
 import net.minecraft.block.BlockContainer;
@@ -81,7 +82,7 @@ public class BlockLectern extends BlockContainer implements ITileEntityProvider 
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(Rediscovered.Lectern);
+		return Item.getItemFromBlock(RediscoveredItemsManager.Lectern);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class BlockLectern extends BlockContainer implements ITileEntityProvider 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(Rediscovered.Lectern);
+		return new ItemStack(RediscoveredItemsManager.Lectern);
 	}
 
 	@Override
@@ -152,7 +153,7 @@ public class BlockLectern extends BlockContainer implements ITileEntityProvider 
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		meta = world.getBlockState(pos).getBlock().getMetaFromState(state);
-		world.setBlockState(pos, Rediscovered.LecternOpen.getStateFromMeta(meta), 3);
+		world.setBlockState(pos, RediscoveredItemsManager.LecternOpen.getStateFromMeta(meta), 3);
 		return true;
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -63,12 +64,12 @@ public class BlockCherryLeaves extends BlockLeaves {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World worldIn, BlockPos pos) {
-		return Item.getItemFromBlock(Rediscovered.CherrySapling);
+		return Item.getItemFromBlock(RediscoveredItemsManager.CherrySapling);
 	}
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(Rediscovered.CherrySapling);
+		return Item.getItemFromBlock(RediscoveredItemsManager.CherrySapling);
 	}
 
 	@Override
@@ -94,7 +95,7 @@ public class BlockCherryLeaves extends BlockLeaves {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(Rediscovered.CherryLeaves);
+		return new ItemStack(RediscoveredItemsManager.CherryLeaves);
 	}
 
 	@Override

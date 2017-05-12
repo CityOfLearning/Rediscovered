@@ -2,7 +2,7 @@ package com.stormister.rediscovered.blocks;
 
 import java.util.Random;
 
-import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
@@ -61,12 +61,12 @@ public abstract class BlockCherrySlab extends BlockSlab {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World worldIn, BlockPos pos) {
-		return Item.getItemFromBlock(Rediscovered.CherrySlab);
+		return Item.getItemFromBlock(RediscoveredItemsManager.CherrySlab);
 	}
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(Rediscovered.CherrySlab);
+		return Item.getItemFromBlock(RediscoveredItemsManager.CherrySlab);
 	}
 
 	/**

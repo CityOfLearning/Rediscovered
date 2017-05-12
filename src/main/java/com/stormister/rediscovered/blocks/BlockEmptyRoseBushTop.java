@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -40,7 +41,7 @@ public class BlockEmptyRoseBushTop extends Block {
 	 * gets checked often with plants.
 	 */
 	public boolean canBlockStay(World p_149718_1_, BlockPos pos) {
-		return p_149718_1_.getBlockState(pos.down()).equals(Rediscovered.EmptyRoseBush.getDefaultState());
+		return p_149718_1_.getBlockState(pos.down()).equals(RediscoveredItemsManager.EmptyRoseBush.getDefaultState());
 	}
 
 	/**
@@ -85,7 +86,7 @@ public class BlockEmptyRoseBushTop extends Block {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(Rediscovered.EmptyRoseBush);
+		return Item.getItemFromBlock(RediscoveredItemsManager.EmptyRoseBush);
 	}
 
 	public String getName() {
@@ -100,7 +101,7 @@ public class BlockEmptyRoseBushTop extends Block {
 	 */
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos) {
-		return new ItemStack(Rediscovered.EmptyRoseBush);
+		return new ItemStack(RediscoveredItemsManager.EmptyRoseBush);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.stormister.rediscovered.PigmenRegistry;
-import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 import com.stormister.rediscovered.entity.ai.EntityAILookAtTradePigman;
 import com.stormister.rediscovered.entity.ai.EntityAIPigmanMate;
 import com.stormister.rediscovered.entity.ai.EntityAITradePigman;
@@ -87,7 +87,7 @@ public class EntityPigmanVillager extends EntityAgeable implements INpc, IMercha
 				i = field_179404_b.func_179412_a(random);
 			}
 
-			recipeList.add(new MerchantRecipe(new ItemStack(field_179405_a, i, 0), Rediscovered.gemRuby));
+			recipeList.add(new MerchantRecipe(new ItemStack(field_179405_a, i, 0), RediscoveredItemsManager.gemRuby));
 		}
 	}
 
@@ -124,7 +124,7 @@ public class EntityPigmanVillager extends EntityAgeable implements INpc, IMercha
 			}
 
 			recipeList.add(new MerchantRecipe(new ItemStack(field_179411_a.getItem(), i, field_179411_a.getMetadata()),
-					new ItemStack(Rediscovered.gemRuby),
+					new ItemStack(RediscoveredItemsManager.gemRuby),
 					new ItemStack(field_179410_c.getItem(), j, field_179410_c.getMetadata())));
 		}
 	}
@@ -155,8 +155,8 @@ public class EntityPigmanVillager extends EntityAgeable implements INpc, IMercha
 				j = 64;
 			}
 
-			recipeList.add(
-					new MerchantRecipe(new ItemStack(Items.book), new ItemStack(Rediscovered.gemRuby, j), itemstack));
+			recipeList.add(new MerchantRecipe(new ItemStack(Items.book),
+					new ItemStack(RediscoveredItemsManager.gemRuby, j), itemstack));
 		}
 	}
 
@@ -181,7 +181,7 @@ public class EntityPigmanVillager extends EntityAgeable implements INpc, IMercha
 				i = field_179406_b.func_179412_a(random);
 			}
 
-			ItemStack itemstack = new ItemStack(Rediscovered.gemRuby, i, 0);
+			ItemStack itemstack = new ItemStack(RediscoveredItemsManager.gemRuby, i, 0);
 			ItemStack itemstack1 = new ItemStack(field_179407_a.getItem(), 1, field_179407_a.getMetadata());
 			itemstack1 = EnchantmentHelper.addRandomEnchantment(random, itemstack1, 5 + random.nextInt(15));
 			recipeList.add(new MerchantRecipe(itemstack, itemstack1));
@@ -218,10 +218,10 @@ public class EntityPigmanVillager extends EntityAgeable implements INpc, IMercha
 			ItemStack itemstack1;
 
 			if (i < 0) {
-				itemstack = new ItemStack(Rediscovered.gemRuby, 1, 0);
+				itemstack = new ItemStack(RediscoveredItemsManager.gemRuby, 1, 0);
 				itemstack1 = new ItemStack(field_179403_a.getItem(), -i, field_179403_a.getMetadata());
 			} else {
-				itemstack = new ItemStack(Rediscovered.gemRuby, i, 0);
+				itemstack = new ItemStack(RediscoveredItemsManager.gemRuby, i, 0);
 				itemstack1 = new ItemStack(field_179403_a.getItem(), 1, field_179403_a.getMetadata());
 			}
 
@@ -1054,7 +1054,7 @@ public class EntityPigmanVillager extends EntityAgeable implements INpc, IMercha
 			i += 5;
 		}
 
-		if (p_70933_1_.getItemToBuy().getItem() == Rediscovered.gemRuby) {
+		if (p_70933_1_.getItemToBuy().getItem() == RediscoveredItemsManager.gemRuby) {
 			wealth += p_70933_1_.getItemToBuy().stackSize;
 		}
 

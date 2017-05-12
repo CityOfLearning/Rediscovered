@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -84,7 +85,7 @@ public class BlockLantern extends Block {
 
 	@Override
 	public void updateTick(World w, BlockPos pos, IBlockState state, Random rand) {
-		if (w.getBlockState(pos) == Rediscovered.Lantern) {
+		if (w.getBlockState(pos) == RediscoveredItemsManager.Lantern) {
 			w.setBlockState(pos, Blocks.air.getDefaultState());
 		}
 	}

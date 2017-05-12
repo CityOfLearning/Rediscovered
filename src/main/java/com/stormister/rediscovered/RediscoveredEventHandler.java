@@ -37,13 +37,13 @@ public class RediscoveredEventHandler {
 		InventoryPlayer inv = player.inventory;
 		ItemStack par1ItemStack = inv.getStackInSlot(inv.currentItem);
 		ItemStack blah = new ItemStack(Items.bow);
-		ItemStack quiver = new ItemStack(Rediscovered.Quiver);
-		ItemStack lquiver = new ItemStack(Rediscovered.LeatherQuiver);
-		ItemStack cquiver = new ItemStack(Rediscovered.ChainQuiver);
-		ItemStack gquiver = new ItemStack(Rediscovered.GoldQuiver);
-		ItemStack iquiver = new ItemStack(Rediscovered.IronQuiver);
-		ItemStack dquiver = new ItemStack(Rediscovered.DiamondQuiver);
-		ItemStack lcquiver = new ItemStack(Rediscovered.LeatherChainQuiver);
+		ItemStack quiver = new ItemStack(RediscoveredItemsManager.Quiver);
+		ItemStack lquiver = new ItemStack(RediscoveredItemsManager.LeatherQuiver);
+		ItemStack cquiver = new ItemStack(RediscoveredItemsManager.ChainQuiver);
+		ItemStack gquiver = new ItemStack(RediscoveredItemsManager.GoldQuiver);
+		ItemStack iquiver = new ItemStack(RediscoveredItemsManager.IronQuiver);
+		ItemStack dquiver = new ItemStack(RediscoveredItemsManager.DiamondQuiver);
+		ItemStack lcquiver = new ItemStack(RediscoveredItemsManager.LeatherChainQuiver);
 		if (inv.getCurrentItem().equals(blah)) {
 
 			EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack);
@@ -69,12 +69,13 @@ public class RediscoveredEventHandler {
 				|| (EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0);
 		ItemStack itemstack = player.inventory.armorInventory[2];
 
-		if ((itemstack != null) && ((itemstack.getItem() == Rediscovered.Quiver)
-				|| (itemstack.getItem() == Rediscovered.LeatherQuiver)
-				|| (itemstack.getItem() == Rediscovered.ChainQuiver) || (itemstack.getItem() == Rediscovered.GoldQuiver)
-				|| (itemstack.getItem() == Rediscovered.IronQuiver)
-				|| (itemstack.getItem() == Rediscovered.DiamondQuiver)
-				|| (itemstack.getItem() == Rediscovered.LeatherChainQuiver))) {
+		if ((itemstack != null) && ((itemstack.getItem() == RediscoveredItemsManager.Quiver)
+				|| (itemstack.getItem() == RediscoveredItemsManager.LeatherQuiver)
+				|| (itemstack.getItem() == RediscoveredItemsManager.ChainQuiver)
+				|| (itemstack.getItem() == RediscoveredItemsManager.GoldQuiver)
+				|| (itemstack.getItem() == RediscoveredItemsManager.IronQuiver)
+				|| (itemstack.getItem() == RediscoveredItemsManager.DiamondQuiver)
+				|| (itemstack.getItem() == RediscoveredItemsManager.LeatherChainQuiver))) {
 			if (player.inventory.hasItem(Items.arrow) || flag) {
 				EntityArrow entityarrow = new EntityArrow(player.worldObj, player, 1.0F);
 				player.worldObj.playSoundAtEntity(player, "random.bow", 1.0F,
@@ -125,13 +126,13 @@ public class RediscoveredEventHandler {
 			if ((world.getBlockState(event.pos) == Blocks.double_plant.getStateFromMeta(4))
 					|| (world.getBlockState(event.pos.down()) == Blocks.double_plant.getStateFromMeta(4))) {
 				if (world.getBlockState(event.pos) == Blocks.double_plant.getStateFromMeta(4)) {
-					world.setBlockState(event.pos, Rediscovered.EmptyRoseBush.getDefaultState());
-					world.setBlockState(event.pos.up(), Rediscovered.EmptyRoseBushTop.getDefaultState());
+					world.setBlockState(event.pos, RediscoveredItemsManager.EmptyRoseBush.getDefaultState());
+					world.setBlockState(event.pos.up(), RediscoveredItemsManager.EmptyRoseBushTop.getDefaultState());
 				} else if ((world.getBlockState(event.pos.down()) == Blocks.double_plant.getStateFromMeta(4))) {
-					world.setBlockState(event.pos.down(), Rediscovered.EmptyRoseBush.getDefaultState());
-					world.setBlockState(event.pos, Rediscovered.EmptyRoseBushTop.getDefaultState());
+					world.setBlockState(event.pos.down(), RediscoveredItemsManager.EmptyRoseBush.getDefaultState());
+					world.setBlockState(event.pos, RediscoveredItemsManager.EmptyRoseBushTop.getDefaultState());
 				}
-				ItemStack itemStack2 = new ItemStack(Rediscovered.Rose, world.rand.nextInt(3) + 1);
+				ItemStack itemStack2 = new ItemStack(RediscoveredItemsManager.Rose, world.rand.nextInt(3) + 1);
 				EntityItem item = new EntityItem(world, event.pos.getX(), event.pos.getY(), event.pos.getZ(),
 						itemStack2);
 				world.spawnEntityInWorld(item);
@@ -139,13 +140,13 @@ public class RediscoveredEventHandler {
 			if ((world.getBlockState(event.pos) == Blocks.double_plant.getStateFromMeta(5))
 					|| (world.getBlockState(event.pos.down()) == Blocks.double_plant.getStateFromMeta(5))) {
 				if (world.getBlockState(event.pos) == Blocks.double_plant.getStateFromMeta(5)) {
-					world.setBlockState(event.pos, Rediscovered.EmptyPeonyBush.getDefaultState());
-					world.setBlockState(event.pos.up(), Rediscovered.EmptyPeonyBushTop.getDefaultState());
+					world.setBlockState(event.pos, RediscoveredItemsManager.EmptyPeonyBush.getDefaultState());
+					world.setBlockState(event.pos.up(), RediscoveredItemsManager.EmptyPeonyBushTop.getDefaultState());
 				} else if ((world.getBlockState(event.pos.down()) == Blocks.double_plant.getStateFromMeta(5))) {
-					world.setBlockState(event.pos.down(), Rediscovered.EmptyPeonyBush.getDefaultState());
-					world.setBlockState(event.pos, Rediscovered.EmptyPeonyBushTop.getDefaultState());
+					world.setBlockState(event.pos.down(), RediscoveredItemsManager.EmptyPeonyBush.getDefaultState());
+					world.setBlockState(event.pos, RediscoveredItemsManager.EmptyPeonyBushTop.getDefaultState());
 				}
-				ItemStack itemStack2 = new ItemStack(Rediscovered.Peony, world.rand.nextInt(3) + 1);
+				ItemStack itemStack2 = new ItemStack(RediscoveredItemsManager.Peony, world.rand.nextInt(3) + 1);
 				EntityItem item = new EntityItem(world, event.pos.getX(), event.pos.getY(), event.pos.getZ(),
 						itemStack2);
 				world.spawnEntityInWorld(item);

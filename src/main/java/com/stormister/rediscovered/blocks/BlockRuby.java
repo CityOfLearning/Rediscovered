@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,7 +27,7 @@ public class BlockRuby extends Block {
 	 * Returns the ID of the items to drop on destruction.
 	 */
 	public Block idDropped(int i, Random random, int j) {
-		return Rediscovered.RubyBlock;
+		return RediscoveredItemsManager.RubyBlock;
 	}
 
 	/**

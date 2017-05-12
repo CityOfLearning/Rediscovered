@@ -3,6 +3,7 @@ package com.stormister.rediscovered.blocks;
 import java.util.Random;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 import com.stormister.rediscovered.blocks.tiles.TileEntityLockedChest;
 
 import net.minecraft.block.Block;
@@ -65,10 +66,10 @@ public class BlockLockedChest extends BlockContainer {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
-		worldIn.setBlockState(pos,
-				Rediscovered.LockedChest.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-		worldIn.setBlockState(pos,
-				Rediscovered.LockedChest.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+		worldIn.setBlockState(pos, RediscoveredItemsManager.LockedChest.getDefaultState().withProperty(FACING,
+				iblockstate.getValue(FACING)), 3);
+		worldIn.setBlockState(pos, RediscoveredItemsManager.LockedChest.getDefaultState().withProperty(FACING,
+				iblockstate.getValue(FACING)), 3);
 
 		if (tileentity != null) {
 			tileentity.validate();
@@ -100,7 +101,7 @@ public class BlockLockedChest extends BlockContainer {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(Rediscovered.LockedChest);
+		return Item.getItemFromBlock(RediscoveredItemsManager.LockedChest);
 	}
 
 	@Override

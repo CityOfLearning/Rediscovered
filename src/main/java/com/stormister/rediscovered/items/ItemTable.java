@@ -1,6 +1,7 @@
 package com.stormister.rediscovered.items;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -18,7 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemTable extends Item {
 	private final String name = "ItemTable";
-	private Block block = Rediscovered.Table;
+	private Block block = RediscoveredItemsManager.Table;
 
 	public ItemTable() {
 		super();

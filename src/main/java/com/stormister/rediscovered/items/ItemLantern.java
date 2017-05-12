@@ -1,6 +1,7 @@
 package com.stormister.rediscovered.items;
 
 import com.stormister.rediscovered.Rediscovered;
+import com.stormister.rediscovered.RediscoveredItemsManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemLantern extends Item {
 	private final String name = "ItemLantern";
-	private Block block = Rediscovered.LanternPhys;
+	private Block block = RediscoveredItemsManager.LanternPhys;
 
 	public ItemLantern() {
 		super();
@@ -85,9 +86,9 @@ public class ItemLantern extends Item {
 		// Extinguish the lantern if it is not on the hotbar
 		if (e instanceof EntityPlayer) {
 			EntityPlayer p = (EntityPlayer) e;
-			ItemStack blah = new ItemStack(Rediscovered.ItemLantern, 1);
+			ItemStack blah = new ItemStack(RediscoveredItemsManager.ItemLantern, 1);
 			if ((slot >= 0) && i.equals(blah)) {
-				p.inventory.mainInventory[slot] = new ItemStack(Rediscovered.ItemLantern, 1);
+				p.inventory.mainInventory[slot] = new ItemStack(RediscoveredItemsManager.ItemLantern, 1);
 			}
 		}
 	}
