@@ -49,16 +49,17 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxyRediscovered extends CommonProxyRediscovered {
 	@Override
-	public void registerRenderThings() {
+	public void registerEntityRenderers() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLectern.class, new RenderTileEntityLectern());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLecternOpen.class, new RenderTileEntityLecternOpen());
 
 		MinecraftForge.EVENT_BUS.register(Rediscovered.config);
 
-		ModelBakery.registerItemVariants(Rediscovered.RediscoveredPotion, new ResourceLocation("rediscovered:Nausea"),
-				new ResourceLocation("rediscovered:Blindness"), new ResourceLocation("rediscovered:Dullness"),
-				new ResourceLocation("rediscovered:NauseaSplash"), new ResourceLocation("rediscovered:BlindnessSplash"),
+		ModelBakery.registerItemVariants(RediscoveredItemsManager.RediscoveredPotion,
+				new ResourceLocation("rediscovered:Nausea"), new ResourceLocation("rediscovered:Blindness"),
+				new ResourceLocation("rediscovered:Dullness"), new ResourceLocation("rediscovered:NauseaSplash"),
+				new ResourceLocation("rediscovered:BlindnessSplash"),
 				new ResourceLocation("rediscovered:DullnessSplash"));
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityPigmanVillager.class,
@@ -142,8 +143,59 @@ public class ClientProxyRediscovered extends CommonProxyRediscovered {
 	}
 
 	@Override
-	public void registerTileEntitySpecialRenderer() {
+	public void registerItemRenderers() {
+		registerBlockRenders(RediscoveredItemsManager.Spikes, "Spikes");
+		registerBlockRenders(RediscoveredItemsManager.DragonEggRed, "DragonEggRed");
+		registerBlockRenders(RediscoveredItemsManager.RubyOre, "RubyOre");
+		registerBlockRenders(RediscoveredItemsManager.RubyBlock, "RubyBlock");
+		registerBlockRenders(RediscoveredItemsManager.Lantern, "Lantern");
+		registerBlockRenders(RediscoveredItemsManager.LanternPhys, "LanternPhys");
+		registerBlockRenders(RediscoveredItemsManager.LockedChest, "LockedChest");
+		registerBlockRenders(RediscoveredItemsManager.Chair, "Chair");
+		registerBlockRenders(RediscoveredItemsManager.Table, "Table");
+		registerBlockRenders(RediscoveredItemsManager.Lectern, "Lectern");
+		registerBlockRenders(RediscoveredItemsManager.Lectern, "LecternOpen");
+		registerBlockRenders(RediscoveredItemsManager.CherrySlab, "CherryHalfSlab");
+		registerBlockRenders(RediscoveredItemsManager.CherryDoubleSlab, "CherryDoubleSlab");
+		registerBlockRenders(RediscoveredItemsManager.DirtSlab, "DirtHalfSlab");
+		registerBlockRenders(RediscoveredItemsManager.DirtDoubleSlab, "DirtDoubleSlab");
+		registerBlockRenders(RediscoveredItemsManager.Rose, "Rose");
+		registerBlockRenders(RediscoveredItemsManager.EmptyRoseBush, "EmptyRoseBush");
+		registerBlockRenders(RediscoveredItemsManager.EmptyRoseBushTop, "EmptyRoseBushTop");
+		registerBlockRenders(RediscoveredItemsManager.Peony, "Peony");
+		registerBlockRenders(RediscoveredItemsManager.EmptyPeonyBush, "EmptyPeonyBush");
+		registerBlockRenders(RediscoveredItemsManager.EmptyPeonyBushTop, "EmptyPeonyBushTop");
+		registerBlockRenders(RediscoveredItemsManager.CherryLog, "CherryLog");
+		registerBlockRenders(RediscoveredItemsManager.CherryLeaves, "CherryLeaves");
+		registerBlockRenders(RediscoveredItemsManager.CherryPlank, "CherryPlank");
+		registerBlockRenders(RediscoveredItemsManager.CherrySapling, "CherrySapling");
+		registerBlockRenders(RediscoveredItemsManager.CherryStairs, "CherryStairs");
+		// registerBlockRenders(Gear, "GearWall");
 
+		if (Rediscovered.EnableQuivers) {
+			registerItemRenders(RediscoveredItemsManager.Quiver, "Quiver");
+			registerItemRenders(RediscoveredItemsManager.LeatherQuiver, "LeatherQuiver");
+			registerItemRenders(RediscoveredItemsManager.ChainQuiver, "ChainQuiver");
+			registerItemRenders(RediscoveredItemsManager.GoldQuiver, "GoldQuiver");
+			registerItemRenders(RediscoveredItemsManager.IronQuiver, "IronQuiver");
+			registerItemRenders(RediscoveredItemsManager.DiamondQuiver, "DiamondQuiver");
+			registerItemRenders(RediscoveredItemsManager.LeatherChainQuiver, "LeatherChainQuiver");
+		}
+
+		registerItemRenders(RediscoveredItemsManager.LeatherChainHelmet, "LeatherChainHelmet");
+		registerItemRenders(RediscoveredItemsManager.LeatherChainChest, "LeatherChainChest");
+		registerItemRenders(RediscoveredItemsManager.LeatherChainLegs, "LeatherChainLegs");
+		registerItemRenders(RediscoveredItemsManager.LeatherChainBoots, "LeatherChainBoots");
+		registerItemRenders(RediscoveredItemsManager.gemRuby, "gemRuby");
+		registerItemRenders(RediscoveredItemsManager.RediscoveredPotion, 0, "Nausea");
+		registerItemRenders(RediscoveredItemsManager.RediscoveredPotion, 1, "Blindness");
+		registerItemRenders(RediscoveredItemsManager.RediscoveredPotion, 2, "Dullness");
+		registerItemRenders(RediscoveredItemsManager.RediscoveredPotion, 100, "NauseaSplash");
+		registerItemRenders(RediscoveredItemsManager.RediscoveredPotion, 101, "BlindnessSplash");
+		registerItemRenders(RediscoveredItemsManager.RediscoveredPotion, 102, "DullnessSplash");
+		registerItemRenders(RediscoveredItemsManager.ItemLantern, "ItemLantern");
+		registerItemRenders(RediscoveredItemsManager.Scarecrow, "Scarecrow");
+		// registerItemRenders(ItemGear, "ItemGear");
 	}
 
 }
