@@ -130,8 +130,12 @@ public class Rediscovered {
 				BiomeGenBase.swampland, BiomeGenBase.taiga, BiomeGenBase.icePlains, BiomeGenBase.desert,
 				BiomeGenBase.megaTaiga, BiomeGenBase.roofedForest, BiomeGenBase.mesa, BiomeGenBase.savanna);
 
-		DimensionManager.registerProviderType(DimensionManager.getNextFreeDimId(), WorldProviderSky.class, true);
-		DimensionManager.registerProviderType(DimensionManager.getNextFreeDimId(), WorldProviderVoid.class, true);
+		int dimId = DimensionManager.getNextFreeDimId();
+		DimensionManager.registerProviderType(dimId, WorldProviderSky.class, true);
+		DimensionManager.registerDimension(dimId,  dimId);
+		dimId = DimensionManager.getNextFreeDimId();
+		DimensionManager.registerProviderType(dimId, WorldProviderVoid.class, true);
+		DimensionManager.registerDimension(dimId,  dimId);
 		BiomeManager.removeSpawnBiome(sky);
 		BiomeManager.removeStrongholdBiome(sky);
 		BiomeManager.removeVillageBiome(sky);
